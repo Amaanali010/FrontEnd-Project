@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasty Bites · Full Menu</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== consistent theme ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: #fef9f0;  /* creamy vanilla */
+      color: #2e241f;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ===== header (same as home) ===== */
+    header {
+      background: #1e2a2a;
+      padding: 1rem 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+      background: #f5c46b;
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 0 0 3px #fceaae;
+      transition: transform 0.4s ease;
+    }
+
+    .logo img:hover {
+      transform: rotate(360deg) scale(1.05);
+    }
+
+    .logo h1 {
+      font-size: 2.2rem;
+      color: #fdd280;
+      text-shadow: 3px 3px 0 #9b5a2b;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: #fff2d7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      border-radius: 40px;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #e7b42c;
+      color: #1e2a2a;
+      transform: translateY(-4px);
+    }
+
+    /* ===== menu page hero ===== */
+    .menu-hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      padding: 5rem 0;
+      text-align: center;
+      color: white;
+      border-bottom: 6px solid #e7b42c;
+    }
+
+    .menu-hero h2 {
+      font-size: 4rem;
+      color: #ffd98c;
+      text-shadow: 4px 4px 0 #7b3f00;
+      margin-bottom: 1rem;
+    }
+
+    .menu-hero p {
+      font-size: 1.8rem;
+      background: rgba(30,42,42,0.7);
+      display: inline-block;
+      padding: 0.8rem 2.5rem;
+      border-radius: 60px;
+      backdrop-filter: blur(3px);
+    }
+
+    /* ===== menu categories grid ===== */
+    .menu-section {
+      padding: 4rem 0;
+    }
+
+    .section-title {
+      font-size: 2.8rem;
+      text-align: center;
+      color: #b45d2b;
+      margin-bottom: 2rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 5px;
+      background: #e7b42c;
+      border-radius: 6px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 35px;
+      margin-top: 3rem;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 50px 20px 50px 20px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.25);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid #f5cba0;
+    }
+
+    .category-card:hover {
+      transform: translateY(-15px) scale(1.01);
+      border-color: #e7b42c;
+      box-shadow: 0 35px 40px -12px #b45d2b;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 3px dashed #e7b42c;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+
+    .category-header i {
+      font-size: 2.8rem;
+      color: #b45d2b;
+      background: #fef0d7;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 40% 60% 40% 60%;
+      transition: 0.3s;
+    }
+
+    .category-card:hover .category-header i {
+      background: #e7b42c;
+      color: #1e2a2a;
+      transform: rotate(5deg);
+    }
+
+    .category-header h3 {
+      font-size: 2.2rem;
+      color: #b45d2b;
+    }
+
+    .menu-items {
+      list-style: none;
+    }
+
+    .menu-items li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px dotted #e0cba0;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .item-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-name {
+      font-weight: 600;
+      color: #2e241f;
+    }
+
+    .item-desc {
+      font-size: 0.9rem;
+      color: #7f6e5f;
+      margin-top: 4px;
+    }
+
+    .price {
+      font-weight: 700;
+      color: #1e2a2a;
+      background: #fceeca;
+      padding: 5px 16px;
+      border-radius: 40px;
+      font-size: 1.3rem;
+      white-space: nowrap;
+      margin-left: 15px;
+      transition: 0.2s;
+    }
+
+    .category-card:hover .price {
+      background: #e7b42c;
+      color: #1e2a2a;
+      box-shadow: 0 4px 0 #9b5a2b;
+    }
+
+    /* special offer badge */
+    .offer-badge {
+      background: #d44a2b;
+      color: white;
+      font-size: 0.8rem;
+      padding: 3px 10px;
+      border-radius: 40px;
+      margin-left: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-top: 3rem;
+      background: #1e2a2a;
+      color: #fdd280;
+      padding: 1.5rem;
+      border-radius: 100px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .note i {
+      color: #e7b42c;
+    }
+
+    footer {
+      background: #1e2a2a;
+      text-align: center;
+      padding: 2rem;
+      color: #fdd280;
+      border-top: 5px solid #e7b42c;
+    }
+
+    @media (max-width: 800px) {
+      nav ul { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+      .header-content { flex-direction: column; }
+      .menu-hero h2 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <!-- simple SVG logo: TB inside circle -->
+        <img src="images/LOGO.png" alt="Tasty Bites Logo">
+        <h1>TASTY BITES</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="menu.html" class="active"><i class="fas fa-utensils"></i> Menu</a></li>
+          <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="order.html"><i class="fas fa-shopping-cart"></i> Order</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+          <li><a href="contact.html"><i class="fas fa-map-marker-alt"></i> Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Menu hero -->
+    <section class="menu-hero">
+      <div class="container">
+        <h2>Our Flavoursome Menu</h2>
+        <p><i class="fas fa-mortar-pestle"></i> crafted with love <i class="fas fa-mortar-pestle"></i></p>
+      </div>
+    </section>
+
+    <!-- Full menu grid with categories and prices -->
+    <section class="menu-section">
+      <div class="container">
+        <h2 class="section-title"><i class="fas fa-list-ul"></i> explore categories</h2>
+        <div class="menu-grid">
+          
+          <!-- STARTERS -->
+          <div class="category-card">
+            <div class="category-header">
+              <i class="fas fa-fire"></i>
+              <h3>Starters</h3>
+            </div>
+            <ul class="menu-items">
+              <li><span class="item-info"><span class="item-name">Dynamite Prawns</span><span class="item-desc">cottage cheese, bell peppers, spices</span></span><span class="price">$7.99</span></li>
+              <li><span class="item-info"><span class="item-name">Chicken Wings</span><span class="item-desc">spicy peri-peri / honey garlic</span></span><span class="price">$9.49</span></li>
+              <li><span class="item-info"><span class="item-name">Spring Rolls</span><span class="item-desc">crispy veg with sweet chili</span></span><span class="price">$5.99</span></li>
+              <li><span class="item-info"><span class="item-name">Dahi Puri</span><span class="item-desc">crisp shells with yogurt & chutney</span></span><span class="price">$6.49</span></li>
+              <li><span class="item-info"><span class="item-name">Fish Amritsari</span><span class="item-desc">punjabi style, tangy</span></span><span class="price">$10.99</span></li>
+            </ul>
+          </div>
+
+          <!-- MAIN COURSE -->
+          <div class="category-card">
+            <div class="category-header">
+              <i class="fas fa-drumstick-bite"></i>
+              <h3>Main Course</h3>
+            </div>
+            <ul class="menu-items">
+              <li><span class="item-info"><span class="item-name">Butter Chicken</span><span class="item-desc">creamy tomato gravy, boneless</span></span><span class="price">$15.99</span></li>
+              <li><span class="item-info"><span class="item-name">Chicken Biryani</span><span class="item-desc">aromatic basmati + raita</span></span><span class="price">$11.49</span></li>
+              <li><span class="item-info"><span class="item-name">Chapli Kebab</span><span class="item-desc">lemon butter sauce, veggies</span></span><span class="price">$17.99</span></li>
+              <li><span class="item-info"><span class="item-name">Chicken Karahi</span><span class="item-desc">south indian spicy curry</span></span><span class="price">$14.99</span></li>
+              <li><span class="item-info"><span class="item-name">Paneer Lababdar</span><span class="item-desc">rich makhani gravy</span></span><span class="price">$12.99</span></li>
+            </ul>
+          </div>
+
+          <!-- DESSERTS -->
+          <div class="category-card">
+            <div class="category-header">
+              <i class="fas fa-ice-cream"></i>
+              <h3>Desserts</h3>
+            </div>
+            <ul class="menu-items">
+              <li><span class="item-info"><span class="item-name">Gulab Jamun</span><span class="item-desc">2 pcs, house made</span></span><span class="price">$5.99</span></li>
+              <li><span class="item-info"><span class="item-name">Tiramisu</span><span class="item-desc">classic italian</span></span><span class="price">$6.99</span></li>
+              <li><span class="item-info"><span class="item-name">Brownie with ice cream</span><span class="item-desc">chocolate fudge</span></span><span class="price">$4.99</span></li>
+              <li><span class="item-info"><span class="item-name">Rasmalai</span><span class="item-desc">sweet cottage cheese, saffron milk</span></span><span class="price">$6.49</span></li>
+            </ul>
+          </div>
+
+          <!-- BEVERAGES -->
+          <div class="category-card">
+            <div class="category-header">
+              <i class="fas fa-mug-hot"></i>
+              <h3>Beverages</h3>
+            </div>
+            <ul class="menu-items">
+              <li><span class="item-info"><span class="item-name">Mango Lassi</span><span class="item-desc">sweet yogurt drink</span></span><span class="price">$4.49</span></li>
+              <li><span class="item-info"><span class="item-name">Mojito</span><span class="item-desc">mint / lime / soda</span></span><span class="price">$5.99</span></li>
+              <li><span class="item-info"><span class="item-name">Cold Coffee</span><span class="item-desc">with vanilla ice cream</span></span><span class="price">$4.99</span></li>
+              <li><span class="item-info"><span class="item-name">Masala Chai</span><span class="item-desc">indian spiced tea</span></span><span class="price">$3.49</span></li>
+              <li><span class="item-info"><span class="item-name">Fresh Lime Soda</span><span class="item-desc">sweet / salted</span></span><span class="price">$3.99</span></li>
+            </ul>
+          </div>
+
+          <!-- COMBO MEALS -->
+          <div class="category-card">
+            <div class="category-header">
+              <i class="fas fa-utensil-spoon"></i>
+              <h3>Combo Meals</h3>
+            </div>
+            <ul class="menu-items">
+              <li><span class="item-info"><span class="item-name">Family Feast</span><span class="item-desc">2 mains + 4 sides + breads</span></span><span class="price">$29.99</span></li>
+              <li><span class="item-info"><span class="item-name">Lunch Duo</span><span class="item-desc">1 starter + 1 main + 2 drinks</span></span><span class="price">$16.99</span></li>
+              <li><span class="item-info"><span class="item-name">Veg Thali</span><span class="item-desc">paneer, dal, rice, roti, dessert</span></span><span class="price">$12.99</span></li>
+              <li><span class="item-info"><span class="item-name">Non‑Veg Bonanza</span><span class="item-desc">chicken + fish + egg curry</span></span><span class="price">$19.99</span></li>
+            </ul>
+          </div>
+
+          <!-- SPECIAL OFFERS -->
+          <div class="category-card">
+            <div class="category-header">
+              <i class="fas fa-tags"></i>
+              <h3>Special Offers</h3>
+            </div>
+            <ul class="menu-items">
+              <li><span class="item-info"><span class="item-name">Monsoon special</span><span class="item-desc">onion pakora + chai <span class="offer-badge">20% off</span></span></span><span class="price">$8.99</span></li>
+              <li><span class="item-info"><span class="item-name">2+1 on beverages</span><span class="item-desc">all soft drinks / lassi</span></span><span class="price">—</span></li>
+              <li><span class="item-info"><span class="item-name">Happy hour</span><span class="item-desc">4pm–6pm, selected snacks</span></span><span class="price">flat 20%</span></li>
+              <li><span class="item-info"><span class="item-name">Family Sunday</span><span class="item-desc">free dessert per child</span></span><span class="price">*conditions</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <i class="fas fa-leaf"></i> Vegetarian options clearly marked • Jain / vegan available on request <i class="fas fa-leaf"></i>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 TASTY BITES — 123 Flavor Street, New York | <i class="fas fa-phone-alt"></i> +1 800 555 1234</p>
+    <p style="margin-top:0.5rem;"><i class="fas fa-clock"></i> Mon-Sun: 11am – 11pm</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplon's Beauty - Wedding Kit Collection</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css for extra animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+   
+    <link rel="stylesheet" href="./css/page.css">
+</head>
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="./index.html"><img src="./img/logo (2).png" height="100px" alt="Allure Beauty"></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                  <li class="nav-item"><a class="nav-link" href="./index.html">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: #efc001;">
+                            <li><a class="dropdown-item" href="./Harecare.html">Hair</a></li>
+                            <li><a class="dropdown-item" href="./skincare.html">Skin</a></li>
+                            <li><a class="dropdown-item" href="./makeup.html">Make Up Kit</a></li>
+                            <li><a class="dropdown-item" href="./nailcare.html">Nails</a></li>
+                            <li><a class="dropdown-item" href="./jewellery.html">Jewellery</a></li>
+                            <li><a class="dropdown-item" href="./wedding.html">Wedding Kit</a></li>
+                            <li><a class="dropdown-item" href="#">Upcoming Project</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="./gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./contact.html">Contact Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./feed.html">Feedback</a></li>
+                </ul>
+                <form class="d-flex me-3">
+                    <input class="form-control me-2" type="search" placeholder="Search products...">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+                <button id="cartButton" class="btn btn-outline-dark position-relative cart-icon" data-bs-toggle="modal" data-bs-target="#cartModal">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCounter" class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+<!-- navbar End -->
+ <hr>
+    <!-- Product Listing (Animated Cards) -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="mb-4 fw-bold animate__animated animate__fadeInDown">Nail Paints & Arts</h2>
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp">
+                    <div class="card product-card h-100">
+                        <span class="badge badge-sale position-absolute top-0 end-0 m-2">SALE</span>
+                        <img src="./image/n1.webp" class="card-img-top product-img p-3" alt="Shampoo">
+                        <div class="card-body">
+                            <h5 class="card-title">Rimmel</h5>
+                            <p class="text-muted small">Rimmel Strengthening Nail Polish Remover</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fw-bold">Rs.3200.00</span>
+                                    <small class="text-decoration-line-through text-muted ms-2">Rs 6,000</small>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" 
+                                    data-id="1" 
+                                    data-name="Transparent Rotating Cosmetic Storage Organizer" 
+                                    data-price="5,700" 
+                                    data-image="image/weee1.jpg">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="card product-card h-100">
+                        <img src="./image/n2.webp" class="card-img-top product-img p-3" alt="Shampoo">
+                        <div class="card-body">
+                            <h5 class="card-title">Essence</h5>
+                            <p class="text-muted small">Essence Hello Kitty Nail Stickers 63 Pieces</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">Rs.500.00</span>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" 
+                                    data-id="2" 
+                                    data-name="Makeup Partition Cosmetic Bag" 
+                                    data-price="4,100" 
+                                    data-image="image/weee2.jpg">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp">
+                    <div class="card product-card h-100">
+                        <span class="badge badge-sale position-absolute top-0 end-0 m-2">SALE</span>
+                        <img src="./image/n3.webp" class="card-img-top product-img p-3" alt="Shampoo">
+                        <div class="card-body">
+                            <h5 class="card-title">Silky</h5>
+                            <p class="text-muted small">Silky Cool Instant Cuticle Nail Care Remover 120Ml</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fw-bold"> Rs.8,600.00</span>
+                                    <small class="text-decoration-line-through text-muted ms-2">Rs 9,500</small>
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" 
+                                    data-id="3" 
+                                    data-name="Medium Size Leather Jewellery Organizer" 
+                                    data-price="1,999" 
+                                    data-image="image/weee3.jpg">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 1 -->
+                <div class="col-md-6 col-lg-3 animate__animated animate__fadeInUp animate__delay-1s">
+                    <div class="card product-card h-100">
+                        <img src="./image/n5.png" class="card-img-top product-img p-3" alt="Shampoo">
+                        <div class="card-body">
+                            <h5 class="card-title">Care</h5>
+                            <p class="text-muted small">care nail polish remover</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold"> Rs.1300.00</span>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart" 
+                                    data-id="4" 
+                                    data-name="Neutrogena Retinol Boost Eye Cream 15ML" 
+                                    data-price="8,337" 
+                                    data-image="image/weee4.jpg">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                
+                                                                                                                    
+                <!-- Add more products as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal (Animated) -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cartItems" class="mb-4">
+                        <div class="text-center py-4">
+                            <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Your cart is empty</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Order Summary</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span id="cartSubtotal">Rs 0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Shipping:</span>
+                                <span>Rs 200</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Tax (5%):</span>
+                                <span id="cartTax">Rs 0</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total:</span>
+                                <span id="cartTotal">Rs 200</span>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3 animate__animated animate__pulse animate__infinite" data-bs-toggle="modal" data-bs-target="#checkoutModal">
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal (Animated) -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Checkout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h6 class="mb-3">Contact Information</h6>
+                            <input type="email" class="form-control mb-3" placeholder="Email">
+                            <h6 class="mb-3">Shipping Address</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6"><input type="text" class="form-control" placeholder="First Name"></div>
+                                <div class="col-md-6"><input type="text" class="form-control" placeholder="Last Name"></div>
+                                <div class="col-12"><input type="text" class="form-control" placeholder="Address"></div>
+                                <div class="col-md-4"><input type="text" class="form-control" placeholder="City"></div>
+                                <div class="col-md-4">
+                                    <select class="form-select">
+                                        <option>Punjab</option>
+                                        <option>Sindh</option>
+                                        <option>KPK</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4"><input type="text" class="form-control" placeholder="Postal Code"></div>
+                                <div class="col-12"><input type="tel" class="form-control" placeholder="Phone"></div>
+                            </div>
+                            <h6 class="my-3">Payment Method</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="payment" id="cod" checked>
+                                <label class="form-check-label" for="cod">Cash on Delivery</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="card">
+                                <label class="form-check-label" for="card">Credit/Debit Card</label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0">Order Summary</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="checkoutItems"></div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Subtotal:</span>
+                                        <span id="checkoutSubtotal">Rs 0</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Shipping:</span>
+                                        <span>Rs 200</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span>Tax (5%):</span>
+                                        <span id="checkoutTax">Rs 0</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between fw-bold">
+                                        <span>Total:</span>
+                                        <span id="checkoutTotal">Rs 200</span>
+                                    </div>
+                                    <button id="placeOrderBtn" class="btn btn-primary w-100 mt-3 animate__animated animate__pulse animate__slower">
+                                        Place Order
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal (Animated) -->
+    <div class="modal fade" id="orderConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <div class="mb-4 animate__animated animate__bounceIn">
+                        <i class="fas fa-check-circle fa-5x"></i>
+                    </div>
+                    <h4 class="mb-3 animate__animated animate__fadeIn">Order Placed Successfully!</h4>
+                    <p class="text-muted animate__animated animate__fadeIn">Your order #AB12345 has been confirmed.</p>
+                    <button class="btn btn-primary mt-3 animate__animated animate__fadeInUp" data-bs-dismiss="modal">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Navbar Start -->
+<footer class="bg-black pt-5 pb-4">
+    <div class="container">
+      <div class="row gy-4">
+        <!-- Brand Info -->
+        <div class="col-md-3 col-sm-6">
+          <h5 class="fw-bold mb-4 footer-heading">Simplon's Beauty Care</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="./index.html" class="footer-link">Home</a></li>
+            <li class="mb-2"><a href="./about.html" class="footer-link">About Us</a></li>
+            <li class="mb-2"><a href="./contact.html" class="footer-link">Contact Us</a></li>
+            <li class="mb-2"><a href="./gallery.html" class="footer-link">Gallery</a></li>
+          </ul>
+        </div>
+  
+        <!-- Help Section -->
+        <div class="col-md-3 col-sm-6">
+          <h5 class="fw-bold mb-4 footer-heading">Get Help</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="./feed.html" class="footer-link">FAQ's</a></li>
+            <li class="mb-2"><a href="#" class="footer-link">Shipping</a></li>
+            <li class="mb-2"><a href="#" class="footer-link">Exchange & Return Policy</a></li>
+            <li class="mb-2"><a href="#" class="footer-link">Order Status</a></li>
+            <li class="mb-2"><a href="#" class="footer-link">Payment Options</a></li>
+          </ul>
+        </div>
+  
+        <!-- Shop Section -->
+        <div class="col-md-3 col-sm-6">
+          <h5 class="fw-bold mb-4 footer-heading">Online Shop</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="./Harecare.html" class="footer-link">Hair</a></li>
+            <li class="mb-2"><a href="./skincare.html" class="footer-link">Skin</a></li>
+            <li class="mb-2"><a href="./wedding.html" class="footer-link">Wedding Kits</a></li>
+            <li class="mb-2"><a href="./nailcare.html" class="footer-link">Nails</a></li>
+            <li class="mb-2"><a href="./jewellery.html" class="footer-link">Jewellery</a></li>
+          </ul>
+        </div>
+  
+        <!-- Social Media -->
+        <div class="col-md-3 col-sm-6">
+          <h5 class="fw-bold mb-4 footer-heading">Follow Us</h5>
+          <div class="d-flex gap-3 social-icons">
+            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+  
+      <hr class="footer-divider">
+  
+      <div class="text-center pt-2">
+        <p class="mb-0 footer-copyright">&copy; 2025 Simplon's Beauty Care — All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer Navbar End -->
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/page.js"></script>
+
+    <!-- Enhanced JavaScript with Animations -->
+</body>
+</html>

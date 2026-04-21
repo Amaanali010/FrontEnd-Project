@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - PASCAL JEWELLERY</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --primary-gold: #d4af37;
+      --dark-brown: #2c2416;
+      --light-gold: #f0d975;
+      --cream: #faf8f5;
+      --white: #ffffff;
+      --border-light: #e5ddd1;
+      --text-dark: #2c2416;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Lato", sans-serif;
+      line-height: 1.6;
+      color: var(--text-dark);
+      background-color: var(--cream);
+      padding-top: 76px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Playfair Display", serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    .navbar-custom {
+      background: linear-gradient(135deg, var(--dark-brown) 0%, #1a1410 100%);
+      padding: 0.8rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-custom.scrolled {
+      padding: 0.5rem 0;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-gold) !important;
+      letter-spacing: 1px;
+      font-family: "Playfair Display", serif;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.05);
+      color: var(--light-gold) !important;
+    }
+
+    .navbar-brand i {
+      font-size: 2rem;
+      animation: sparkle 2s ease-in-out infinite;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      50% { opacity: 0.8; transform: scale(1.1) rotate(10deg); }
+    }
+
+    .navbar-nav .nav-link {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-size: 1.05rem;
+      font-weight: 500;
+      padding: 0.5rem 1.2rem !important;
+      margin: 0 0.2rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary-gold);
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: var(--primary-gold) !important;
+    }
+
+    .navbar-nav .nav-link:hover::before,
+    .navbar-nav .nav-link.active::before {
+      width: 100%;
+    }
+
+    .navbar-toggler {
+      border: 2px solid var(--primary-gold);
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23d4af37' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* Hero */
+    .hero-section {
+      background: linear-gradient(135deg, #2c2416 0%, #4a3a25 50%, #2c2416 100%),
+                  url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      color: var(--white);
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-section h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-section .lead {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.95;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      padding: 4rem 0;
+      background-color: var(--cream);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.8rem;
+      color: var(--dark-brown);
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 1rem;
+    }
+
+    .section-title h2::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+    }
+
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: var(--white);
+      color: var(--dark-brown);
+      border: 2px solid var(--primary-gold);
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: var(--primary-gold);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .gallery-item {
+      background: var(--white);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      height: 100%;
+      border: 2px solid var(--border-light);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+      border-color: var(--primary-gold);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-info {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .gallery-info h3 {
+      color: var(--dark-brown);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .gallery-info p {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .category-badge {
+      display: inline-block;
+      background: var(--primary-gold);
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      text-align: center;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      color: white;
+      font-size: 3rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 300;
+    }
+
+    .lightbox-info {
+      margin-top: 1.5rem;
+      color: white;
+    }
+
+    .lightbox-info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--light-gold);
+    }
+
+    .lightbox-info p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--dark-brown) 0%, #1a1410 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 2.5rem 0;
+      margin-top: 4rem;
+    }
+
+    footer p {
+      margin: 0.5rem 0;
+      font-size: 1.05rem;
+    }
+
+    footer .social-icons a {
+      color: var(--primary-gold);
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    footer .social-icons a:hover {
+      color: var(--light-gold);
+      transform: scale(1.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .navbar-nav {
+        padding: 1rem 0;
+        background: rgba(44, 36, 22, 0.95);
+        border-radius: 10px;
+        margin-top: 1rem;
+      }
+      .hero-section h1 { font-size: 2.5rem; }
+    }
+
+    @media (max-width: 576px) {
+      .hero-section h1 { font-size: 2rem; }
+      .hero-section .lead { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index (1).html">
+        <i class="fas fa-gem"></i>PASCAL JEWELLERY
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index (1).html"><i class="fas fa-home"></i> Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="Product.html"><i class="fas fa-store"></i> Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="ProductComparison.html"><i class="fas fa-balance-scale"></i> Comparison</a></li>
+          <li class="nav-item"><a class="nav-link active" href="gerally.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="aboutus.html"><i class="fas fa-info-circle"></i> About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="feedback.html"><i class="fas fa-comments"></i> Feedback</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container">
+      <h1><i class="fas fa-images"></i> Our Gallery</h1>
+      <p class="lead">Discover the Artistry Behind Every Piece</p>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Exquisite Collections</h2>
+      </div>
+
+      <div class="category-tabs">
+        <button class="tab-btn active" data-filter="all">All Pieces</button>
+        <button class="tab-btn" data-filter="original">Original</button>
+        <button class="tab-btn" data-filter="semi-precious">Semi-Precious</button>
+        <button class="tab-btn" data-filter="artificial">Artificial</button>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- JS will populate -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">×</button>
+      <img id="lightboxImage" src="" alt="">
+      <div class="lightbox-info" id="lightboxInfo"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p style="font-size: 1.3rem; font-weight: 600; color: var(--primary-gold);">
+        <i class="fas fa-gem"></i> PASCAL JEWELLERY
+      </p>
+      <p>© 2025 PASCAL JEWELLERY. All Rights Reserved.</p>
+      <p>Crafted with Passion | Trusted Since 1985</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-pinterest"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Gallery Data with Real Images
+    const galleryData = [
+      { id: 1, title: "Tiffany Solitaire Ring", desc: "1.5ct natural diamond in platinum", category: "original", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600" },
+      { id: 2, title: "Ruby Elegance Pendant", desc: "Burmese ruby with 18K rose gold chain", category: "original", img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600" },
+      { id: 3, title: "Sapphire Halo Earrings", desc: "Ceylon sapphire with diamond halo", category: "semi-precious", img: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600" },
+      { id: 4, title: "Crystal Cascade Necklace", desc: "Swarovski crystals in gold-plated setting", category: "artificial", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600" },
+      { id: 5, title: "Emerald Eternity Band", desc: "Colombian emeralds in 18K white gold", category: "original", img: "https://images.unsplash.com/photo-1600003010303-5f32b2f2d3d8?w=600" },
+      { id: 6, title: "Amethyst Drop Earrings", desc: "Uruguayan amethyst with sterling silver", category: "semi-precious", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600" },
+      { id: 7, title: "Pearl Strand Necklace", desc: "Akoya pearls with 14K gold clasp", category: "original", img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600" },
+      { id: 8, title: "Fashion CZ Tennis Bracelet", desc: "Cubic zirconia in rhodium-plated brass", category: "artificial", img: "https://images.unsplash.com/photo-1611926653470-60d672e44b1b?w=600" },
+      { id: 9, title: "Topaz Statement Ring", desc: "Swiss blue topaz in 14K gold", category: "semi-precious", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600" },
+      { id: 10, title: "Gold Bangle Set", desc: "22K gold traditional bangles", category: "original", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600" },
+      { id: 11, title: "Crystal Flower Brooch", desc: "Hand-set crystals in silver tone", category: "artificial", img: "https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600" },
+      { id: 12, title: "Opal Pendant", desc: "Australian opal in 18K gold", category: "semi-precious", img: "https://images.unsplash.com/photo-1608043152269-604213e53d5d?w=600" }
+    ];
+
+    // Render Gallery
+    function renderGallery(filter = 'all') {
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '';
+      const filtered = filter === 'all' ? galleryData : galleryData.filter(i => i.category === filter);
+
+      filtered.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        div.onclick = () => openLightbox(item);
+        div.innerHTML = `
+          <img src="${item.img}" alt="${item.title}">
+          <div class="gallery-info">
+            <h3>${item.title}</h3>
+            <p>${item.desc}</p>
+            <span class="category-badge">${item.category.replace('-', ' ').toUpperCase()}</span>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    // Filter Buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        renderGallery(this.dataset.filter);
+      });
+    });
+
+    // Lightbox
+    function openLightbox(item) {
+      document.getElementById('lightboxImage').src = item.img;
+      document.getElementById('lightboxInfo').innerHTML = `<h3>${item.title}</h3><p>${item.desc}</p>`;
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeLightbox();
+    });
+
+    // Init
+    renderGallery();
+  </script>
+</body>
+</html>

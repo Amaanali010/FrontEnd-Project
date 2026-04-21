@@ -1,0 +1,84 @@
+h1,h2,h6,h3{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+}
+h5,h4{
+    text-align: left;
+    color: black; 
+    font-weight: bold;
+}
+.what{
+    text-align: left;
+    font-weight: 400;
+}
+.mission{
+    font-weight: 450;
+    color: black;
+}
+.card{
+    border-radius: 10px;
+    border-color: #050301;
+   
+}
+.simplified{
+font-size: 15px;
+font-weight: bold;
+text-align: center;
+}
+.one{
+    color: black;
+    text-align: left;
+    font-weight: bold;
+}
+p{
+    font-family:Arial, sans-serif;
+    text-align: left;
+    color: #333;
+}
+.pq{
+    font-family: Arial, sans-serif;
+    font-size: large;
+    color: black;
+}
+.about{
+    text-align: left;
+}
+
+
+footer{
+    background-color: black;
+    color: white;
+}
+.height{
+    height: 100px;
+}
+.Contact{
+    height: 60px;
+}
+.address{
+    height: 30px;
+}
+iframe{
+    width: 530px;
+    height: 300px;
+    border: 0px;
+
+}
+.budget{
+text-align: start;
+font-weight: bold;
+}
+.actimg{
+    width: 255;height: 200;
+    text-align: start;
+    padding: 35px;
+}
+.golf{
+    width: 255;height: 200;
+    text-align: center;
+    padding: 35px;  
+}
+#facebook:hover{
+    color: blue;
+}

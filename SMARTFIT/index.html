@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMARTFIT · Gym & Fitness Club</title>
+  <!-- Bootstrap 5 + icons + clean theme -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- modern unique styling (uniform palette: deep purple/neon accent) -->
+  <style>
+    :root {
+      --smart-purple: #2c1a4d;
+      --smart-neon: #c3a2ff;
+      --smart-dark: #1a0f2e;
+      --smart-light: #f8f4ff;
+      --smart-glow: #b48aff;
+    }
+    body {
+      background-color: #fcfaff;
+      font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+      scroll-behavior: smooth;
+    }
+    .navbar, .footer-custom {
+      background: linear-gradient(145deg, var(--smart-purple), #1f123b) !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .navbar-brand img {
+      filter: drop-shadow(0 0 8px var(--smart-neon));
+      transition: 0.2s;
+    }
+    .navbar-brand img:hover {
+      filter: drop-shadow(0 0 12px #dbbbff);
+    }
+    .nav-link {
+      color: #e0d0ff !important;
+      font-weight: 500;
+      margin: 0 0.2rem;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      background-color: rgba(255,255,255,0.12);
+      color: white !important;
+      transform: translateY(-2px);
+    }
+    .btn-neon {
+      background: var(--smart-neon);
+      border: none;
+      color: #1a0f2e;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(173, 126, 255, 0.4);
+      border-radius: 40px;
+      padding: 0.6rem 2rem;
+      transition: 0.2s;
+    }
+    .btn-neon:hover {
+      background: #cfb2ff;
+      transform: scale(1.03);
+      box-shadow: 0 12px 24px #b48aff;
+      color: #0e0820;
+    }
+    .btn-outline-neon {
+      border: 2px solid var(--smart-neon);
+      color: var(--smart-neon);
+      border-radius: 40px;
+      font-weight: 600;
+      padding: 0.5rem 1.8rem;
+    }
+    .btn-outline-neon:hover {
+      background: var(--smart-neon);
+      color: #1f123b;
+    }
+    .hero-section {
+      background: linear-gradient(137deg, #281b46, #1f123b), url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBkPSJNMjAgM2wxMCAxMC01IDUtMTAgMTAtMTAtMTAgNS01eiIgZmlsbD0iIzJjMWE0ZCIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');
+      background-repeat: repeat;
+      background-blend-mode: overlay;
+      color: white;
+      border-bottom: 4px solid var(--smart-neon);
+    }
+    .card-hover {
+      border: 1px solid rgba(195, 162, 255, 0.3);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(2px);
+      transition: 0.25s ease;
+      box-shadow: 0 20px 30px -10px rgba(44, 26, 77, 0.15);
+    }
+    .card-hover:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: var(--smart-neon);
+      box-shadow: 0 30px 40px -10px #b48aff;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2c1a4d, #7555b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    .testimonial-card {
+      background: white;
+      border-radius: 40px 40px 40px 12px;
+      border-left: 8px solid var(--smart-neon);
+    }
+    .price-badge {
+      background: var(--smart-purple);
+      color: var(--smart-neon);
+      font-weight: 700;
+      padding: 0.3rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;
+    }
+    footer a {
+      color: #d3b9ff;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- ========== UNIFORM NAVIGATION (same on every page) ========== -->
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark py-3">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <!-- smart logo: simple icon + wordmark -->
+        <i class="bi bi-lightning-charge-fill me-2" style="font-size: 2.2rem; color: var(--smart-neon);"></i>
+        <span style="font-weight: 700; font-size: 1.9rem; letter-spacing: -0.5px; color: white;">SMARTFIT</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Join</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item ms-2">
+            <a class="btn btn-neon py-2 px-4" href="register.html"><i class="bi bi-person-up me-1"></i>enroll now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HOME PAGE – HERO SECTION ========== -->
+  <section class="hero-section py-5">
+    <div class="container py-lg-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 text-white">
+          <span class="badge bg-light text-dark mb-3 px-3 py-2 rounded-pill"><i class="bi bi-droplet me-1" style="color: var(--smart-neon);"></i> GRAND OPENING · 30% OFF</span>
+          <h1 class="display-3 fw-bold" style="line-height: 1.2;">SCULPT YOUR<br><span style="color: var(--smart-neon);">STRONGER SELF</span></h1>
+          <p class="lead my-4" style="color: #daceff;">SMARTFIT – where innovation meets sweat. 5 locations, 50+ trainers, one community.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="register.html" class="btn btn-neon btn-lg px-5 py-3">🔥 start free trial</a>
+            <a href="services.html" class="btn btn-outline-neon btn-lg px-5 py-3">view plans</a>
+          </div>
+          <div class="row mt-5 g-2 text-center text-md-start">
+            <div class="col-4"><i class="bi bi-calendar2-check-fill me-1" style="color: var(--smart-neon);"></i> 24/7 access</div>
+            <div class="col-4"><i class="bi bi-cup-fill me-1" style="color: var(--smart-neon);"></i> free smoothie</div>
+            <div class="col-4"><i class="bi bi-wifi me-1" style="color: var(--smart-neon);"></i> smart equipment</div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="images/smart athlete.jpg" alt="hero training" class="img-fluid rounded-5 shadow-lg" style="border-radius: 3rem !important;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SERVICES OVERVIEW (3 highlights) ========== -->
+  <section class="container my-5 py-5">
+    <div class="text-center mb-5">
+      <span class="price-badge mb-3">#1 rated fitness chain</span>
+      <h2 class="section-title">POWER · FLEX · MIND</h2>
+      <p class="text-secondary-emphasis">everything you need under one membership</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card-hover p-4 text-center h-100">
+          <i class="bi bi-person-arms-up display-1" style="color: var(--smart-purple);"></i>
+          <h4 class="fw-bold mt-3">Gym training</h4>
+          <p>hammer strength, power racks, functional zone & more</p>
+          <span class="btn btn-sm btn-outline-neon rounded-pill px-4">from $19</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-hover p-4 text-center h-100">
+          <i class="bi bi-heart-pulse-fill display-1" style="color: var(--smart-purple);"></i>
+          <h4 class="fw-bold mt-3">Zumba · Yoga</h4>
+          <p>60+ group classes weekly, hot yoga, dance fitness</p>
+          <span class="btn btn-sm btn-outline-neon rounded-pill px-4">unlimited</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-hover p-4 text-center h-100">
+          <i class="bi bi-basket-fill display-1" style="color: var(--smart-purple);"></i>
+          <h4 class="fw-bold mt-3">Diet plans</h4>
+          <p>custom macros by certified nutritionists</p>
+          <span class="btn btn-sm btn-outline-neon rounded-pill px-4">add-on</span>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <a href="services.html" class="btn btn-lg rounded-pill" style="background: var(--smart-purple); color: white; padding: 0.8rem 3rem;">📋 see all 6 services</a>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIALS (dynamic feedback sample) ========== -->
+  <section class="bg-light py-5" style="background: #efe9ff !important;">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <span class="price-badge mb-3">REAL MEMBERS</span>
+          <h2 class="section-title">TRANSFORMATIONS &<br>LOVE FROM OUR TRIBE</h2>
+          <p class="mt-3">average rating 4.9 ★ from 2k+ reviews</p>
+          <a href="feedback.html" class="btn btn-outline-neon rounded-pill">read all stories →</a>
+        </div>
+        <div class="col-lg-7">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="testimonial-card p-4 shadow-sm">
+                <i class="bi bi-quote display-6" style="color: var(--smart-neon);"></i>
+                <p class="fw-light">“SMARTFIT completely changed my routine. The personal trainers are world-class and the neon vibe keeps me motivated.”</p>
+                <div class="d-flex align-items-center"><i class="bi bi-person-circle fs-3 me-2"></i> <span><strong>Aisha K.</strong> / member since 2023</span></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="testimonial-card p-4 shadow-sm mt-4 mt-md-0">
+                <i class="bi bi-quote display-6" style="color: var(--smart-neon);"></i>
+                <p class="fw-light">“Love the 24/7 access and the Zumba room. Also their automatic billing & cost calculator made joining effortless.”</p>
+                <div class="d-flex align-items-center"><i class="bi bi-person-circle fs-3 me-2"></i> <span><strong>Marcus D.</strong> / platinum member</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CALL‑TO‑ACTION / BANNER ========== -->
+  <section class="container my-5 py-4">
+    <div class="row p-5 rounded-5 align-items-center" style="background: linear-gradient(120deg, #2c1a4d, #462b73);">
+      <div class="col-md-8 text-white">
+        <h3 class="fw-bold display-6">READY TO JOIN THE SMARTFIT NATION?</h3>
+        <p class="mb-0 opacity-75">no commitment · first week free · digital key included</p>
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="register.html" class="btn btn-neon btn-lg px-5 py-3 rounded-pill">🎯 claim your spot</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== UNIFORM FOOTER ========== -->
+  <footer class="footer-custom text-white pt-5 pb-4 mt-5">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-4">
+          <i class="bi bi-lightning-charge-fill" style="font-size: 2.5rem; color: var(--smart-neon);"></i>
+          <span class="fw-bold fs-3 ms-2">SMARTFIT</span>
+          <p class="mt-3 small opacity-75">sweat smart · live fit · 5 branches nationwide</p>
+        </div>
+        <div class="col-md-2">
+          <h6>Explore</h6>
+          <ul class="list-unstyled"><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li></ul>
+        </div>
+        <div class="col-md-2">
+          <h6>Join</h6>
+          <ul class="list-unstyled"><li><a href="register.html">Membership</a></li><li><a href="feedback.html">Reviews</a></li><li><a href="contact.html">Locations</a></li></ul>
+        </div>
+        <div class="col-md-4">
+          <h6>#smartfitfam</h6>
+          <div class="d-flex gap-3">
+            <i class="bi bi-instagram fs-4"></i> <i class="bi bi-facebook fs-4"></i> <i class="bi bi-tiktok fs-4"></i>
+          </div>
+          <p class="mt-3 small"><i class="bi bi-envelope-fill me-1"></i> hello@smartfit.fit</p>
+        </div>
+      </div>
+      <hr class="border-light opacity-25">
+      <div class="text-center small">© 2025 SMARTFIT Gym & Fitness Club — all rights reserved</div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS (required for toggler etc) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- (future pages will extend the same design system) -->
+</body>
+</html>

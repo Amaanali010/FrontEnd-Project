@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasty Bites · Order Online</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== consistent theme ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: #fef9f0;  /* creamy vanilla */
+      color: #2e241f;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ===== header (same as other pages) ===== */
+    header {
+      background: #1e2a2a;
+      padding: 1rem 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+      background: #f5c46b;
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 0 0 3px #fceaae;
+      transition: transform 0.4s ease;
+    }
+
+    .logo img:hover {
+      transform: rotate(360deg) scale(1.05);
+    }
+
+    .logo h1 {
+      font-size: 2.2rem;
+      color: #fdd280;
+      text-shadow: 3px 3px 0 #9b5a2b;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: #fff2d7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      border-radius: 40px;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #e7b42c;
+      color: #1e2a2a;
+      transform: translateY(-4px);
+    }
+
+    /* ===== order hero ===== */
+    .order-hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1592861956120-e524fc739696?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      padding: 4.5rem 0;
+      text-align: center;
+      color: white;
+      border-bottom: 6px solid #e7b42c;
+    }
+
+    .order-hero h2 {
+      font-size: 4rem;
+      color: #ffd98c;
+      text-shadow: 4px 4px 0 #7b3f00;
+      margin-bottom: 1rem;
+    }
+
+    .order-hero p {
+      font-size: 1.8rem;
+      background: rgba(30,42,42,0.7);
+      display: inline-block;
+      padding: 0.8rem 2.5rem;
+      border-radius: 60px;
+      backdrop-filter: blur(3px);
+    }
+
+    /* ===== order section (main) ===== */
+    .order-online {
+      padding: 4rem 0;
+    }
+
+    .order-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      background: #fef7e9;
+      border-radius: 80px 20px 80px 20px;
+      padding: 50px;
+      box-shadow: inset 0 2px 10px #ffd7a5, 0 25px 35px #ccb28b;
+    }
+
+    .menu-selector {
+      flex: 2;
+      min-width: 350px;
+    }
+
+    .bill-area {
+      flex: 1.2;
+      min-width: 320px;
+      background: #1e2a2a;
+      border-radius: 70px 20px 70px 20px;
+      padding: 35px 30px;
+      color: #fff2d7;
+      box-shadow: 0 20px 0 #b45d2b;
+      transition: 0.3s;
+    }
+
+    .bill-area:hover {
+      box-shadow: 0 25px 0 #b45d2b;
+      transform: translateY(-5px);
+    }
+
+    .menu-selector h3, .bill-area h3 {
+      font-size: 2.4rem;
+      margin-bottom: 1.8rem;
+      color: #b45d2b;
+    }
+
+    .bill-area h3 {
+      color: #fdd280;
+    }
+
+    .menu-selector h3 i, .bill-area h3 i {
+      color: #e7b42c;
+      margin-right: 15px;
+    }
+
+    /* category tabs inside order */
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .cat-tab {
+      background: #f5e5d5;
+      border: 2px solid #e7b42c;
+      color: #1e2a2a;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .cat-tab:hover,
+    .cat-tab.active {
+      background: #e7b42c;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 0 #9b5a2b;
+    }
+
+    /* menu items list */
+    .menu-items-container {
+      background: white;
+      border-radius: 50px;
+      padding: 20px;
+      max-height: 450px;
+      overflow-y: auto;
+      box-shadow: inset 0 2px 10px #ffe1b3;
+    }
+
+    .menu-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fffaf2;
+      padding: 15px 25px;
+      border-radius: 60px;
+      margin: 15px 0;
+      box-shadow: 0 6px 10px #dbbd93;
+      transition: 0.2s;
+      border: 1px solid #f5cba0;
+    }
+
+    .menu-item-row:hover {
+      background: #fff2c6;
+      transform: scale(1.02) translateX(6px);
+      border-color: #e7b42c;
+    }
+
+    .item-info {
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+
+    .item-info span {
+      background: #b45d2b;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 40px;
+      margin-left: 15px;
+      font-size: 1.1rem;
+    }
+
+    .add-btn {
+      background: #e7b42c;
+      border: none;
+      font-size: 1.3rem;
+      padding: 10px 28px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 5px 0 #9b5a2b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .add-btn:hover {
+      background: #f5c64e;
+      transform: translateY(-4px);
+      box-shadow: 0 9px 0 #9b5a2b;
+    }
+
+    .add-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* cart area */
+    #cart-items {
+      list-style: none;
+      margin: 25px 0;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    #cart-items li {
+      background: #2e3b3b;
+      margin: 14px 0;
+      padding: 12px 18px;
+      border-radius: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 8px solid #e7b42c;
+      font-weight: 500;
+      font-size: 1.1rem;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateX(20px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .remove-item {
+      background: #d44;
+      color: white;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 1.2rem;
+    }
+
+    .remove-item:hover {
+      background: #b22;
+      transform: scale(1.2) rotate(90deg);
+    }
+
+    .total-bill {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: #fdd280;
+      color: #1e2a2a;
+      padding: 15px 25px;
+      border-radius: 80px;
+      text-align: center;
+      margin: 25px 0;
+      letter-spacing: 1px;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .order-actions button {
+      flex: 1;
+      background: #e7b42c;
+      border: none;
+      padding: 16px 0;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 6px 0 #9b5a2b;
+    }
+
+    .order-actions button:hover {
+      background: #fad161;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 0 #9b5a2b;
+    }
+
+    #order-message {
+      background: #2e7d32;
+      color: white;
+      padding: 18px;
+      border-radius: 60px;
+      text-align: center;
+      font-size: 1.6rem;
+      margin-top: 25px;
+      animation: pulse 1.5s infinite;
+      font-weight: 600;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.8; transform: scale(0.98);}
+      50% { opacity: 1; transform: scale(1.02);}
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* footer */
+    footer {
+      background: #1e2a2a;
+      text-align: center;
+      padding: 2rem;
+      color: #fdd280;
+      border-top: 5px solid #e7b42c;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 800px) {
+      nav ul { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+      .header-content { flex-direction: column; }
+      .order-hero h2 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <!-- simple SVG logo: TB inside circle -->
+        <img src="images/LOGO.png" alt="Tasty Bites Logo">
+        <h1>TASTY BITES</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
+          <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="order.html" class="active"><i class="fas fa-shopping-cart"></i> Order</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+          <li><a href="contact.html"><i class="fas fa-map-marker-alt"></i> Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Order hero -->
+    <section class="order-hero">
+      <div class="container">
+        <h2>Order online</h2>
+        <p><i class="fas fa-bicycle"></i> Fast delivery · Takeaway <i class="fas fa-box"></i></p>
+      </div>
+    </section>
+
+    <!-- Main order section with live bill -->
+    <section class="order-online">
+      <div class="container">
+        <div class="order-row">
+          <!-- Left side: select items -->
+          <div class="menu-selector">
+            <h3><i class="fas fa-utensils"></i> Choose your feast</h3>
+            
+            <!-- simple category filter (visual only, but helps organize) -->
+            <div class="category-tabs">
+              <span class="cat-tab" data-cat="starters">Starters</span>
+              <span class="cat-tab" data-cat="main">Main</span>
+              <span class="cat-tab" data-cat="desserts">Desserts</span>
+              <span class="cat-tab" data-cat="beverages">Beverages</span>
+              <span class="cat-tab" data-cat="combos">Combos</span>
+            </div>
+
+            <!-- menu items list (with data attributes for name, price, category) -->
+            <div class="menu-items-container" id="menuItemsContainer">
+              <!-- starters -->
+              <div class="menu-item-row" data-name="Paneer Tikka" data-price="7.99" data-category="starters">
+                <span class="item-info">Paneer Tikka <span>$7.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Chicken Wings" data-price="9.49" data-category="starters">
+                <span class="item-info">Chicken Wings <span>$9.49</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Spring Rolls" data-price="5.99" data-category="starters">
+                <span class="item-info">Spring Rolls <span>$5.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <!-- main course -->
+              <div class="menu-item-row" data-name="Butter Chicken" data-price="15.99" data-category="main">
+                <span class="item-info">Butter Chicken <span>$15.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Veg Biryani" data-price="11.49" data-category="main">
+                <span class="item-info">Veg Biryani <span>$11.49</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Grilled Salmon" data-price="17.99" data-category="main">
+                <span class="item-info">Grilled Salmon <span>$17.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <!-- desserts -->
+              <div class="menu-item-row" data-name="Gulab Jamun" data-price="5.99" data-category="desserts">
+                <span class="item-info">Gulab Jamun <span>$5.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Tiramisu" data-price="6.99" data-category="desserts">
+                <span class="item-info">Tiramisu <span>$6.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Brownie" data-price="4.99" data-category="desserts">
+                <span class="item-info">Brownie <span>$4.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <!-- beverages -->
+              <div class="menu-item-row" data-name="Mango Lassi" data-price="4.49" data-category="beverages">
+                <span class="item-info">Mango Lassi <span>$4.49</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Mojito" data-price="5.99" data-category="beverages">
+                <span class="item-info">Mojito <span>$5.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Cold Coffee" data-price="4.99" data-category="beverages">
+                <span class="item-info">Cold Coffee <span>$4.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <!-- combos -->
+              <div class="menu-item-row" data-name="Family Feast" data-price="29.99" data-category="combos">
+                <span class="item-info">Family Feast <span>$29.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Lunch Duo" data-price="16.99" data-category="combos">
+                <span class="item-info">Lunch Duo <span>$16.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+              <div class="menu-item-row" data-name="Veg Thali" data-price="12.99" data-category="combos">
+                <span class="item-info">Veg Thali <span>$12.99</span></span>
+                <button class="add-btn"><i class="fas fa-plus-circle"></i> add</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: BILL + CART + ORDER CONFIRMATION -->
+          <div class="bill-area">
+            <h3><i class="fas fa-receipt"></i> Your bill</h3>
+            <ul id="cart-items">
+              <!-- dynamically inserted -->
+            </ul>
+            <div class="total-bill" id="totalAmount">$0.00</div>
+            <div class="order-actions">
+              <button id="clearCart"><i class="fas fa-trash-alt"></i> clear</button>
+              <button id="placeOrder"><i class="fas fa-check-circle"></i> order</button>
+            </div>
+            <div id="order-message" class="hidden">🎉 Order confirmed! Thank you 🎉</div>
+            <p style="margin-top: 20px; font-size: 1rem; color: #fceeca;"><i class="fas fa-clock"></i> estimated delivery: 35-45 min</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 TASTY BITES — 123 Flavor Street, New York | <i class="fas fa-phone-alt"></i> +1 800 555 1234</p>
+    <p style="margin-top:0.5rem;"><i class="fas fa-motorcycle"></i> Free delivery over $25 <i class="fas fa-motorcycle"></i></p>
+  </footer>
+
+  <!-- order logic (separate javascript) -->
+  <script>
+    (function() {
+      // ===== CART STATE =====
+      let cart = []; // each item: { name, price }
+
+      // DOM elements
+      const cartList = document.getElementById('cart-items');
+      const totalSpan = document.getElementById('totalAmount');
+      const msgDiv = document.getElementById('order-message');
+      const addButtons = document.querySelectorAll('.add-btn');
+      const clearBtn = document.getElementById('clearCart');
+      const placeBtn = document.getElementById('placeOrder');
+      
+      // category tabs
+      const catTabs = document.querySelectorAll('.cat-tab');
+      const menuItems = document.querySelectorAll('.menu-item-row');
+
+      // ===== FILTER items by category =====
+      catTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          catTabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          const selectedCat = this.dataset.cat;
+          
+          menuItems.forEach(item => {
+            if (selectedCat === 'all') {
+              item.style.display = 'flex';
+            } else {
+              if (item.dataset.category === selectedCat) {
+                item.style.display = 'flex';
+              } else {
+                item.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+
+      // ===== UPDATE CART DISPLAY & TOTAL =====
+      function updateBill() {
+        cartList.innerHTML = '';
+        let total = 0;
+        
+        cart.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `${item.name}  $${item.price.toFixed(2)} <button class="remove-item" data-index="${index}"><i class="fas fa-times"></i></button>`;
+          cartList.appendChild(li);
+          total += item.price;
+        });
+        
+        totalSpan.textContent = `$${total.toFixed(2)}`;
+        
+        // attach remove events to each remove button
+        document.querySelectorAll('.remove-item').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const idx = this.getAttribute('data-index');
+            if (idx !== null) {
+              cart.splice(idx, 1);
+              updateBill();
+              msgDiv.classList.add('hidden'); // hide confirmation if cart changes
+            }
+          });
+        });
+      }
+
+      // ===== ADD TO CART =====
+      addButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const row = this.closest('.menu-item-row');
+          const name = row.dataset.name;
+          const price = parseFloat(row.dataset.price);
+          
+          cart.push({ name, price });
+          updateBill();
+          msgDiv.classList.add('hidden'); // new item added → hide old confirmation
+          
+          // subtle animation: highlight cart area
+          document.querySelector('.bill-area').style.transform = 'scale(1.02)';
+          setTimeout(() => {
+            document.querySelector('.bill-area').style.transform = '';
+          }, 150);
+        });
+      });
+
+      // ===== CLEAR CART =====
+      clearBtn.addEventListener('click', function() {
+        cart = [];
+        updateBill();
+        msgDiv.classList.add('hidden');
+      });
+
+      // ===== PLACE ORDER (dummy) =====
+      placeBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+          alert('Please add some delicious items to your order first.');
+          return;
+        }
+        
+        // show confirmation message with animation
+        msgDiv.classList.remove('hidden');
+        
+        // optional: scroll to message smoothly
+        msgDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // you could also clear cart after order? we keep it for demo (customer may want to order again)
+        // but we add a little extra effect
+        placeBtn.style.transform = 'scale(0.95)';
+        setTimeout(() => placeBtn.style.transform = '', 200);
+      });
+
+      // initial update (empty cart)
+      updateBill();
+    })();
+  </script>
+</body>
+</html>

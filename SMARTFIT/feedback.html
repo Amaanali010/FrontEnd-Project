@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMARTFIT · Member feedback</title>
+  <!-- Bootstrap + Icons (same as other pages) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Uniform SMARTFIT palette -->
+  <style>
+    :root {
+      --smart-purple: #2c1a4d;
+      --smart-neon: #c3a2ff;
+      --smart-dark: #1a0f2e;
+      --smart-light: #f8f4ff;
+      --smart-glow: #b48aff;
+    }
+    body {
+      background-color: #fcfaff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .navbar, .footer-custom {
+      background: linear-gradient(145deg, var(--smart-purple), #1f123b) !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .navbar-brand img {
+      filter: drop-shadow(0 0 8px var(--smart-neon));
+    }
+    .nav-link {
+      color: #e0d0ff !important;
+      font-weight: 500;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      background-color: rgba(255,255,255,0.12);
+      color: white !important;
+      transform: translateY(-2px);
+    }
+    .btn-neon {
+      background: var(--smart-neon);
+      border: none;
+      color: #1a0f2e;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(173, 126, 255, 0.4);
+      border-radius: 40px;
+      padding: 0.6rem 2rem;
+    }
+    .btn-neon:hover {
+      background: #cfb2ff;
+      transform: scale(1.03);
+      color: #0e0820;
+    }
+    .btn-outline-neon {
+      border: 2px solid var(--smart-neon);
+      color: var(--smart-neon);
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .btn-outline-neon:hover {
+      background: var(--smart-neon);
+      color: #1f123b;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2c1a4d, #7555b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    .price-badge {
+      background: var(--smart-purple);
+      color: var(--smart-neon);
+      font-weight: 700;
+      padding: 0.3rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;
+    }
+    .feedback-card {
+      background: white;
+      border-radius: 36px;
+      padding: 2rem;
+      box-shadow: 0 20px 30px -10px rgba(44,26,77,0.2);
+      border: 1px solid rgba(195,162,255,0.3);
+    }
+    .star-rating i {
+      color: #ffb800;
+      margin-right: 4px;
+      font-size: 1.2rem;
+    }
+    .testimonial-block {
+      background: white;
+      border-radius: 48px 48px 48px 12px;
+      border-left: 8px solid var(--smart-neon);
+      padding: 1.8rem;
+      transition: 0.2s;
+    }
+    .testimonial-block:hover {
+      transform: translateX(6px);
+      box-shadow: 0 12px 25px #dcccff;
+    }
+    .footer-custom a {
+      color: #d3b9ff;
+      text-decoration: none;
+    }
+    .footer-custom a:hover {
+      color: white;
+    }
+    .form-control, .form-select, .form-check-input {
+      border-radius: 30px;
+      border: 1px solid #d7c0ff;
+      padding: 0.75rem 1.5rem;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--smart-neon);
+      box-shadow: 0 0 0 4px rgba(195,162,255,0.3);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== UNIFORM NAVIGATION (Feedback active) ========== -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <i class="bi bi-lightning-charge-fill me-2" style="font-size: 2.2rem; color: var(--smart-neon);"></i>
+      <span style="font-weight: 700; font-size: 1.9rem; color: white;">SMARTFIT</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link active" href="feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="register.html">Join</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item ms-2">
+          <a class="btn btn-neon py-2 px-4" href="register.html"><i class="bi bi-person-up me-1"></i>enroll</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="container py-4">
+  <div class="text-center">
+    <span class="price-badge mb-3">💬 voice of our tribe</span>
+    <h1 class="section-title">FEEDBACK & REVIEWS</h1>
+    <p class="lead text-secondary mx-auto" style="max-width: 700px;">We’re proud of what members say — and we’d love to hear your story.</p>
+  </div>
+</section>
+
+<!-- ========== EXISTING TESTIMONIALS (displayed first) ========== -->
+<section class="container mb-5">
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-4">
+      <div class="testimonial-block h-100">
+        <div class="star-rating mb-2">
+          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+        </div>
+        <p class="fw-light fs-5">“The trainers actually care about form, not just pushing weight. SMARTFIT feels like family.”</p>
+        <div class="d-flex align-items-center mt-3">
+          <i class="bi bi-person-circle fs-3 me-2" style="color: var(--smart-purple);"></i>
+          <div><strong>Jenna W.</strong><br><span class="small text-secondary">yoga & personal training</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="testimonial-block h-100">
+        <div class="star-rating mb-2">
+          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+        </div>
+        <p class="fw-light fs-5">“Zumba with Laura is a party. Dropped 15 lbs and made best friends. Clean, modern, welcoming.”</p>
+        <div class="d-flex align-items-center mt-3">
+          <i class="bi bi-person-circle fs-3 me-2" style="color: var(--smart-purple);"></i>
+          <div><strong>Miguel R.</strong><br><span class="small text-secondary">zumba + premium member</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="testimonial-block h-100">
+        <div class="star-rating mb-2">
+          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+        </div>
+        <p class="fw-light fs-5">“Diet plan transformed my energy. They actually adjust macros every month. Worth every cent.”</p>
+        <div class="d-flex align-items-center mt-3">
+          <i class="bi bi-person-circle fs-3 me-2" style="color: var(--smart-purple);"></i>
+          <div><strong>Priya K.</strong><br><span class="small text-secondary">elite + diet plan</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEEDBACK COLLECTION FORM ========== -->
+<section class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="feedback-card">
+        <h3 class="fw-bold mb-4"><i class="bi bi-pencil-square me-2" style="color: var(--smart-neon);"></i>share your experience</h3>
+        <form id="feedbackForm" onsubmit="event.preventDefault(); feedbackThankYou();">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-medium">your name</label>
+              <input type="text" class="form-control" placeholder="e.g. Taylor Smith" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-medium">email (for follow-up, optional)</label>
+              <input type="email" class="form-control" placeholder="taylor@example.com">
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-medium">membership type (optional)</label>
+              <select class="form-select">
+                <option selected>— select if relevant —</option>
+                <option>Basic</option>
+                <option>Premium</option>
+                <option>Elite</option>
+                <option>Drop‑in / guest</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-medium">rating</label>
+              <div class="d-flex gap-3 fs-3" id="starInteractive">
+                <i class="bi bi-star" style="cursor: pointer; color: #aaa;" onmouseover="highlightStars(1)" onclick="setRating(1)"></i>
+                <i class="bi bi-star" style="cursor: pointer; color: #aaa;" onmouseover="highlightStars(2)" onclick="setRating(2)"></i>
+                <i class="bi bi-star" style="cursor: pointer; color: #aaa;" onmouseover="highlightStars(3)" onclick="setRating(3)"></i>
+                <i class="bi bi-star" style="cursor: pointer; color: #aaa;" onmouseover="highlightStars(4)" onclick="setRating(4)"></i>
+                <i class="bi bi-star" style="cursor: pointer; color: #aaa;" onmouseover="highlightStars(5)" onclick="setRating(5)"></i>
+              </div>
+              <input type="hidden" id="ratingValue" value="0">
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-medium">your review *</label>
+              <textarea class="form-control" rows="4" placeholder="Tell us about your SMARTFIT journey..." required></textarea>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="displayConsent" checked>
+                <label class="form-check-label" for="displayConsent">I'm okay with sharing this review on the website / social media.</label>
+              </div>
+            </div>
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn btn-neon w-100 py-3 rounded-pill fs-5"><i class="bi bi-send-fill me-2"></i>submit feedback</button>
+            </div>
+            <p class="text-center text-secondary small mt-2">your voice helps us improve — thank you ❤️</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== THANK YOU TOAST / MODAL (simulated confirmation) ========== -->
+<div class="modal fade" id="feedbackThanksModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 40px;">
+      <div class="modal-body text-center p-5">
+        <i class="bi bi-heart-fill display-3" style="color: var(--smart-neon);"></i>
+        <h4 class="fw-bold mt-3">thank you!</h4>
+        <p>your feedback means the world.</p>
+        <button class="btn btn-outline-neon rounded-pill px-5" data-bs-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== UNIFORM FOOTER ========== -->
+<footer class="footer-custom text-white pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-md-4">
+        <i class="bi bi-lightning-charge-fill" style="font-size: 2.5rem; color: var(--smart-neon);"></i>
+        <span class="fw-bold fs-3 ms-2">SMARTFIT</span>
+        <p class="mt-3 small opacity-75">sweat smart · live fit · 5 branches nationwide</p>
+      </div>
+      <div class="col-md-2">
+        <h6>Explore</h6>
+        <ul class="list-unstyled"><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li></ul>
+      </div>
+      <div class="col-md-2">
+        <h6>Join</h6>
+        <ul class="list-unstyled"><li><a href="register.html">Membership</a></li><li><a href="feedback.html">Reviews</a></li><li><a href="contact.html">Locations</a></li></ul>
+      </div>
+      <div class="col-md-4">
+        <h6>#smartfitfam</h6>
+        <div class="d-flex gap-3">
+          <i class="bi bi-instagram fs-4"></i> <i class="bi bi-facebook fs-4"></i> <i class="bi bi-tiktok fs-4"></i>
+        </div>
+        <p class="mt-3 small"><i class="bi bi-envelope-fill me-1"></i> hello@smartfit.fit</p>
+      </div>
+    </div>
+    <hr class="border-light opacity-25">
+    <div class="text-center small">© 2025 SMARTFIT Gym & Fitness Club — all rights reserved</div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS and our interactive rating script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // interactive star rating (visual + hidden input)
+  const stars = document.querySelectorAll('#starInteractive i');
+  let currentRating = 0;
+
+  function highlightStars(rating) {
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.classList.remove('bi-star');
+        star.classList.add('bi-star-fill');
+        star.style.color = '#ffb800';
+      } else {
+        star.classList.remove('bi-star-fill');
+        star.classList.add('bi-star');
+        star.style.color = '#aaa';
+      }
+    });
+  }
+
+  function setRating(rating) {
+    currentRating = rating;
+    document.getElementById('ratingValue').value = rating;
+    // make them gold permanently
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.classList.remove('bi-star');
+        star.classList.add('bi-star-fill');
+        star.style.color = '#ffb800';
+      } else {
+        star.classList.remove('bi-star-fill');
+        star.classList.add('bi-star');
+        star.style.color = '#aaa';
+      }
+    });
+  }
+
+  // reset on mouse leave (if no rating selected, but we keep if set)
+  document.getElementById('starInteractive').addEventListener('mouseleave', function() {
+    if (currentRating === 0) {
+      // reset all to empty star
+      stars.forEach(star => {
+        star.classList.remove('bi-star-fill');
+        star.classList.add('bi-star');
+        star.style.color = '#aaa';
+      });
+    } else {
+      // keep the current rating
+      highlightStars(currentRating);
+    }
+  });
+
+  // feedback thank you modal
+  function feedbackThankYou() {
+    // very simple validation: just ensure rating >0 or just show thanks anyway.
+    if (currentRating === 0) {
+      if (!confirm('You haven\'t selected a star rating. Still submit?')) {
+        return;
+      }
+    }
+    const modal = new bootstrap.Modal(document.getElementById('feedbackThanksModal'));
+    modal.show();
+    // optionally reset form (but we keep it for demo)
+    document.getElementById('feedbackForm').reset();
+    // reset stars
+    currentRating = 0;
+    stars.forEach(star => {
+      star.classList.remove('bi-star-fill');
+      star.classList.add('bi-star');
+      star.style.color = '#aaa';
+    });
+  }
+
+  // ensure initial style
+  window.onload = function() {
+    // nothing extra
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Elegance Jewels</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+
+                body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+        }
+        :root {
+            --primary-color: #8b6f47;
+            --secondary-color: #d4af37;
+            --dark-color: #2c2416;
+            --light-color: #f8f5f0;
+        }
+        
+
+        
+        .navbar {
+            background-color: var(--dark-color) !important;
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            color: var(--secondary-color) !important;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .nav-link {
+            color: var(--light-color) !important;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+        
+        
+        .page-header {
+            background: linear-gradient(rgba(44, 36, 22, 0.8), rgba(44, 36, 22, 0.8)), 
+                        url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=1200') center/cover;
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .filter-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .filter-section h5 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .form-check-label {
+            margin-left: 10px;
+        }
+        
+        .btn-filter {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-filter:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            margin-bottom: 30px;
+            background-color: white;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-card img {
+            height: 300px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .product-card .card-body {
+            padding: 20px;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .brand-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 10px 20px;
+            transition: transform 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        footer h5 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        footer a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+         <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-gem me-2"></i>PASCAL JEWELLERY
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index (1).html">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Product.html">
+                            <i class="fas fa-store"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ProductComparison.html">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Comparison</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gerally.html">
+                            <i class="fas fa-images"></i>
+                            <span>Gallery</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aboutus.html">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">
+                            <i class="fas fa-comments"></i>
+                            <span>Feedback</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Products</h1>
+            <p class="lead">Explore our exquisite collection of jewelry</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Filter Sidebar -->
+                <div class="col-md-3">
+                    <div class="filter-section">
+                        <h5><i class="fas fa-filter"></i> Filter Products</h5>
+                        
+                        <!-- Brand Filter -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">By Brand</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="tiffany">
+                                <label class="form-check-label" for="tiffany">Tiffany & Co</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="cartier">
+                                <label class="form-check-label" for="cartier">Cartier</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="pandora">
+                                <label class="form-check-label" for="pandora">Pandora</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="bvlgari">
+                                <label class="form-check-label" for="bvlgari">Bvlgari</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="swarovski">
+                                <label class="form-check-label" for="swarovski">Swarovski</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Type Filter -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">By Type</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="original">
+                                <label class="form-check-label" for="original">Original</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="semiprecious">
+                                <label class="form-check-label" for="semiprecious">Semi-Precious</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="artificial">
+                                <label class="form-check-label" for="artificial">Artificial</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Category Filter -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold">By Category</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="necklace">
+                                <label class="form-check-label" for="necklace">Necklaces</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rings">
+                                <label class="form-check-label" for="rings">Rings</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="bracelets">
+                                <label class="form-check-label" for="bracelets">Bracelets</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="earrings">
+                                <label class="form-check-label" for="earrings">Earrings</label>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-filter">Apply Filters</button>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="col-md-9">
+                    <div class="row">
+                        <!-- Product 1 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Tiffany & Co</span>
+                                    <span class="product-badge">Original</span>
+                                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" class="card-img-top" alt="Diamond Necklace">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Diamond Eternity Necklace</h5>
+                                    <p class="text-muted mb-2">18K white gold with diamonds</p>
+                                    <p class="price">$12,500</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Cartier</span>
+                                    <span class="product-badge">Semi-Precious</span>
+                                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500" class="card-img-top" alt="Sapphire Ring">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Blue Sapphire Ring</h5>
+                                    <p class="text-muted mb-2">Sterling silver with sapphire</p>
+                                    <p class="price">$3,800</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Pandora</span>
+                                    <span class="product-badge">Artificial</span>
+                                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500" class="card-img-top" alt="Crystal Bracelet">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Crystal Elegance Bracelet</h5>
+                                    <p class="text-muted mb-2">Cubic zirconia with plating</p>
+                                    <p class="price">$450</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Bvlgari</span>
+                                    <span class="product-badge">Original</span>
+                                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500" class="card-img-top" alt="Gold Earrings">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Ruby Drop Earrings</h5>
+                                    <p class="text-muted mb-2">18K gold with ruby stones</p>
+                                    <p class="price">$8,900</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Swarovski</span>
+                                    <span class="product-badge">Artificial</span>
+                                    <img src="https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=500" class="card-img-top" alt="Crystal Necklace">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Sparkle Crystal Necklace</h5>
+                                    <p class="text-muted mb-2">Crystal with rhodium plating</p>
+                                    <p class="price">$380</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 6 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Cartier</span>
+                                    <span class="product-badge">Semi-Precious</span>
+                                    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500" class="card-img-top" alt="Pearl Bracelet">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Pearl Elegance Bracelet</h5>
+                                    <p class="text-muted mb-2">Natural pearls with silver</p>
+                                    <p class="price">$2,400</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 7 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Tiffany & Co</span>
+                                    <span class="product-badge">Original</span>
+                                    <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" class="card-img-top" alt="Diamond Ring">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Solitaire Diamond Ring</h5>
+                                    <p class="text-muted mb-2">Platinum with 2ct diamond</p>
+                                    <p class="price">$15,900</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 8 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Pandora</span>
+                                    <span class="product-badge">Artificial</span>
+                                    <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=500" class="card-img-top" alt="Heart Pendant">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Heart Charm Pendant</h5>
+                                    <p class="text-muted mb-2">Rose gold plated with crystals</p>
+                                    <p class="price">$290</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 9 -->
+                        <div class="col-md-4">
+                            <div class="card product-card">
+                                <div style="position: relative;">
+                                    <span class="brand-badge">Bvlgari</span>
+                                    <span class="product-badge">Semi-Precious</span>
+                                    <img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=500" class="card-img-top" alt="Emerald Necklace">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Emerald Statement Necklace</h5>
+                                    <p class="text-muted mb-2">Gold with emerald stones</p>
+                                    <p class="price">$5,600</p>
+                                    <a href="product-detail.html" class="btn btn-primary w-100">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-gem"></i> Elegance Jewels</h5>
+                    <p>Your trusted destination for premium jewelry since 2010. Quality, elegance, and timeless beauty.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect With Us</h5>
+                    <div class="mb-3">
+                        <a href="#" class="me-3"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter fa-2x"></i></a>
+                    </div>
+                    <p><i class="fas fa-envelope"></i> info@elegancejewels.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <hr style="border-color: var(--primary-color);">
+            <div class="text-center">
+                <p>&copy; 2024 Elegance Jewels. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

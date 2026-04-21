@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMARTFIT · Join & calculate</title>
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Uniform SMARTFIT palette -->
+  <style>
+    :root {
+      --smart-purple: #2c1a4d;
+      --smart-neon: #c3a2ff;
+      --smart-dark: #1a0f2e;
+      --smart-light: #f8f4ff;
+      --smart-glow: #b48aff;
+    }
+    body {
+      background-color: #fcfaff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .navbar, .footer-custom {
+      background: linear-gradient(145deg, var(--smart-purple), #1f123b) !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .navbar-brand img {
+      filter: drop-shadow(0 0 8px var(--smart-neon));
+    }
+    .nav-link {
+      color: #e0d0ff !important;
+      font-weight: 500;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      background-color: rgba(255,255,255,0.12);
+      color: white !important;
+      transform: translateY(-2px);
+    }
+    .btn-neon {
+      background: var(--smart-neon);
+      border: none;
+      color: #1a0f2e;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(173, 126, 255, 0.4);
+      border-radius: 40px;
+      padding: 0.6rem 2rem;
+    }
+    .btn-neon:hover {
+      background: #cfb2ff;
+      transform: scale(1.03);
+      color: #0e0820;
+    }
+    .btn-outline-neon {
+      border: 2px solid var(--smart-neon);
+      color: var(--smart-neon);
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .btn-outline-neon:hover {
+      background: var(--smart-neon);
+      color: #1f123b;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2c1a4d, #7555b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    .price-badge {
+      background: var(--smart-purple);
+      color: var(--smart-neon);
+      font-weight: 700;
+      padding: 0.3rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;
+    }
+    .form-card {
+      background: white;
+      border-radius: 48px;
+      padding: 2.5rem;
+      box-shadow: 0 30px 40px -20px rgba(44,26,77,0.3);
+      border: 1px solid rgba(195,162,255,0.4);
+    }
+    .form-control, .form-select {
+      border-radius: 40px;
+      border: 1px solid #ddd0ff;
+      padding: 0.75rem 1.5rem;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--smart-neon);
+      box-shadow: 0 0 0 4px rgba(195,162,255,0.3);
+    }
+    .plan-option {
+      border-radius: 30px;
+      background: #f4edff;
+      padding: 1.2rem;
+      transition: 0.1s;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .plan-option.selected-plan {
+      border-color: var(--smart-neon);
+      background: white;
+      box-shadow: 0 5px 15px #d9c5ff;
+    }
+    .total-cost-badge {
+      background: var(--smart-purple);
+      color: white;
+      border-radius: 60px;
+      padding: 0.8rem 2rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    .footer-custom a {
+      color: #d3b9ff;
+      text-decoration: none;
+    }
+    .footer-custom a:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== UNIFORM NAVIGATION (Join active) ========== -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <i class="bi bi-lightning-charge-fill me-2" style="font-size: 2.2rem; color: var(--smart-neon);"></i>
+      <span style="font-weight: 700; font-size: 1.9rem; color: white;">SMARTFIT</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link active" href="register.html">Join</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item ms-2">
+          <a class="btn btn-neon py-2 px-4" href="register.html"><i class="bi bi-person-up me-1"></i>enroll</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="container py-4">
+  <div class="text-center">
+    <span class="price-badge mb-3">⚡ instant pricing</span>
+    <h1 class="section-title">MEMBERSHIP REGISTRATION</h1>
+    <p class="lead text-secondary mx-auto" style="max-width: 700px;">Select your plan and any extras — the total updates automatically. No hidden fees.</p>
+  </div>
+</section>
+
+<!-- ========== REGISTRATION FORM + AUTOMATIC CALCULATOR ========== -->
+<section class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="form-card">
+        <form id="registrationForm" onsubmit="event.preventDefault(); showConfirmation();">
+          <!-- two-column layout on medium+ -->
+          <div class="row g-4">
+            <!-- left: personal info -->
+            <div class="col-md-6">
+              <h4 class="fw-bold mb-3"><i class="bi bi-person-fill me-2" style="color: var(--smart-neon);"></i>your details</h4>
+              <div class="mb-3">
+                <label class="form-label fw-medium">full name *</label>
+                <input type="text" class="form-control" placeholder="Alex Johnson" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">email address *</label>
+                <input type="email" class="form-control" placeholder="alex@example.com" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">phone</label>
+                <input type="tel" class="form-control" placeholder="+1 234 567 8900">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">birth date (optional)</label>
+                <input type="date" class="form-control">
+              </div>
+            </div>
+
+            <!-- right: membership & add-ons -->
+            <div class="col-md-6">
+              <h4 class="fw-bold mb-3"><i class="bi bi-credit-card-fill me-2" style="color: var(--smart-neon);"></i>choose your plan</h4>
+              
+              <!-- membership options (clickable cards) -->
+              <p class="mb-2 fw-semibold">membership base</p>
+              <div class="d-flex flex-column gap-2 mb-4">
+                <!-- basic plan card -->
+                <div class="plan-option d-flex justify-content-between align-items-center" id="planBasic" onclick="selectPlan('basic')">
+                  <span><strong>BASIC</strong> – gym + 1 class/week</span>
+                  <span class="fw-bold">$29<span class="fw-light text-secondary">/mo</span></span>
+                </div>
+                <!-- premium plan card (selected by default) -->
+                <div class="plan-option selected-plan d-flex justify-content-between align-items-center" id="planPremium" onclick="selectPlan('premium')">
+                  <span><strong>PREMIUM</strong> – unlimited classes + 2 PT</span>
+                  <span class="fw-bold">$59<span class="fw-light text-secondary">/mo</span></span>
+                </div>
+                <!-- elite plan card -->
+                <div class="plan-option d-flex justify-content-between align-items-center" id="planElite" onclick="selectPlan('elite')">
+                  <span><strong>ELITE</strong> – full access + diet & PT</span>
+                  <span class="fw-bold">$99<span class="fw-light text-secondary">/mo</span></span>
+                </div>
+              </div>
+
+              <!-- add-ons (affect total) -->
+              <p class="mb-2 fw-semibold">add‑ons (optional)</p>
+              <div class="mb-2 form-check">
+                <input type="checkbox" class="form-check-input" id="addDiet" onchange="updateTotal()">
+                <label class="form-check-label" for="addDiet">🥗 diet plan – $49/month</label>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="addExtraPT" onchange="updateTotal()">
+                <label class="form-check-label" for="addExtraPT">🎯 extra 2 PT sessions – $39/month</label>
+              </div>
+
+              <!-- hidden field to store selected plan (basic/premium/elite) -->
+              <input type="hidden" id="selectedPlan" value="premium">
+
+              <!-- real‑time total cost display -->
+              <div class="mt-4 p-3 rounded-4" style="background: #efe9ff;">
+                <span class="fw-medium">your total (monthly)</span>
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="fs-5">estimated cost:</span>
+                  <span class="total-cost-badge" id="totalDisplay">$59</span>
+                </div>
+                <p class="small text-secondary mt-2 mb-0"><i class="bi bi-info-circle-fill me-1"></i>automatic calculation – changes as you select.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- terms and submit -->
+          <div class="mt-4 pt-3 border-top">
+            <div class="form-check mb-3">
+              <input type="checkbox" class="form-check-input" id="terms" required>
+              <label class="form-check-label" for="terms">I agree to the <a href="#" class="text-decoration-none" style="color: var(--smart-purple);">terms and conditions</a> and membership policy.</label>
+            </div>
+            <button type="submit" class="btn btn-neon btn-lg w-100 py-3 rounded-pill">✅ complete registration → confirmation</button>
+            <p class="text-center text-secondary mt-2 small">by submitting, you'll see a confirmation page (simulated).</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CONFIRMATION MODAL (simulated confirmation page) ========== -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 50px; background: var(--smart-light);">
+      <div class="modal-header border-0 justify-content-center">
+        <i class="bi bi-check-circle-fill display-1" style="color: #2c1a4d;"></i>
+      </div>
+      <div class="modal-body text-center px-5 pb-4">
+        <h3 class="fw-bold" style="color: var(--smart-purple);">welcome to SMARTFIT!</h3>
+        <p class="fs-5">Your registration is confirmed.</p>
+        <div class="bg-white p-3 rounded-4 my-3">
+          <p class="mb-1">membership: <strong id="confirmPlan">premium</strong></p>
+          <p class="mb-1">monthly total: <strong id="confirmTotal">$59</strong></p>
+        </div>
+        <p class="text-secondary">A welcome email with your digital key will arrive shortly.</p>
+        <a href="index.html" class="btn btn-neon px-5 rounded-pill">back to home</a>
+        <button class="btn btn-outline-neon mt-2 px-5 rounded-pill" data-bs-dismiss="modal">close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== UNIFORM FOOTER ========== -->
+<footer class="footer-custom text-white pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-md-4">
+        <i class="bi bi-lightning-charge-fill" style="font-size: 2.5rem; color: var(--smart-neon);"></i>
+        <span class="fw-bold fs-3 ms-2">SMARTFIT</span>
+        <p class="mt-3 small opacity-75">sweat smart · live fit · 5 branches nationwide</p>
+      </div>
+      <div class="col-md-2">
+        <h6>Explore</h6>
+        <ul class="list-unstyled"><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li></ul>
+      </div>
+      <div class="col-md-2">
+        <h6>Join</h6>
+        <ul class="list-unstyled"><li><a href="register.html">Membership</a></li><li><a href="feedback.html">Reviews</a></li><li><a href="contact.html">Locations</a></li></ul>
+      </div>
+      <div class="col-md-4">
+        <h6>#smartfitfam</h6>
+        <div class="d-flex gap-3">
+          <i class="bi bi-instagram fs-4"></i> <i class="bi bi-facebook fs-4"></i> <i class="bi bi-tiktok fs-4"></i>
+        </div>
+        <p class="mt-3 small"><i class="bi bi-envelope-fill me-1"></i> hello@smartfit.fit</p>
+      </div>
+    </div>
+    <hr class="border-light opacity-25">
+    <div class="text-center small">© 2025 SMARTFIT Gym & Fitness Club — all rights reserved</div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS + our calculator script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // --- Automatic cost calculation & plan selection ---
+  const planPrices = { basic: 29, premium: 59, elite: 99 };
+  let currentPlan = 'premium';   // default
+
+  // plan selectors
+  function selectPlan(planId) {
+    // remove selected class from all plan cards
+    document.getElementById('planBasic').classList.remove('selected-plan');
+    document.getElementById('planPremium').classList.remove('selected-plan');
+    document.getElementById('planElite').classList.remove('selected-plan');
+    // add selected class to clicked plan
+    document.getElementById('plan' + planId.charAt(0).toUpperCase() + planId.slice(1)).classList.add('selected-plan');
+    // update hidden field
+    document.getElementById('selectedPlan').value = planId;
+    currentPlan = planId;
+    updateTotal();
+  }
+
+  // total calculator
+  function updateTotal() {
+    const base = planPrices[currentPlan] || 59;
+    const dietChecked = document.getElementById('addDiet').checked;
+    const ptChecked = document.getElementById('addExtraPT').checked;
+    let extra = 0;
+    if (dietChecked) extra += 49;
+    if (ptChecked) extra += 39;
+    const total = base + extra;
+    document.getElementById('totalDisplay').innerText = '$' + total;
+  }
+
+  // Confirmation modal (simulated confirmation page)
+  function showConfirmation() {
+    // basic validation: check terms
+    if (!document.getElementById('terms').checked) {
+      alert('Please agree to the terms to continue.');
+      return;
+    }
+    // get current selections for modal content
+    const planNames = { basic: 'BASIC', premium: 'PREMIUM', elite: 'ELITE' };
+    const planDisplay = planNames[currentPlan] || 'PREMIUM';
+    document.getElementById('confirmPlan').innerText = planDisplay;
+
+    const totalStr = document.getElementById('totalDisplay').innerText; // e.g. "$108"
+    document.getElementById('confirmTotal').innerText = totalStr;
+
+    // show bootstrap modal
+    const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+    modal.show();
+  }
+
+  // initial call to set display default
+  window.onload = function() {
+    selectPlan('premium');  // ensures default visual and total = 59
+  };
+</script>
+</body>
+</html>

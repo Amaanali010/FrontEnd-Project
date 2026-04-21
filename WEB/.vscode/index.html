@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knot So Ordinary - Crochet Services</title>
+  <style>
+    /* Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Quicksand:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url("bg.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #3e2f1c;
+      position: relative;
+    }
+
+    /* Beige overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(245, 235, 220, 0.8);
+      z-index: -1;
+    }
+
+    /* Navbar */
+    header {
+      background: rgba(250, 240, 230, 0.95);
+      backdrop-filter: blur(5px);
+      padding: 0.7rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      height: 70px;
+      filter: drop-shadow(0 0 6px rgba(0,0,0,0.2));
+      transition: transform 0.3s ease;
+    }
+    .logo:hover { transform: scale(1.08); }
+
+    nav a {
+      color: #5c3d2e;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #a66a43; }
+
+    /* Hero */
+    .hero {
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-text {
+      padding: 3rem;
+      border-radius: 15px;
+      background: rgba(255, 250, 240, 0.9);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      border: 3px dashed #cbbba0; /* crochet stitch effect */
+    }
+
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      margin: 0;
+      color: #4a2c18;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero-text p {
+      font-size: 1.3rem;
+      margin-top: 0.8rem;
+      color: #5c3d2e;
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .section-box {
+      background: rgba(255, 250, 240, 0.9);
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 1100px;
+      margin: auto;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 240, 230, 0.6) 0,
+        rgba(255, 240, 230, 0.6) 5px,
+        transparent 5px,
+        transparent 10px
+      );
+      border: 3px dashed #d4bfa5;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #5c3d2e;
+    }
+
+    /* Services */
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-box {
+      background: #fffaf2;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      border: 2px solid #e6d8c3;
+    }
+    .service-box:hover { transform: translateY(-5px); }
+    .service-box h3 {
+      font-family: 'Playfair Display', serif;
+      color: #8b5e34;
+    }
+    .service-box img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      margin-top: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    /* Featured Creation */
+    .featured {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .featured img {
+      max-width: 400px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .featured-text {
+      max-width: 500px;
+      text-align: left;
+    }
+    .featured-text h3 {
+      font-family: 'Playfair Display', serif;
+      color: #8b5e34;
+      font-size: 1.8rem;
+    }
+    .featured-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Why Choose Us */
+    .reasons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .reason {
+      background: #fffaf2;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border: 2px dashed #d4bfa5;
+    }
+    .reason h4 {
+      font-family: 'Playfair Display', serif;
+      color: #8b5e34;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .testimonial {
+      flex: 1 1 280px;
+      background: #fffaf2;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+      font-style: italic;
+      border-left: 5px solid #a66a43;
+    }
+
+    /* Contact */
+    .contact-form {
+      max-width: 500px;
+      margin: auto;
+      text-align: left;
+      background: #fffaf2;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      border: 3px dotted #d4bfa5;
+    }
+    .contact-form label {
+      font-weight: bold;
+      display: block;
+      margin-top: 1rem;
+      color: #4a2c18;
+    }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.4rem;
+      border: 1px solid #cbbba0;
+      border-radius: 8px;
+    }
+    .contact-form button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.9rem;
+      background: #a66a43;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .contact-form button:hover { background: #8b5e34; }
+
+    footer {
+      background: #5c3d2e;
+      color: white;
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <img src="logo.png" alt="Knot So Ordinary Logo" class="logo">
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#featured">Featured</a>
+      <a href="#whyus">Why Us</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h1>KNOT SO ORDINARY</h1>
+      <p>Cozy Handmade Crochet Projects & Custom Designs</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="section-box">
+      <h2>Our Services</h2>
+      <div class="service-grid">
+        <div class="service-box">
+          <h3>Custom Crochet</h3>
+          <p>Unique handmade pieces tailored to your ideas.</p>
+          <img src="eg.webp" alt="Handmade Bouquet Blanket">
+        </div>
+        <div class="service-box">
+          <h3>Home Decor</h3>
+          <p>Blankets, cushion covers & wall hangings with a personal touch.</p>
+          <img src="eg2.jpg" alt="Handmade Coaster">
+        </div>
+        <div class="service-box">
+          <h3>Accessories</h3>
+          <p>Scarves, bags, and stylish crochet pieces for every season.</p>
+          <img src="eg3.jpg" alt="Handmade Bow Keychains">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Creation -->
+  <section id="featured">
+    <div class="section-box">
+      <h2>Featured Creation of the Month</h2>
+      <div class="featured">
+        <img src="eg.webp" alt="Featured Crochet Piece">
+        <div class="featured-text">
+          <h3>Handmade Bouquet Blanket</h3>
+          <p>This stunning blanket is inspired by soft florals and warm tones — perfect for cozy evenings at home. Crafted with love and attention to detail, it has become one of our most requested designs. Order yours or request a custom variation!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section id="whyus">
+    <div class="section-box">
+      <h2>Why Choose Knot So Ordinary?</h2>
+      <div class="reasons">
+        <div class="reason">
+          <h4>✨ Handmade with Love</h4>
+          <p>Each stitch is carefully crafted by hand with care and passion.</p>
+        </div>
+        <div class="reason">
+          <h4>🌿 Sustainable Materials</h4>
+          <p>We use eco-friendly yarns and packaging to reduce waste.</p>
+        </div>
+        <div class="reason">
+          <h4>🎁 Personalized Gifts</h4>
+          <p>Perfect for birthdays, weddings, and special occasions.</p>
+        </div>
+        <div class="reason">
+          <h4>🤝 Custom Orders</h4>
+          <p>Work directly with us to design your unique crochet project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="section-box">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonials">
+        <div class="testimonial">“The blanket was absolutely stunning! Perfect gift.” – Sara</div>
+        <div class="testimonial">“Loved the custom bag! So unique.” – Aliyah</div>
+        <div class="testimonial">“Beautiful work and very professional.” – Zainab</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-box">
+      <h2>Contact Us</h2>
+      <form class="contact-form">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name">
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email">
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+
+        <label for="service">Interested In:</label>
+        <select id="service" name="service">
+          <option>Custom Crochet</option>
+          <option>Home Decor</option>
+          <option>Accessories</option>
+          <option>Other</option>
+        </select>
+
+        <label for="message">Your Message:</label>
+        <textarea id="message" name="message" rows="5" placeholder="Type your message here..."></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Knot So Ordinary | Handmade with Love</p>
+  </footer>
+</body>
+</html>

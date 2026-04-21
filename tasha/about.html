@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About TASHA - Premium Kitchen Appliances</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #DC143C;
+            --deep-red: #8B0000;
+            --charcoal: #2B2B2B;
+            --dark-charcoal: #1a1a1a;
+            --black: #000000;
+            --light-gray: #E0E0E0;
+            --accent-red: #FF4444;
+            --gold: #FFD700;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-charcoal);
+            color: var(--light-gray);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ========== NAVBAR – ADVANCED DROPDOWN (identical to all pages) ========== */
+        nav {
+            background: linear-gradient(180deg, var(--black) 0%, var(--charcoal) 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(220, 20, 60, 0.3);
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: var(--primary-red);
+            text-decoration: none;
+            letter-spacing: 4px;
+            padding: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent-red);
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links > li > a {
+            display: block;
+            padding: 2rem 1.5rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links > li > a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-red);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links > li > a:hover::before,
+        .nav-links > li > a.active::before {
+            transform: translateX(0);
+        }
+
+        .nav-links > li > a:hover {
+            background: var(--charcoal);
+            color: var(--primary-red);
+        }
+
+        .nav-links > li > a.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* DROPDOWN MENU */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 300px;
+            background: var(--black);
+            border: 1px solid var(--primary-red);
+            border-top: 3px solid var(--primary-red);
+            box-shadow: 0 10px 30px rgba(220,20,60,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 0.8rem 0;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .nav-links > li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0.9rem 1.8rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: all 0.25s;
+            border-bottom: 1px solid rgba(220,20,60,0.1);
+        }
+
+        .dropdown-menu a i {
+            color: var(--primary-red);
+            width: 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--charcoal);
+            color: white;
+            padding-left: 2.2rem;
+        }
+
+        .dropdown-menu a:hover i {
+            color: var(--accent-red);
+        }
+
+        .dropdown-menu li:last-child a {
+            border-bottom: none;
+        }
+
+        /* Hamburger menu (mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        /* ========== SLIDESHOW HERO – ABOUT THEMED ========== */
+        .slideshow-hero {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(139,0,0,0.6));
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+            color: white;
+        }
+
+        .slide-content h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            letter-spacing: 6px;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+
+        .slide-content p {
+            font-size: 1.5rem;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        /* Slideshow navigation */
+        .slide-nav {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background: var(--primary-red);
+            transform: scale(1.2);
+            border-color: white;
+        }
+
+        .dot:hover {
+            background: var(--primary-red);
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .arrow:hover {
+            background: var(--primary-red);
+            border-color: white;
+        }
+
+        .arrow-left {
+            left: 30px;
+        }
+
+        .arrow-right {
+            right: 30px;
+        }
+
+        /* ========== ABOUT CONTENT (unchanged from original about page) ========== */
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-red);
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            max-width: 700px;
+            margin: 2rem auto 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            padding: 3rem 2rem;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-red);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(220, 20, 60, 0.2);
+        }
+
+        .about-icon {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-card h3 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .about-card p {
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 5rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--primary-red);
+        }
+
+        .timeline-item {
+            margin: 4rem 0;
+            width: 50%;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 60px;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 60px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-red);
+            border-radius: 50%;
+            top: 20px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -12px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -12px;
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            padding: 2rem;
+            border-radius: 5px;
+            border: 2px solid var(--primary-red);
+        }
+
+        .timeline-year {
+            color: var(--primary-red);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 5rem 2rem;
+            background: var(--charcoal);
+            margin-top: 5rem;
+        }
+
+        .team-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 4px solid var(--primary-red);
+        }
+
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .team-member:hover .team-img img {
+            transform: scale(1.1);
+        }
+
+        .team-member h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: var(--primary-red);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-member .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--light-gray);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+
+        /* Values Section */
+        .values-grid {
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .value-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .value-icon {
+            background: var(--primary-red);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .value-content h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-content p {
+            color: var(--light-gray);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--black) 0%, var(--deep-red) 100%);
+            text-align: center;
+            padding: 6rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .cta-section h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3.5rem;
+            color: white;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: var(--light-gray);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--primary-red);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: var(--primary-red);
+            border-color: white;
+        }
+
+        /* ========== FOOTER (identical to all pages) ========== */
+        footer {
+            background: var(--black);
+            color: var(--light-gray);
+            padding: 4rem 2rem 3rem;
+            margin-top: 4rem;
+            border-top: 2px solid var(--primary-red);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-red);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--charcoal);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 320px;
+                background: var(--black);
+                flex-direction: column;
+                padding-top: 5rem;
+                transition: right 0.3s ease;
+                border-left: 2px solid var(--primary-red);
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links > li {
+                width: 100%;
+            }
+
+            .nav-links > li > a {
+                padding: 1.2rem 2rem;
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                border-left: 3px solid var(--primary-red);
+                margin: 0 0 10px 20px;
+                background: var(--charcoal);
+                display: none;
+            }
+
+            .nav-links > li:hover .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-menu a {
+                padding: 0.8rem 2rem;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+
+            .slide-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .arrow-left {
+                left: 15px;
+            }
+
+            .arrow-right {
+                right: 15px;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 80px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-dot {
+                left: 18px;
+                right: auto;
+            }
+
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 18px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .slide-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide-content p {
+                font-size: 1.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid, .team-grid, .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
+            }
+
+            .arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== NAVIGATION – DROPDOWN VERSION (About active) ========== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TASHA</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                
+                <!-- PRODUCTS DROPDOWN – all categories (no highlight) -->
+                <li>
+                    <a href="#">Products <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cookware.html"><i class="fa-solid fa-bowl-food"></i> Cookware</a></li>
+                        <li><a href="refrigeration.html"><i class="fas fa-temperature-low"></i> Refrigeration</a></li>
+                        <li><a href="appliances.html"><i class="fas fa-robot"></i> Appliances</a></li>
+                        <li><a href="food-storage.html"><i class="fas fa-box"></i> Food Storage</a></li>
+                        <li><a href="knives-tools.html"><i class="fas fa-utensils"></i> Knives and tools</a></li>
+                        <li><a href="laundry.html"><i class="fas fa-tshirt"></i> Laundry</a></li>
+                        <li><a href="other-accessories.html"><i class="fas fa-puzzle-piece"></i> Other accessories</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SLIDESHOW HERO – ABOUT STORY ========== -->
+    <section class="slideshow-hero">
+        <div class="slide-container">
+            <!-- Slide 1: Heritage & Craftsmanship -->
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="slide-content">
+                    <h1>OUR STORY</h1>
+                    <p>Crafting Excellence in Kitchen Appliances Since 1995</p>
+                    <a href="#who-we-are" class="btn">Discover More</a>
+                </div>
+            </div>
+            <!-- Slide 2: Italian Craftsmanship -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="slide-content">
+                    <h1>ITALIAN HERITAGE</h1>
+                    <p>Handcrafted in Milan with passion passed down through generations</p>
+                    <a href="#timeline" class="btn">Our Journey</a>
+                </div>
+            </div>
+            <!-- Slide 3: Vision & Innovation -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1556911220-bda9d7c3c9b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="slide-content">
+                    <h1>INNOVATION DRIVEN</h1>
+                    <p>Where tradition meets technology – shaping the future of culinary excellence</p>
+                    <a href="#values" class="btn">Our Values</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation arrows -->
+        <div class="arrow arrow-left" onclick="prevSlide()">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="arrow arrow-right" onclick="nextSlide()">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
+        <!-- Dots indicator -->
+        <div class="slide-nav">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT CONTENT SECTION (unchanged from original about page) ========== -->
+    <section id="who-we-are" class="about-content">
+        <div class="section-title">
+            <h2>WHO WE ARE</h2>
+            <p>At TASHA, we believe the kitchen is the heart of every home. For over 25 years, we've been dedicated to creating premium kitchen appliances that combine innovative technology, elegant design, and exceptional performance.</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-card" style="animation: fadeInLeft 0.8s ease;">
+                <div class="about-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>Our Mission</h3>
+                <p>To revolutionize home cooking by providing innovative, reliable, and beautifully designed kitchen appliances that inspire culinary creativity and make everyday cooking a joy.</p>
+            </div>
+
+            <div class="about-card" style="animation: fadeInUp 0.8s ease;">
+                <div class="about-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Our Vision</h3>
+                <p>To become the world's most trusted brand for premium kitchen solutions, recognized for excellence in design, innovation, and customer satisfaction.</p>
+            </div>
+
+            <div class="about-card" style="animation: fadeInRight 0.8s ease;">
+                <div class="about-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Our Promise</h3>
+                <p>We guarantee superior quality, exceptional performance, and outstanding customer service with every product we create. Your satisfaction is our priority.</p>
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div id="timeline" class="section-title">
+            <h2>OUR JOURNEY</h2>
+            <p>From humble beginnings to industry leader</p>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1995</div>
+                    <h3>Foundation</h3>
+                    <p>TASHA was founded in Milan, Italy by master craftsman Antonio Rosetti with a vision to create premium kitchenware that combines traditional craftsmanship with modern design.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2002</div>
+                    <h3>International Expansion</h3>
+                    <p>Opened our first international showroom in New York City, marking the beginning of our global presence. Launched our flagship cookware line to critical acclaim.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2010</div>
+                    <h3>Innovation Center</h3>
+                    <p>Established our state-of-the-art Research & Development center in Frankfurt, focusing on sustainable materials and smart kitchen technology integration.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2018</div>
+                    <h3>Sustainability Initiative</h3>
+                    <p>Launched our "Green Kitchen" initiative, committing to 100% sustainable packaging and energy-efficient manufacturing processes across all product lines.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2023</div>
+                    <h3>Smart Kitchen Revolution</h3>
+                    <p>Introduced our AI-powered smart appliance series, connecting traditional kitchen excellence with cutting-edge technology for the modern home.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Values Section -->
+        <div id="values" class="section-title">
+            <h2>OUR VALUES</h2>
+            <p>The principles that guide everything we do</p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="value-content">
+                    <h3>Quality First</h3>
+                    <p>We never compromise on quality. Every TASHA product undergoes rigorous testing to ensure durability, performance, and safety.</p>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="value-content">
+                    <h3>Innovation</h3>
+                    <p>We constantly push boundaries, integrating the latest technology while maintaining the timeless design aesthetic that defines our brand.</p>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="value-content">
+                    <h3>Sustainability</h3>
+                    <p>We're committed to reducing our environmental impact through sustainable materials, energy-efficient manufacturing, and recyclable packaging.</p>
+                </div>
+            </div>
+
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="value-content">
+                    <h3>Customer Focus</h3>
+                    <p>Our customers are at the heart of everything we do. We listen, innovate, and deliver exceptional experiences at every touchpoint.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="section-title">
+            <h2>LEADERSHIP TEAM</h2>
+            <p>The visionaries behind TASHA's success</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-img">
+                    <img src="image/Marco Rossi.jfif" alt="CEO">
+                </div>
+                <h3>Marco Rossi</h3>
+                <p>CEO & Founder</p>
+                <p>With over 30 years in kitchenware design, Marco's vision continues to drive TASHA's innovation.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="team-img">
+                    <img src="image/Sophia Chen.jpg" alt="Head of Design">
+                </div>
+                <h3>Sophia Chen</h3>
+                <p>Head of Design</p>
+                <p>Award-winning designer with a passion for creating products that are both beautiful and functional.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="team-member">
+                <div class="team-img">
+                    <img src="image/David Müller.jfif" alt="CTO">
+                </div>
+                <h3>David Müller</h3>
+                <p>Chief Technology Officer</p>
+                <p>Leading our R&D team in developing smart kitchen technology that enhances the cooking experience.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>JOIN OUR CULINARY REVOLUTION</h2>
+        <p>Experience the difference that premium quality, innovative design, and exceptional performance can make in your kitchen.</p>
+        <a href="contact.html" class="cta-button">Get in Touch</a>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>TASHA</h3>
+                <p>Premium kitchen appliances designed for those who appreciate excellence in every detail. Crafted with passion, built to last.</p>
+                <p>Milan • New York • Tokyo • Dubai</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="cookware.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Via Monte Napoleone, 20121 Milan, Italy</p>
+                <p><i class="fas fa-phone"></i> +39 02 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> info@tasha.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TASHA - Premium Kitchen Appliances. All Rights Reserved.</p>
+            <p>Excellence in Every Detail</p>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT (slideshow + mobile menu) ========== -->
+    <script>
+        // ---------- SLIDESHOW ----------
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval = setInterval(autoNextSlide, 5000);
+
+        function showSlide(index) {
+            // Loop around
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            
+            // Update active slide
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            slideIndex = index;
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+            resetTimer();
+        }
+
+        function prevSlide() {
+            showSlide(slideIndex - 1);
+            resetTimer();
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+            resetTimer();
+        }
+
+        function autoNextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(autoNextSlide, 5000);
+        }
+
+        // Pause on hover
+        const slideshow = document.querySelector('.slideshow-hero');
+        slideshow.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slideshow.addEventListener('mouseleave', () => {
+            slideInterval = setInterval(autoNextSlide, 5000);
+        });
+
+        // ---------- HAMBURGER MENU ----------
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a real link is clicked (not the Products parent)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') !== '#') {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile dropdown toggle (for touch devices)
+        if (window.innerWidth <= 968) {
+            const parentLi = document.querySelector('.nav-links > li:has(.dropdown-menu)');
+            if (parentLi) {
+                const dropLink = parentLi.querySelector('a');
+                dropLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    parentLi.classList.toggle('dropdown-open');
+                    const dropdown = parentLi.querySelector('.dropdown-menu');
+                    if (dropdown) {
+                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    }
+                });
+            }
+        }
+
+        // Animation on scroll (for about cards, values, team)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.about-card, .value-item, .team-member').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

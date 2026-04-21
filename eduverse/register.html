@@ -1,0 +1,61 @@
+<!-- eduverse/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDUVERSE · Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <span class="logo-icon">🌀</span>
+      <span>EDUVERSE</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="instructors.html">Instructors</a></li>
+      <li><a href="testimonials.html">Testimonials</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <main class="register-layout">
+    <div class="register-form-container">
+      <h1 class="section-title">📝 join eduverse</h1>
+      <p class="form-intro">easy registration — working form with instant confirmation</p>
+      <form id="registrationForm" class="reg-form">
+        <label>full name *</label>
+        <input type="text" id="name" placeholder="e.g. Ayesha Khan" required>
+
+        <label>email *</label>
+        <input type="email" id="email" placeholder="hello@eduverse.com" required>
+
+        <label>choose course category</label>
+        <select id="courseSelect">
+          <option>Programming</option>
+          <option>Web Development</option>
+          <option>Data Science</option>
+          <option>Design</option>
+          <option>Digital Marketing</option>
+        </select>
+
+        <label>message (optional)</label>
+        <textarea id="message" rows="3" placeholder="ask anything..."></textarea>
+
+        <button type="submit" class="btn-pink submit-btn">✨ register →</button>
+      </form>
+      <p id="formFeedback"></p>
+    </div>
+    <div class="register-image">
+      <img src="fotos/register.webp" alt="student registering" loading="lazy">
+    </div>
+  </main>
+  <footer><p>🌀 register now – limited seats glow.</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>

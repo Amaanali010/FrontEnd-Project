@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laundry | TASHA Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #DC143C;
+            --deep-red: #8B0000;
+            --charcoal: #2B2B2B;
+            --dark-charcoal: #1a1a1a;
+            --black: #000000;
+            --light-gray: #E0E0E0;
+            --accent-red: #FF4444;
+            --gold: #FFD700;
+            --ocean-blue: #1E90FF;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-charcoal);
+            color: var(--light-gray);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ========== NAVBAR – ADVANCED DROPDOWN ========== */
+        nav {
+            background: linear-gradient(180deg, var(--black) 0%, var(--charcoal) 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(220, 20, 60, 0.3);
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: var(--primary-red);
+            text-decoration: none;
+            letter-spacing: 4px;
+            padding: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent-red);
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links > li > a {
+            display: block;
+            padding: 2rem 1.5rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links > li > a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-red);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links > li > a:hover::before,
+        .nav-links > li > a.active::before {
+            transform: translateX(0);
+        }
+
+        .nav-links > li > a:hover {
+            background: var(--charcoal);
+            color: var(--primary-red);
+        }
+
+        .nav-links > li > a.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* DROPDOWN MENU */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 300px;
+            background: var(--black);
+            border: 1px solid var(--primary-red);
+            border-top: 3px solid var(--primary-red);
+            box-shadow: 0 10px 30px rgba(220,20,60,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 0.8rem 0;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .nav-links > li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0.9rem 1.8rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: all 0.25s;
+            border-bottom: 1px solid rgba(220,20,60,0.1);
+        }
+
+        .dropdown-menu a i {
+            color: var(--primary-red);
+            width: 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--charcoal);
+            color: white;
+            padding-left: 2.2rem;
+        }
+
+        .dropdown-menu a:hover i {
+            color: var(--accent-red);
+        }
+
+        .dropdown-menu li:last-child a {
+            border-bottom: none;
+        }
+
+        /* Hamburger menu (mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        /* ========== SLIDESHOW HERO – LAUNDRY THEMED ========== */
+        .slideshow-hero {
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(30,144,255,0.5));
+            z-index: 1;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+            color: white;
+        }
+
+        .slide-content h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            letter-spacing: 6px;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+
+        .slide-content p {
+            font-size: 1.5rem;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        /* Slideshow navigation */
+        .slide-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dot.active {
+            background: var(--primary-red);
+            transform: scale(1.2);
+            border-color: white;
+        }
+
+        .dot:hover {
+            background: var(--primary-red);
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .arrow:hover {
+            background: var(--primary-red);
+            border-color: white;
+        }
+
+        .arrow-left {
+            left: 30px;
+        }
+
+        .arrow-right {
+            right: 30px;
+        }
+
+        /* ========== PRODUCT GRID – 8 LAUNDRY ITEMS ========== */
+        .product-section {
+            max-width: 1400px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-red);
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            max-width: 700px;
+            margin: 2rem auto 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 35px rgba(220,20,60,0.25);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-red);
+            color: white;
+            padding: 0.4rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 30px;
+            z-index: 2;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.8rem 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary-red);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .product-description {
+            color: var(--light-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .product-price span {
+            font-size: 1rem;
+            color: var(--light-gray);
+            font-weight: 400;
+            margin-left: 0.5rem;
+            text-decoration: line-through;
+        }
+
+        .btn-small {
+            display: inline-block;
+            padding: 0.7rem 1.8rem;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary-red);
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .btn-small:hover {
+            background: transparent;
+            color: var(--primary-red);
+        }
+
+        /* ========== FEATURES SECTION ========== */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: var(--charcoal);
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            background: var(--black);
+            box-shadow: 0 5px 20px rgba(220,20,60,0.2);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature p {
+            color: var(--light-gray);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--black);
+            color: var(--light-gray);
+            padding: 4rem 2rem 3rem;
+            margin-top: 4rem;
+            border-top: 2px solid var(--primary-red);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-red);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--charcoal);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 320px;
+                background: var(--black);
+                flex-direction: column;
+                padding-top: 5rem;
+                transition: right 0.3s ease;
+                border-left: 2px solid var(--primary-red);
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links > li {
+                width: 100%;
+            }
+
+            .nav-links > li > a {
+                padding: 1.2rem 2rem;
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                border-left: 3px solid var(--primary-red);
+                margin: 0 0 10px 20px;
+                background: var(--charcoal);
+                display: none;
+            }
+
+            .nav-links > li:hover .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-menu a {
+                padding: 0.8rem 2rem;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+
+            .slide-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .arrow-left {
+                left: 15px;
+            }
+
+            .arrow-right {
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .slide-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide-content p {
+                font-size: 1.2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== NAVIGATION – DROPDOWN VERSION (Laundry highlighted) ========== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TASHA</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                
+                <!-- PRODUCTS DROPDOWN – active parent, Laundry highlighted -->
+                <li>
+                    <a href="#" class="active">Products <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cookware.html"><i class="fa-solid fa-bowl-food"></i> Cookware</a></li>
+                        <li><a href="refrigeration.html"><i class="fas fa-temperature-low"></i> Refrigeration</a></li>
+                        <li><a href="appliances.html"><i class="fas fa-robot"></i> Appliances</a></li>
+                        <li><a href="food-storage.html"><i class="fas fa-box"></i> Food Storage</a></li>
+                        <li><a href="knives-tools.html"><i class="fas fa-utensils"></i> Knives and tools</a></li>
+                        <!-- ✅ LAUNDRY – current page (highlighted) -->
+                        <li><a href="laundry.html" style="background: var(--primary-red); color: white;"><i class="fas fa-tshirt"></i> Laundry</a></li>
+                        <li><a href="other-accessories.html"><i class="fas fa-puzzle-piece"></i> Other accessories</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== SLIDESHOW HERO – LAUNDRY ========== -->
+    <section class="slideshow-hero">
+        <div class="slide-container">
+            <!-- Slide 1: Front Load Washer -->
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1626806787461-102c1a6a2e5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="slide-content">
+                    <h1>SMART LAUNDRY</h1>
+                    <p>Powerful cleaning, energy efficiency, and Wi‑Fi connectivity</p>
+                    <a href="#laundry-grid" class="btn">Shop Collection</a>
+                </div>
+            </div>
+            <!-- Slide 2: Washer Dryer Combo -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="slide-content">
+                    <h1>ALL‑IN‑ONE</h1>
+                    <p>Compact washer‑dryer combos – perfect for apartments and small spaces</p>
+                    <a href="#laundry-grid" class="btn">Explore</a>
+                </div>
+            </div>
+            <!-- Slide 3: Ironing & Care -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1582731612718-30ed9511d6ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="slide-content">
+                    <h1>FINISHING TOUCH</h1>
+                    <p>Steam irons, garment steamers, and ironing boards</p>
+                    <a href="#laundry-grid" class="btn">Discover</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation arrows -->
+        <div class="arrow arrow-left" onclick="prevSlide()">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="arrow arrow-right" onclick="nextSlide()">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+
+        <!-- Dots indicator -->
+        <div class="slide-nav">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </section>
+
+    <!-- ========== LAUNDRY PRODUCT GRID – 8 ITEMS ========== -->
+    <section id="laundry-grid" class="product-section">
+        <div class="section-title">
+            <h2>LAUNDRY COLLECTION</h2>
+            <p>Engineered for efficiency, designed for longevity – from washing to ironing</p>
+        </div>
+
+        <div class="product-grid">
+            <!-- 1. Front Load Washer -->
+            <div class="product-card">
+                <span class="product-badge">Energy Star</span>
+                <img class="product-img" src="image/Smart Front Load Washer.webp" alt="Front Load Washer">
+                <div class="product-info">
+                    <div class="product-category">Washing Machine</div>
+                    <h3 class="product-title">Smart Front Load Washer</h3>
+                    <p class="product-description">5.0 cu.ft, steam cleaning, Wi‑Fi enabled – 14 wash cycles.</p>
+                    <div class="product-price">$1,299 <span>$1,599</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+            <!-- 2. Electric Dryer -->
+            <div class="product-card">
+                <span class="product-badge">Sensor Dry</span>
+                <img class="product-img" src="image/7.4 cu.ft Electric Dryer.jfif" alt="Electric Dryer">
+                <div class="product-info">
+                    <div class="product-category">Dryer</div>
+                    <h3 class="product-title">7.4 cu.ft Electric Dryer</h3>
+                    <p class="product-description">Moisture sensors, wrinkle prevention, 12 dry cycles – reversible door.</p>
+                    <div class="product-price">$1,099 <span>$1,399</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+            <!-- 3. All-in-One Washer Dryer Combo -->
+            <div class="product-card">
+                <span class="product-badge">Compact</span>
+                <img class="product-img" src="image/Vented All‑in‑One 2.4 cu.ft.avif" alt="Washer Dryer Combo">
+                <div class="product-info">
+                    <div class="product-category">Washer‑Dryer Combo</div>
+                    <h3 class="product-title">Vented All‑in‑One 2.4 cu.ft</h3>
+                    <p class="product-description">Perfect for apartments, 16 wash/dry programs, no venting required.</p>
+                    <div class="product-price">$1,599 <span>$1,899</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+            <!-- 4. Steam Iron -->
+            <div class="product-card">
+                <span class="product-badge">Professional</span>
+                <img class="product-img" src="image/Ceramic Soleplate Steam Iron.avif" alt="Steam Iron">
+                <div class="product-info">
+                    <div class="product-category">Steam Iron</div>
+                    <h3 class="product-title">Ceramic Soleplate Steam Iron</h3>
+                    <p class="product-description">1800W, anti‑drip, self‑clean, vertical steam – for crisp, wrinkle‑free clothes.</p>
+                    <div class="product-price">$79.99 <span>$99.99</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+            <!-- 5. Garment Steamer -->
+            <div class="product-card">
+                <span class="product-badge">Quick Refresh</span>
+                <img class="product-img" src="image/Handheld Fabric Steamer.jfif" alt="Garment Steamer">
+                <div class="product-info">
+                    <div class="product-category">Garment Steamer</div>
+                    <h3 class="product-title">Handheld Fabric Steamer</h3>
+                    <p class="product-description">30s heat‑up, removes odors, kills bacteria – safe for all fabrics.</p>
+                    <div class="product-price">$59.99 <span>$79.99</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+            <!-- 6. Laundry Sorter Cart -->
+            <div class="product-card">
+                <span class="product-badge">Organizer</span>
+                <img class="product-img" src="image/3‑Bag Rolling Laundry Sorter.webp" alt="Laundry Sorter">
+                <div class="product-info">
+                    <div class="product-category">Laundry Sorter</div>
+                    <h3 class="product-title">3‑Bag Rolling Laundry Sorter</h3>
+                    <p class="product-description">Removable bags, sturdy steel frame, easy‑glide wheels – sort lights, darks, delicates.</p>
+                    <div class="product-price">$49.99 <span>$69.99</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+            <!-- 7. Ironing Board -->
+            <div class="product-card">
+                <span class="product-badge">Essential</span>
+                <img class="product-img" src="image/Foldable Ironing Board.jfif" alt="Ironing Board">
+                <div class="product-info">
+                    <div class="product-category">Ironing Board</div>
+                    <h3 class="product-title">Foldable Ironing Board</h3>
+                    <p class="product-description">Extra wide, adjustable height, scorch‑resistant cover – with iron rest.</p>
+                    <div class="product-price">$39.99 <span>$54.99</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+            <!-- 8. Laundry Basket -->
+            <div class="product-card">
+                <span class="product-badge">Eco</span>
+                <img class="product-img" src="image/Woven Bamboo Laundry Hamper.png" alt="Laundry Basket">
+                <div class="product-info">
+                    <div class="product-category">Laundry Basket</div>
+                    <h3 class="product-title">Woven Bamboo Laundry Hamper</h3>
+                    <p class="product-description">Removable cotton liner, ventilated design, collapsible – sustainable style.</p>
+                    <div class="product-price">$34.99 <span>$44.99</span></div>
+                    <a href="#" class="btn-small">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-truck"></i>
+            <h3>Free Shipping</h3>
+            <p>On orders over $99</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h3>5-Year Warranty</h3>
+            <p>Premium protection</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-credit-card"></i>
+            <h3>Secure Payments</h3>
+            <p>128-bit encrypted</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-undo-alt"></i>
+            <h3>30-Day Returns</h3>
+            <p>Hassle-free policy</p>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>TASHA</h3>
+                <p>Premium home appliances designed for those who appreciate excellence in every detail. Crafted with passion, built to last.</p>
+                <p>Milan • New York • Tokyo • Dubai</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="laundry.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Via Monte Napoleone, 20121 Milan, Italy</p>
+                <p><i class="fas fa-phone"></i> +39 02 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> info@tasha.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TASHA - Premium Home Appliances. All Rights Reserved.</p>
+            <p>Excellence in Every Detail</p>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT (slideshow + mobile menu) ========== -->
+    <script>
+        // ---------- SLIDESHOW ----------
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        function showSlide(index) {
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            slideIndex = index;
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+            resetTimer();
+        }
+
+        function prevSlide() {
+            showSlide(slideIndex - 1);
+            resetTimer();
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+            resetTimer();
+        }
+
+        function autoNextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(autoNextSlide, 5000);
+        }
+
+        // Pause on hover
+        const slideshow = document.querySelector('.slideshow-hero');
+        if (slideshow) {
+            slideshow.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slideshow.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(autoNextSlide, 5000);
+            });
+        }
+
+        // ---------- HAMBURGER MENU ----------
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') !== '#') {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Mobile dropdown toggle (for touch devices)
+        if (window.innerWidth <= 968) {
+            const parentLi = document.querySelector('.nav-links > li:has(.dropdown-menu)');
+            if (parentLi) {
+                const dropLink = parentLi.querySelector('a');
+                dropLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    parentLi.classList.toggle('dropdown-open');
+                    const dropdown = parentLi.querySelector('.dropdown-menu');
+                    if (dropdown) {
+                        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+                    }
+                });
+            }
+        }
+
+        // Simple "Shop Now" click feedback (optional)
+        document.querySelectorAll('.btn-small').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const originalText = this.textContent;
+                this.textContent = 'Added!';
+                this.style.background = 'var(--primary-red)';
+                this.style.color = 'white';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.background = 'var(--primary-red)';
+                    this.style.color = 'white';
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

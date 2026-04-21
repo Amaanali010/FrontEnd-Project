@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasty Bites | Multi-cuisine restaurant</title>
+  <!-- Font Awesome 6 (free) for icons & animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== GLOBAL STYLES & THEME ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: #fef9f0;  /* creamy vanilla */
+      color: #2e241f;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #b45d2b; /* warm spice */
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #e65c26;
+      border-radius: 4px;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ===== HEADER & NAVIGATION (consistent theme) ===== */
+    header {
+      background: #1e2a2a; /* deep teak */
+      padding: 1rem 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+      background: #ffffff;
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 0 0 3px #fceaae;
+      transition: transform 0.4s ease;
+    }
+
+    .logo img:hover {
+      transform: rotate(360deg) scale(1.05);
+    }
+
+    .logo h1 {
+      font-size: 2.2rem;
+      color: #fdd280;
+      letter-spacing: 2px;
+      text-shadow: 3px 3px 0 #9b5a2b;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: #fff2d7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      border-radius: 40px;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    nav a:hover {
+      background: #db4b27;
+      color: #1e2a2a;
+      transform: translateY(-4px);
+    }
+
+    /* ===== HERO SECTION (attractive home) ===== */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      border-bottom: 8px solid #ff9838c7;
+      animation: fadeZoom 2s ease;
+    }
+
+    @keyframes fadeZoom {
+      0% { opacity: 0.2; transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .hero-content h2 {
+      font-size: 4rem;
+      color: #fdce6a;
+      text-shadow: 4px 4px 0 #7b3f00;
+    }
+
+    .hero-content p {
+      font-size: 1.8rem;
+      background: rgba(30,42,42,0.7);
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(3px);
+    }
+
+    .btn {
+      background: #f5ce23;
+      border: none;
+      padding: 14px 38px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      border-radius: 50px;
+      margin-top: 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #1e2a2a;
+      box-shadow: 0 8px 0 #8b5a2b;
+    }
+
+    .btn:hover {
+      background: #faae21;
+      transform: translateY(-5px);
+      box-shadow: 0 13px 0 #8b5a2b;
+    }
+
+    /* ===== MENU CATEGORIES SECTION ===== */
+    .menu-section {
+      background: #fff9ed;
+      padding: 4rem 0;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 2rem;
+    }
+
+    .category {
+      background: white;
+      border-radius: 40px 40px 20px 20px;
+      padding: 1.5rem;
+      box-shadow: 0 20px 30px -8px rgba(0,0,0,0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid #f5cba0;
+    }
+
+    .category:hover {
+      transform: scale(1.02) translateY(-10px);
+      border-color: #e7b42c;
+      box-shadow: 0 30px 35px -8px #b45d2b80;
+    }
+
+    .category h3 {
+      font-size: 2rem;
+      color: #b45d2b;
+      border-bottom: 3px dashed #e7b42c;
+      padding-bottom: 8px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .category ul {
+      list-style: none;
+    }
+
+    .category li {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px dotted #e0cba0;
+      font-size: 1.2rem;
+    }
+
+    .price {
+      font-weight: 700;
+      color: #1e2a2a;
+      background: #fceeca;
+      padding: 4px 12px;
+      border-radius: 40px;
+    }
+
+    /* ===== ORDER SECTION + BILL ===== */
+    .order-online {
+      background: #ffe6cf;
+      padding: 4rem 0;
+    }
+
+    .order-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      background: #fef7e9;
+      border-radius: 60px;
+      padding: 40px;
+      box-shadow: inset 0 2px 10px #ffd7a5, 0 20px 30px #ccb28b;
+    }
+
+    .menu-selector {
+      flex: 2;
+      min-width: 300px;
+    }
+
+    .bill-area {
+      flex: 1;
+      min-width: 280px;
+      background: #1e2a2a;
+      border-radius: 50px;
+      padding: 30px 25px;
+      color: #fff2d7;
+      box-shadow: 0 15px 0 #b45d2b;
+    }
+
+    .menu-selector h3, .bill-area h3 {
+      font-size: 2rem;
+      margin-bottom: 1.8rem;
+      color: #b45d2b;
+    }
+
+    .menu-selector h3 i, .bill-area h3 i {
+      color: #e7b42c;
+      margin-right: 10px;
+    }
+
+    .menu-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 12px 20px;
+      border-radius: 60px;
+      margin: 16px 0;
+      box-shadow: 0 4px 8px #dbbd93;
+      transition: 0.2s;
+    }
+
+    .menu-item-row:hover {
+      background: #fff2c6;
+      transform: scale(1.01);
+    }
+
+    .item-info {
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .item-info span {
+      background: #b45d2b;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 30px;
+      margin-left: 10px;
+    }
+
+    .add-btn {
+      background: #e7b42c;
+      border: none;
+      font-size: 1.3rem;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 4px 0 #9b5a2b;
+    }
+
+    .add-btn:hover {
+      background: #f5c64e;
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 #9b5a2b;
+    }
+
+    #cart-items {
+      list-style: none;
+      margin: 25px 0;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    #cart-items li {
+      background: #2e3b3b;
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 8px solid #e7b42c;
+      font-weight: 500;
+    }
+
+    .remove-item {
+      background: #d44;
+      color: white;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .remove-item:hover {
+      background: #b22;
+      transform: scale(1.2);
+    }
+
+    .total-bill {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: #fdd280;
+      color: #1e2a2a;
+      padding: 15px 25px;
+      border-radius: 60px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .order-actions {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .order-actions button {
+      flex: 1;
+      background: #e7b42c;
+      border: none;
+      padding: 15px 0;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .order-actions button:hover {
+      background: #fad161;
+      transform: scale(0.97);
+    }
+
+    #order-message {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      border-radius: 40px;
+      text-align: center;
+      font-size: 1.3rem;
+      margin-top: 20px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; transform: scale(0.99);}
+      50% { opacity: 1; transform: scale(1.02);}
+    }
+
+    /* ===== GALLERY SECTION ===== */
+    .gallery {
+      background: #1e2a2a;
+      padding: 4rem 0;
+    }
+
+    .gallery h2 {
+      color: #ffda94;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 50px 20px 50px 20px;
+      border: 5px solid #e7b42c;
+      height: 230px;
+      transition: 0.5s;
+      box-shadow: 0 15px 25px black;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.2) rotate(2deg);
+    }
+
+    /* ===== ABOUT US & CONTACT ===== */
+    .about-contact {
+      background: #f5e9d8;
+      padding: 4rem 0;
+    }
+
+    .split {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+    }
+
+    .about, .contact {
+      flex: 1;
+      background: white;
+      padding: 30px;
+      border-radius: 60px 20px 60px 20px;
+      box-shadow: 20px 20px 0 #b45d2b;
+    }
+
+    .about h3, .contact h3 {
+      font-size: 2rem;
+      color: #b45d2b;
+      margin-bottom: 20px;
+    }
+
+    .contact p i {
+      color: #e7b42c;
+      width: 35px;
+      font-size: 1.5rem;
+    }
+
+    .map {
+      margin-top: 20px;
+      border-radius: 40px;
+      overflow: hidden;
+      border: 4px solid #b45d2b;
+    }
+
+    /* ===== FEEDBACK FORM ===== */
+    .feedback {
+      background: #fff3e0;
+      padding: 4rem 0;
+    }
+
+    .feedback-form {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #1e2a2a;
+      padding: 40px;
+      border-radius: 80px 20px 80px 20px;
+      color: white;
+      box-shadow: 0 30px 0 #b45d2b;
+    }
+
+    .feedback-form input, .feedback-form textarea {
+      width: 100%;
+      padding: 15px 25px;
+      margin: 18px 0;
+      border: none;
+      border-radius: 60px;
+      font-size: 1.1rem;
+      background: #fff3d6;
+    }
+
+    .feedback-form button {
+      background: #e7b42c;
+      border: none;
+      padding: 18px 40px;
+      border-radius: 60px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .feedback-form button:hover {
+      background: #f5c64e;
+      transform: translateY(-6px);
+    }
+
+    footer {
+      background: #1e2a2a;
+      text-align: center;
+      padding: 2rem;
+      color: #fdd280;
+      border-top: 5px solid #e7b42c;
+    }
+
+    /* responsiveness */
+    @media (max-width: 800px) {
+      nav ul { gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+      .header-content { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <!-- restaurant logo (fontawesome based) : pizza slice as dummy logo img with base64? Better use font-awesome via div? But we need image, i'll embed a simple SVG as img -->
+        <img src="images/LOGO.png" alt="Tasty Bites Logo">
+        <h1>TASTY BITES</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
+          <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="order.html">Order</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#feedback">Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME section (attractive hero) -->
+    <section id="home">
+      <div class="hero">
+        <div class="hero-content">
+          <h2>Flavors that delight</h2>
+          <p><i class="fas fa-star"></i> Multi-cuisine magic since 2010 <i class="fas fa-star"></i></p>
+          <a href="#menu" class="btn">Explore Our Menu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU CATEGORIES with prices -->
+    <section id="menu" class="menu-section">
+      <div class="container">
+        <h2><i class="fas fa-list-ul"></i> Our Flavorsome Menu</h2>
+        <div class="menu-grid">
+          <div class="category"><h3><i class="fas fa-fire"></i> Starters</h3><ul><li>Paneer Tikka <span class="price">$7.99</span></li><li>Chicken Wings <span class="price">$9.49</span></li><li>Spring Rolls <span class="price">$5.99</span></li></ul></div>
+          <div class="category"><h3><i class="fas fa-drumstick-bite"></i> Main Course</h3><ul><li>Butter Chicken <span class="price">$15.99</span></li><li>Veg Biryani <span class="price">$11.49</span></li><li>Grilled Salmon <span class="price">$17.99</span></li></ul></div>
+          <div class="category"><h3><i class="fas fa-ice-cream"></i> Desserts</h3><ul><li>Gulab Jamun <span class="price">$5.99</span></li><li>Tiramisu <span class="price">$6.99</span></li><li>Brownie <span class="price">$4.99</span></li></ul></div>
+          <div class="category"><h3><i class="fas fa-mug-hot"></i> Beverages</h3><ul><li>Mango Lassi <span class="price">$4.49</span></li><li>Mojito <span class="price">$5.99</span></li><li>Cold Coffee <span class="price">$4.99</span></li></ul></div>
+          <div class="category"><h3><i class="fas fa-utensil-spoon"></i> Combo Meals</h3><ul><li>Family feast <span class="price">$29.99</span></li><li>Lunch duo <span class="price">$16.99</span></li><li>Veg thali <span class="price">$12.99</span></li></ul></div>
+          <div class="category"><h3><i class="fas fa-tags"></i> Special Offers</h3><ul><li>Monsoon special <span class="price">$10.99</span></li><li>2+1 on beverages <span class="price">—</span></li><li>Happy hour 20% off</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+           <!-- CHEF'S SPECIAL Section with Animations -->
+    <section id="chef-special" style="background: #fff9ed; padding: 4rem 0; overflow: hidden;">
+      <div class="container">
+        <h2 style="animation: slideInDown 1s ease;"><i class="fas fa-crown"></i> Chef's Special</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+          <div style="background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 30px rgba(0,0,0,0.1); border: 3px solid #e7b42c; animation: fadeInLeft 1s ease; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);" 
+               onmouseover="this.style.transform='scale(1.05) translateY(-15px)'; this.style.boxShadow='0 30px 40px rgba(0,0,0,0.2)'" 
+               onmouseout="this.style.transform='scale(1) translateY(0)'; this.style.boxShadow='0 20px 30px rgba(0,0,0,0.1)'">
+            <img src="images/Royal Biryani.jfif" alt="Chef Special Biryani" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s;" 
+                 onmouseover="this.style.transform='scale(1.1)'" 
+                 onmouseout="this.style.transform='scale(1)'">
+            <div style="padding: 20px; text-align: center;">
+              <h3 style="color: #b45d2b; font-size: 1.8rem; animation: pulse 2s infinite;">Royal Biryani</h3>
+              <p style="color: #666;">Slow-cooked with 12 secret spices</p>
+              <p style="font-size: 1.5rem; color: #e7b42c; font-weight: bold; animation: bounce 2s infinite;">$18.99</p>
+              <a href="#order" class="btn" style="padding: 10px 25px; font-size: 1rem; text-decoration: none; display: inline-block; position: relative; overflow: hidden; transition: all 0.3s;" 
+                 onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.2)'" 
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 0 #8b5a2b'">
+                Try It
+              </a>
+            </div>
+          </div>
+          <div style="background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 30px rgba(0,0,0,0.1); border: 3px solid #e7b42c; animation: fadeInUp 1s ease 0.2s both; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+               onmouseover="this.style.transform='scale(1.05) translateY(-15px)'; this.style.boxShadow='0 30px 40px rgba(0,0,0,0.2)'" 
+               onmouseout="this.style.transform='scale(1) translateY(0)'; this.style.boxShadow='0 20px 30px rgba(0,0,0,0.1)'">
+            <img src="images/Paneer Lababdar.jfif" alt="Chef Special Paneer" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s;"
+                 onmouseover="this.style.transform='scale(1.1)'" 
+                 onmouseout="this.style.transform='scale(1)'">
+            <div style="padding: 20px; text-align: center;">
+              <h3 style="color: #b45d2b; font-size: 1.8rem; animation: pulse 2s infinite 0.2s;">Paneer Lababdar</h3>
+              <p style="color: #666;">Creamy tomato gravy with cottage cheese</p>
+              <p style="font-size: 1.5rem; color: #e7b42c; font-weight: bold; animation: bounce 2s infinite 0.2s;">$14.99</p>
+              <a href="#order" class="btn" style="padding: 10px 25px; font-size: 1rem; text-decoration: none; display: inline-block; position: relative; overflow: hidden; transition: all 0.3s;"
+                 onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.2)'" 
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 0 #8b5a2b'">
+                Try It
+              </a>
+            </div>
+          </div>
+          <div style="background: white; border-radius: 30px; overflow: hidden; box-shadow: 0 20px 30px rgba(0,0,0,0.1); border: 3px solid #e7b42c; animation: fadeInRight 1s ease 0.4s both; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+               onmouseover="this.style.transform='scale(1.05) translateY(-15px)'; this.style.boxShadow='0 30px 40px rgba(0,0,0,0.2)'" 
+               onmouseout="this.style.transform='scale(1) translateY(0)'; this.style.boxShadow='0 20px 30px rgba(0,0,0,0.1)'">
+            <img src="images/Sizzling Brownie.jfif" alt="Chef Special Dessert" style="width: 100%; height: 250px; object-fit: cover; transition: transform 0.6s;"
+                 onmouseover="this.style.transform='scale(1.1)'" 
+                 onmouseout="this.style.transform='scale(1)'">
+            <div style="padding: 20px; text-align: center;">
+              <h3 style="color: #b45d2b; font-size: 1.8rem; animation: pulse 2s infinite 0.4s;">Sizzling Brownie</h3>
+              <p style="color: #666;">With vanilla ice cream & chocolate sauce</p>
+              <p style="font-size: 1.5rem; color: #e7b42c; font-weight: bold; animation: bounce 2s infinite 0.4s;">$7.99</p>
+              <a href="#order.html" class="btn" style="padding: 10px 25px; font-size: 1rem; text-decoration: none; display: inline-block; position: relative; overflow: hidden; transition: all 0.3s;"
+                 onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.2)'" 
+                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 0 #8b5a2b'">
+                Try It
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS Section -->
+    <section style="background: linear-gradient(135deg, #1e2a2a 0%, #b45d2b 100%); padding: 4rem 0; color: white;">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center;">
+          <div>
+            <i class="fas fa-utensils" style="font-size: 3rem; color: #e7b42c; margin-bottom: 1rem;"></i>
+            <h3 style="font-size: 3rem; color: #ffd98c;">150+</h3>
+            <p style="font-size: 1.2rem;">Menu Items</p>
+          </div>
+          <div>
+            <i class="fas fa-smile" style="font-size: 3rem; color: #e7b42c; margin-bottom: 1rem;"></i>
+            <h3 style="font-size: 3rem; color: #ffd98c;">10k+</h3>
+            <p style="font-size: 1.2rem;">Happy Customers</p>
+          </div>
+          <div>
+            <i class="fas fa-trophy" style="font-size: 3rem; color: #e7b42c; margin-bottom: 1rem;"></i>
+            <h3 style="font-size: 3rem; color: #ffd98c;">15+</h3>
+            <p style="font-size: 1.2rem;">Awards Won</p>
+          </div>
+          <div>
+            <i class="fas fa-clock" style="font-size: 3rem; color: #e7b42c; margin-bottom: 1rem;"></i>
+            <h3 style="font-size: 3rem; color: #ffd98c;">14</h3>
+            <p style="font-size: 1.2rem;">Years of Service</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+       <!-- TESTIMONIALS Section with Animations -->
+    <section style="background: #fff3e0; padding: 4rem 0; overflow: hidden;">
+      <div class="container">
+        <h2 style="animation: slideInDown 1s ease;"><i class="fas fa-comments"></i> What Our Customers Say</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+          <div style="background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); position: relative; animation: slideInLeft 1s ease; transition: all 0.3s;"
+               onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 20px 30px rgba(0,0,0,0.15)'" 
+               onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)'">
+            <i class="fas fa-quote-left" style="font-size: 3rem; color: #e7b42c; opacity: 0.3; position: absolute; top: 10px; left: 20px; animation: float 3s ease infinite;"></i>
+            <p style="margin: 20px 0; font-style: italic; animation: fadeIn 2s ease;">"Best restaurant in town! The butter chicken is amazing and the service is excellent."</p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="images/pfff.jfif" alt="Customer" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; animation: borderPulse 2s ease infinite;">
+              <div>
+                <h4 style="color: #b45d2b;">Ali Rasheed</h4>
+                <div style="color: #e7b42c; animation: starGlow 2s ease infinite;">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); position: relative; animation: slideInUp 1s ease 0.2s both; transition: all 0.3s;"
+               onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 20px 30px rgba(0,0,0,0.15)'" 
+               onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)'">
+            <i class="fas fa-quote-left" style="font-size: 3rem; color: #e7b42c; opacity: 0.3; position: absolute; top: 10px; left: 20px; animation: float 3s ease infinite 0.2s;"></i>
+            <p style="margin: 20px 0; font-style: italic; animation: fadeIn 2s ease 0.2s both;">"Love the ambiance and the food. Their biryani is to die for! Highly recommended."</p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="images/pff.jfif" alt="Customer" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; animation: borderPulse 2s ease infinite 0.2s;">
+              <div>
+                <h4 style="color: #b45d2b;">Maira Saleem</h4>
+                <div style="color: #e7b42c; animation: starGlow 2s ease infinite 0.2s;">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); position: relative; animation: slideInRight 1s ease 0.4s both; transition: all 0.3s;"
+               onmouseover="this.style.transform='translateY(-15px) scale(1.02)'; this.style.boxShadow='0 20px 30px rgba(0,0,0,0.15)'" 
+               onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)'">
+            <i class="fas fa-quote-left" style="font-size: 3rem; color: #e7b42c; opacity: 0.3; position: absolute; top: 10px; left: 20px; animation: float 3s ease infinite 0.4s;"></i>
+            <p style="margin: 20px 0; font-style: italic; animation: fadeIn 2s ease 0.4s both;">"Great place for family dinners. Kids love the pasta and the desserts are fantastic!"</p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="images/pf.jfif" alt="Customer" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; animation: borderPulse 2s ease infinite 0.4s;">
+              <div>
+                <h4 style="color: #b45d2b;">Ayesha Khan</h4>
+                <div style="color: #e7b42c; animation: starGlow 2s ease infinite 0.4s;">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+       <!-- UPCOMING EVENTS Section with Animations -->
+    <section style="background: #ffe6cf; padding: 4rem 0; overflow: hidden;">
+      <div class="container">
+        <h2 style="animation: slideInDown 1s ease;"><i class="fas fa-calendar-alt"></i> Upcoming Events</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+          <div style="background: white; border-radius: 20px; padding: 20px; border-left: 10px solid #e7b42c; animation: slideInLeft 1s ease; transition: all 0.3s; position: relative; overflow: hidden;"
+               onmouseover="this.style.transform='translateX(10px) scale(1.02)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.15)'; this.style.borderLeftWidth='15px'" 
+               onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.boxShadow='none'; this.style.borderLeftWidth='10px'">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: #e7b42c; opacity: 0.1; border-radius: 50%; animation: pulse 3s ease infinite;"></div>
+            <div style="font-size: 2rem; color: #b45d2b; font-weight: bold; animation: bounce 2s ease infinite; display: inline-block; position: relative;">15</div>
+            <div style="font-size: 1.2rem; animation: fadeIn 2s ease 0.2s both;">March 2025</div>
+            <h3 style="margin: 15px 0; animation: slideInRight 1s ease 0.3s both; color: #1e2a2a;">Live Music Night</h3>
+            <p style="animation: fadeIn 2s ease 0.4s both;">Enjoy dinner with live jazz performance</p>
+            <a href="#" style="color: #e7b42c; text-decoration: none; display: inline-block; transition: all 0.3s; margin-top: 10px; font-weight: bold; position: relative;"
+               onmouseover="this.style.transform='translateX(10px)'; this.style.color='#b45d2b'; this.style.letterSpacing='2px'" 
+               onmouseout="this.style.transform='translateX(0)'; this.style.color='#e7b42c'; this.style.letterSpacing='normal'">
+               Book now <i class="fas fa-arrow-right" style="animation: arrowMove 1.5s ease infinite; margin-left: 5px;"></i>
+            </a>
+          </div>
+          
+          <div style="background: white; border-radius: 20px; padding: 20px; border-left: 10px solid #e7b42c; animation: slideInUp 1s ease 0.2s both; transition: all 0.3s; position: relative; overflow: hidden;"
+               onmouseover="this.style.transform='translateY(-10px) scale(1.02)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.15)'; this.style.borderLeftWidth='15px'" 
+               onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='none'; this.style.borderLeftWidth='10px'">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: #e7b42c; opacity: 0.1; border-radius: 50%; animation: pulse 3s ease infinite 0.2s;"></div>
+            <div style="font-size: 2rem; color: #b45d2b; font-weight: bold; animation: bounce 2s ease infinite 0.2s; display: inline-block;">22</div>
+            <div style="font-size: 1.2rem; animation: fadeIn 2s ease 0.4s both;">March 2025</div>
+            <h3 style="margin: 15px 0; animation: slideInLeft 1s ease 0.5s both; color: #1e2a2a;">Food Festival</h3>
+            <p style="animation: fadeIn 2s ease 0.6s both;">Special tasting menu from around the world</p>
+            <a href="#" style="color: #e7b42c; text-decoration: none; display: inline-block; transition: all 0.3s; margin-top: 10px; font-weight: bold; position: relative;"
+               onmouseover="this.style.transform='translateX(10px)'; this.style.color='#b45d2b'; this.style.letterSpacing='2px'" 
+               onmouseout="this.style.transform='translateX(0)'; this.style.color='#e7b42c'; this.style.letterSpacing='normal'">
+               Book now <i class="fas fa-arrow-right" style="animation: arrowMove 1.5s ease infinite 0.2s; margin-left: 5px;"></i>
+            </a>
+          </div>
+          
+          <div style="background: white; border-radius: 20px; padding: 20px; border-left: 10px solid #e7b42c; animation: slideInRight 1s ease 0.4s both; transition: all 0.3s; position: relative; overflow: hidden;"
+               onmouseover="this.style.transform='translateX(-10px) scale(1.02)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.15)'; this.style.borderLeftWidth='15px'" 
+               onmouseout="this.style.transform='translateX(0) scale(1)'; this.style.boxShadow='none'; this.style.borderLeftWidth='10px'">
+            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: #e7b42c; opacity: 0.1; border-radius: 50%; animation: pulse 3s ease infinite 0.4s;"></div>
+            <div style="font-size: 2rem; color: #b45d2b; font-weight: bold; animation: bounce 2s ease infinite 0.4s; display: inline-block;">30</div>
+            <div style="font-size: 1.2rem; animation: fadeIn 2s ease 0.6s both;">March 2025</div>
+            <h3 style="margin: 15px 0; animation: slideInUp 1s ease 0.7s both; color: #1e2a2a;">Cooking Workshop</h3>
+            <p style="animation: fadeIn 2s ease 0.8s both;">Learn from our head chef</p>
+            <a href="#" style="color: #e7b42c; text-decoration: none; display: inline-block; transition: all 0.3s; margin-top: 10px; font-weight: bold; position: relative;"
+               onmouseover="this.style.transform='translateX(10px)'; this.style.color='#b45d2b'; this.style.letterSpacing='2px'" 
+               onmouseout="this.style.transform='translateX(0)'; this.style.color='#e7b42c'; this.style.letterSpacing='normal'">
+               Book now <i class="fas fa-arrow-right" style="animation: arrowMove 1.5s ease infinite 0.4s; margin-left: 5px;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+
+    <!-- NEWSLETTER SIGNUP Section -->
+    <section style="background: #1e2a2a; padding: 4rem 0; color: white;">
+      <div class="container" style="text-align: center;">
+        <h2 style="color: #ffd98c;"><i class="fas fa-envelope"></i> Subscribe to Our Newsletter</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+          Get exclusive offers, new menu updates, and special event invitations!
+        </p>
+        <div style="max-width: 500px; margin: 0 auto; display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="email" placeholder="Your email address" style="flex: 1; padding: 15px 25px; border-radius: 50px; border: none; font-size: 1rem;">
+          <button style="background: #e7b42c; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; color: #1e2a2a;" onclick="alert('Thank you for subscribing!')">
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESERVATION Section -->
+    <section id="reservation" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/restaurant-interior.jpg') center/cover fixed; padding: 5rem 0; color: white;">
+      <div class="container" style="text-align: center;">
+        <h2 style="color: #ffd98c;"><i class="fas fa-calendar-check"></i> Make a Reservation</h2>
+        <p style="font-size: 1.3rem; margin-bottom: 2rem;">Book your table now for a memorable dining experience</p>
+        <div style="max-width: 600px; margin: 0 auto; background: rgba(30,42,42,0.9); padding: 40px; border-radius: 60px;">
+          <form>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+              <input type="text" placeholder="Your Name" style="padding: 15px; border-radius: 50px; border: none;">
+              <input type="email" placeholder="Email" style="padding: 15px; border-radius: 50px; border: none;">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+              <input type="date" style="padding: 15px; border-radius: 50px; border: none;">
+              <input type="time" style="padding: 15px; border-radius: 50px; border: none;">
+            </div>
+            <div style="margin-bottom: 20px;">
+              <select style="width: 100%; padding: 15px; border-radius: 50px; border: none;">
+                <option>Number of Guests</option>
+                <option>1 Person</option>
+                <option>2 People</option>
+                <option>3 People</option>
+                <option>4+ People</option>
+              </select>
+            </div>
+            <button class="btn" style="width: 100%;" onclick="alert('Reservation request sent! We\'ll confirm shortly.'); return false;">Book Now</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY section (food + ambiance) -->
+    <section id="gallery" class="gallery">
+      <div class="container">
+        <h2><i class="fas fa-camera-retro"></i> Visual treats</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="images/Paneer Tikka.webp" alt="Paneer Tikka"></div>
+          <div class="gallery-item"><img src="images/Chicken wings.jpg" alt="Chicken Wings"></div>
+          <div class="gallery-item"><img src="images/Butter Chicken.jfif"alt="Butter Chicken"></div>
+          <div class="gallery-item"><img src="images/Veg Biryani.jfif" alt="Veg Biryani"></div>
+          <div class="gallery-item"><img src="images/Mango Lassi.jfif" alt="Mango Lassi"></div>
+          <div class="gallery-item"><img src="images/Mohito.jfif" alt="Mohito"></div>
+          <div class="gallery-item"><img src="images/Cold Coffee.jfif"alt="Cold Coffee"></div>
+        <div class="gallery-item"><img src="images/Cocktail.jfif"alt="Cocktail"></div>
+        <div class="gallery-item"><img src="images/Gulab Jamun.jfif"alt="Gulab Jamun"></div>
+         <div class="gallery-item"><img src="images/Tiramisu.jfif"alt="Tiramisu"></div>
+          <div class="gallery-item"><img src="images/Choco Berries.jfif"alt="Choco Berries"></div>
+           <div class="gallery-item"><img src="images/brown.jfif"alt="Brownie"></div>
+
+
+      </div>
+    </section>
+
+    <!-- ORDER SECTION + BILL + dummy order + confirmation message -->
+    <section id="order" class="order-online">
+      <div class="container">
+        <h2><i class="fas fa-shopping-cart"></i> Online order</h2>
+        <div class="order-row">
+          <div class="menu-selector">
+            <h3><i class="fas fa-check-circle"></i> add items</h3>
+            <div class="menu-item-row" data-name="Paneer Tikka" data-price="7.99"><span class="item-info">Paneer Tikka <span>$7.99</span></span><button class="add-btn"><i class="fas fa-plus"></i></button></div>
+            <div class="menu-item-row" data-name="Butter Chicken" data-price="15.99"><span class="item-info">Butter Chicken <span>$15.99</span></span><button class="add-btn"><i class="fas fa-plus"></i></button></div>
+            <div class="menu-item-row" data-name="Gulab Jamun" data-price="5.99"><span class="item-info">Gulab Jamun <span>$5.99</span></span><button class="add-btn"><i class="fas fa-plus"></i></button></div>
+            <div class="menu-item-row" data-name="Mango Lassi" data-price="4.49"><span class="item-info">Mango Lassi <span>$4.49</span></span><button class="add-btn"><i class="fas fa-plus"></i></button></div>
+            <div class="menu-item-row" data-name="Family feast" data-price="29.99"><span class="item-info">Family feast <span>$29.99</span></span><button class="add-btn"><i class="fas fa-plus"></i></button></div>
+          </div>
+          <div class="bill-area">
+            <h3><i class="fas fa-receipt"></i> your bill</h3>
+            <ul id="cart-items"></ul>
+            <div class="total-bill" id="totalAmount">$0.00</div>
+            <div class="order-actions">
+              <button id="clearCart"><i class="fas fa-trash"></i> clear</button>
+              <button id="placeOrder"><i class="fas fa-check"></i> order</button>
+            </div>
+            <div id="order-message" style="display: none;">🎉 Order confirmed! Thank you 🎉</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT & CONTACT combined -->
+    <section id="about" class="about-contact">
+      <div class="container split">
+        <div class="about">
+          <h3><i class="fas fa-utensil-spoon"></i> About Us</h3>
+          <p>Tasty Bites started as a small family kitchen in 2010. Today we are a multi‑cuisine chain serving authentic Indian, Chinese, and Continental dishes. Quality ingredients, secret spices, and warm hospitality are our pillars.</p>
+          <p><i class="fas fa-check-circle" style="color:#e7b42c;"></i> 100% hygenic   <i class="fas fa-check-circle" style="color:#e7b42c;"></i> awarded taste</p>
+        </div>
+        <div class="contact" id="contact">
+          <h3><i class="fas fa-map-marker-alt"></i> Contact / branches</h3>
+          <p><i class="fas fa-store"></i> Downtown: 42 food street, NY <br> <i class="fas fa-map"></i> <a href="#" style="color:#b45d2b;">map</a></p>
+          <p><i class="fas fa-store-alt"></i> Uptown: 17 spice avenue, LA</p>
+          <p><i class="fas fa-phone-alt"></i> +1 800 555 1234</p>
+          <div class="map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215413186142!2d-73.98529168459442!3d40.74881797932791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117467%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1650000000000" width="100%" height="180" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEEDBACK form -->
+    <section id="feedback" class="feedback">
+      <div class="container">
+        <h2><i class="fas fa-pen"></i> Customer Feedback</h2>
+        <div class="feedback-form">
+          <input type="text" placeholder="Your name" id="feedbackName">
+          <input type="email" placeholder="Email (optional)">
+          <textarea rows="3" placeholder="Tell us about your experience..."></textarea>
+          <button type="button" onclick="alert('Thank you for your feedback, dear guest!')">send review <i class="fas fa-heart"></i></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 TASTY BITES — eat joyful, live spicy <i class="fas fa-pepper-hot"></i></p>
+  </footer>
+
+  <!-- order logic (separate javascript) -->
+  <script>
+    (function() {
+      let cart = [];
+      const cartList = document.getElementById('cart-items');
+      const totalSpan = document.getElementById('totalAmount');
+      const msgDiv = document.getElementById('order-message');
+      const addButtons = document.querySelectorAll('.add-btn');
+      const clearBtn = document.getElementById('clearCart');
+      const placeBtn = document.getElementById('placeOrder');
+
+      function updateBill() {
+        cartList.innerHTML = '';
+        let total = 0;
+        cart.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `${item.name}  $${item.price.toFixed(2)} <button class="remove-item" data-index="${index}"><i class="fas fa-times"></i></button>`;
+          cartList.appendChild(li);
+          total += item.price;
+        });
+        totalSpan.textContent = `$${total.toFixed(2)}`;
+        // attach remove events
+        document.querySelectorAll('.remove-item').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            const idx = this.getAttribute('data-index');
+            if (idx !== null) {
+              cart.splice(idx, 1);
+              updateBill();
+              msgDiv.style.display = 'none';
+            }
+          });
+        });
+      }
+
+      addButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const row = this.closest('.menu-item-row');
+          const name = row.dataset.name;
+          const price = parseFloat(row.dataset.price);
+          cart.push({ name, price });
+          updateBill();
+          msgDiv.style.display = 'none'; // hide old confirmation
+        });
+      });
+
+      clearBtn.addEventListener('click', function() {
+        cart = [];
+        updateBill();
+        msgDiv.style.display = 'none';
+      });
+
+      placeBtn.addEventListener('click', function() {
+        if (cart.length === 0) {
+          alert('Please add some items to your order.');
+          return;
+        }
+        // show confirmation message
+        msgDiv.style.display = 'block';
+        // optional: clear cart after confirmation? we keep cart as is, but demo : we can also keep.
+        // For user friendly, we keep items until new order or clear. But business rule: we do not clear automatically.
+        // but we can scroll to message.
+        msgDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    })();
+  </script>
+</body>
+</html>

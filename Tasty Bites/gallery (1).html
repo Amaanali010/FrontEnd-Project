@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasty Bites · Gallery</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ===== consistent theme ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: #fef9f0;  /* creamy vanilla */
+      color: #2e241f;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    /* ===== header (same as other pages) ===== */
+    header {
+      background: #1e2a2a;
+      padding: 1rem 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+      background: #f5c46b;
+      border-radius: 50%;
+      padding: 8px;
+      box-shadow: 0 0 0 3px #fceaae;
+      transition: transform 0.4s ease;
+    }
+
+    .logo img:hover {
+      transform: rotate(360deg) scale(1.05);
+    }
+
+    .logo h1 {
+      font-size: 2.2rem;
+      color: #fdd280;
+      text-shadow: 3px 3px 0 #9b5a2b;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: #fff2d7;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 8px 12px;
+      border-radius: 40px;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #e7b42c;
+      color: #1e2a2a;
+      transform: translateY(-4px);
+    }
+
+    /* ===== gallery hero ===== */
+    .gallery-hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      padding: 5rem 0;
+      text-align: center;
+      color: white;
+      border-bottom: 6px solid #e7b42c;
+    }
+
+    .gallery-hero h2 {
+      font-size: 4rem;
+      color: #ffd98c;
+      text-shadow: 4px 4px 0 #7b3f00;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-hero p {
+      font-size: 1.8rem;
+      background: rgba(30,42,42,0.7);
+      display: inline-block;
+      padding: 0.8rem 2.5rem;
+      border-radius: 60px;
+      backdrop-filter: blur(3px);
+    }
+
+    /* ===== gallery intro ===== */
+    .gallery-intro {
+      text-align: center;
+      padding: 3rem 0 1rem;
+    }
+
+    .gallery-intro h3 {
+      font-size: 2.5rem;
+      color: #b45d2b;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-intro p {
+      font-size: 1.3rem;
+      color: #4a3f37;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ===== filter buttons (fun, subtle) ===== */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 2rem 0 2.5rem;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 2px solid #e7b42c;
+      color: #1e2a2a;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 12px 30px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 0 #d6a12a;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: #e7b42c;
+      transform: translateY(-4px);
+      box-shadow: 0 9px 0 #9b5a2b;
+    }
+
+    /* ===== main gallery grid (masonry style) ===== */
+    .gallery-grid {
+      column-count: 4;
+      column-gap: 20px;
+      margin: 2rem 0 4rem;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      position: relative;
+      border-radius: 30px 10px 30px 10px;
+      overflow: hidden;
+      box-shadow: 0 15px 25px -8px rgba(0,0,0,0.4);
+      border: 3px solid #f5cba0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover {
+      border-color: #e7b42c;
+      transform: translateY(-8px);
+      box-shadow: 0 25px 30px -6px #b45d2b;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* overlay with description (appears on hover) */
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(30,42,42,0.9));
+      color: white;
+      padding: 30px 15px 15px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      text-align: center;
+      font-weight: 500;
+      font-size: 1.2rem;
+      backdrop-filter: blur(2px);
+    }
+
+    .gallery-item:hover .overlay {
+      transform: translateY(0);
+    }
+
+    .overlay i {
+      color: #e7b42c;
+      margin-right: 6px;
+    }
+
+    /* ===== lightbox modal (simple popup) ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 85%;
+      max-height: 80%;
+      border-radius: 40px 10px 40px 10px;
+      border: 6px solid #e7b42c;
+      animation: zoom 0.3s;
+    }
+
+    @keyframes zoom {
+      from {transform: scale(0.8); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+
+    .close {
+      position: absolute;
+      top: 30px;
+      right: 45px;
+      color: #fdd280;
+      font-size: 50px;
+      font-weight: bold;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #e7b42c;
+      transform: scale(1.2);
+    }
+
+    .caption {
+      margin: 20px auto;
+      display: block;
+      text-align: center;
+      color: #ffd98c;
+      font-size: 1.8rem;
+      max-width: 700px;
+      background: #1e2a2a;
+      padding: 12px 25px;
+      border-radius: 60px;
+    }
+
+    /* ===== footer ===== */
+    footer {
+      background: #1e2a2a;
+      text-align: center;
+      padding: 2rem;
+      color: #fdd280;
+      border-top: 5px solid #e7b42c;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 1000px) {
+      .gallery-grid { column-count: 3; }
+    }
+
+    @media (max-width: 700px) {
+      .gallery-grid { column-count: 2; }
+      nav ul { gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+      .header-content { flex-direction: column; }
+      .gallery-hero h2 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <!-- simple SVG logo: TB inside circle -->
+        <img src="images/LOGO.png" alt="Tasty Bites Logo">
+        <h1>TASTY BITES</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="menu.html"><i class="fas fa-utensils"></i> Menu</a></li>
+          <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="order.html"><i class="fas fa-shopping-cart"></i> Order</a></li>
+          <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+          <li><a href="contact.html"><i class="fas fa-map-marker-alt"></i> Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Gallery hero section -->
+    <section class="gallery-hero">
+      <div class="container">
+        <h2>Visual treat</h2>
+        <p><i class="fas fa-camera"></i> food · ambiance · moments <i class="fas fa-camera"></i></p>
+      </div>
+    </section>
+
+    <!-- Intro and filter bar (interactive) -->
+<div class="gallery-intro">
+  <h3>A feast for the eyes</h3>
+  <p>From sizzling platters to our cozy corners – every picture tells a story.</p>
+</div>
+
+<!-- simple filter buttons (they highlight, but all images remain – pure css fun) -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all"><i class="fas fa-th-large"></i> all</button>
+  <button class="filter-btn" data-filter="food"><i class="fas fa-pizza-slice"></i> food</button>
+  <button class="filter-btn" data-filter="drinks"><i class="fas fa-wine-glass-alt"></i> drinks</button>
+  <button class="filter-btn" data-filter="desserts"><i class="fas fa-ice-cream"></i> desserts</button>
+</div>
+
+<!-- Gallery grid (masonry style with overlay descriptions) -->
+<div class="container">
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- FOOD CATEGORY (4 items) -->
+    <div class="gallery-item" data-category="food">
+      <img src="images/Paneer Tikka.webp" alt="Paneer Tikka">
+      <div class="overlay"><i class="fas fa-utensils"></i> Sizzling paneer tikka</div>
+    </div>
+    
+    <div class="gallery-item" data-category="food">
+      <img src="images/Chicken wings.jpg" alt="Chicken Wings">
+      <div class="overlay"><i class="fas fa-star"></i> Chicken Wings</div>
+    </div>
+    
+    <div class="gallery-item" data-category="food">
+      <img src="images/Butter Chicken.jfif" alt="Butter Chicken">
+      <div class="overlay"><i class="fas fa-hamburger"></i> Butter Chicken</div>
+    </div>
+    
+    <div class="gallery-item" data-category="food">
+      <img src="images/Veg Biryani.jfif" alt="Veg Biryani">
+      <div class="overlay"><i class="fas fa-kitchen-set"></i> Veg Biryani</div>
+    </div>
+    
+    <!-- DRINKS CATEGORY (4 items) -->
+    <div class="gallery-item" data-category="drinks">
+      <img src="images/Mango Lassi.jfif" alt="Mango Lassi">
+      <div class="overlay"><i class="fas fa-pizza"></i> Mango Lassi</div>
+    </div>
+    
+    <div class="gallery-item" data-category="drinks">
+      <img src="images/Mohito.jfif" alt="Mohito">
+      <div class="overlay"><i class="fas fa-wine-glass-alt"></i> Mohito</div>
+    </div>
+    
+    <div class="gallery-item" data-category="drinks">
+      <img src="images/Cold Coffee.jfif" alt="Cold Coffee">
+      <div class="overlay"><i class="fas fa-cake"></i> Cold Coffee</div>
+    </div>
+    
+    <div class="gallery-item" data-category="drinks">
+      <img src="images/Cocktail.jfif" alt="Cocktail">
+      <div class="overlay"><i class="fas fa-ice-cream"></i> Cocktail</div>
+    </div>
+    
+    <!-- DESSERTS CATEGORY (4 items) -->
+    <div class="gallery-item" data-category="desserts">
+      <img src="images/Gulab Jamun.jfif" alt="Gulab Jamun">
+      <div class="overlay"><i class="fas fa-cocktail"></i> Gulab Jamun</div>
+    </div>
+    
+    <div class="gallery-item" data-category="desserts">
+      <img src="images/Tiramisu.jfif" alt="Tiramisu">
+      <div class="overlay"><i class="fas fa-egg"></i> Tiramisu</div>
+    </div>
+    
+    <div class="gallery-item" data-category="desserts">
+      <img src="images/Choco Berries.jfif" alt="Choco Berries">
+      <div class="overlay"><i class="fas fa-tree"></i> Choco Berries</div>
+    </div>
+    
+    <div class="gallery-item" data-category="desserts">
+      <img src="images/brown.jfif" alt="Brownie">
+      <div class="overlay"><i class="fas fa-fire"></i> Brownies</div>
+    </div>
+  </div>
+</div>
+
+<!-- Simple lightbox modal (hidden initially) -->
+<div id="imageModal" class="modal">
+  <span class="close" id="closeModal">&times;</span>
+  <img class="modal-content" id="modalImg">
+  <div class="caption" id="modalCaption"></div>
+</div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 TASTY BITES — 123 Flavor Street, New York | <i class="fas fa-phone-alt"></i> +1 800 555 1234</p>
+    <p style="margin-top:0.5rem;"><i class="fas fa-camera"></i> capture the flavour · share the vibe <i class="fas fa-camera"></i></p>
+  </footer>
+
+  <script>
+    (function() {
+      // lightbox functionality
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalCaption = document.getElementById('modalCaption');
+      const closeBtn = document.getElementById('closeModal');
+      
+      // get all gallery items
+      const items = document.querySelectorAll('.gallery-item');
+      
+      items.forEach(item => {
+        item.addEventListener('click', function() {
+          const img = this.querySelector('img');
+          const overlay = this.querySelector('.overlay')?.innerHTML || 'Tasty Bites';
+          // strip possible icons html for caption
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = overlay;
+          const textCaption = tempDiv.textContent || tempDiv.innerText || 'Tasty moment';
+          
+          modal.style.display = 'block';
+          modalImg.src = img.src;
+          modalCaption.innerHTML = `<i class="fas fa-heart" style="color:#e7b42c;"></i> ${textCaption}`;
+        });
+      });
+      
+      closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+      });
+      
+      window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+
+      // filter buttons (interactive highlight but show all images – we implement visual active state)
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // purely for demonstration – we keep all images, but could filter. 
+          // For this gallery we show all always, but we add a little animation hint.
+          // However to make it "feel" like filtering, we briefly highlight items that match category?
+          // Or we keep it as simple interactive filter mock.
+          // I'll add a subtle effect: if category is 'all', show all, else add a flash on matching ones.
+          const category = this.dataset.filter;
+          items.forEach(item => {
+            item.style.transition = '0.2s';
+            if (category === 'all') {
+              item.style.opacity = '1';
+              item.style.transform = '';
+            } else {
+              if (item.dataset.category === category) {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1.02)';
+              } else {
+                item.style.opacity = '0.4';
+                item.style.transform = 'scale(0.95)';
+              }
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

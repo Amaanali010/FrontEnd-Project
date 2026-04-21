@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Comparison - Pascal Jewellery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #d4af37;
+            --dark-brown: #2c2416;
+            --light-gold: #f0d975;
+            --cream: #faf8f5;
+            --white: #ffffff;
+            --border-light: #e5ddd1;
+            --text-dark: #2c2416;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lato", sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--cream);
+            padding-top: 76px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Playfair Display", serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Styles */
+        .navbar-custom {
+            background: linear-gradient(135deg, var(--dark-brown) 0%, #1a1410 100%);
+            padding: 0.8rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-custom.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold) !important;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            font-family: "Playfair Display", serif;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+            color: var(--light-gold) !important;
+        }
+
+        .navbar-brand i {
+            font-size: 2rem;
+            animation: sparkle 2s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1) rotate(10deg);
+            }
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-size: 1.05rem;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem !important;
+            margin: 0 0.2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-nav .nav-link::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-gold) !important;
+            transform: translateY(-2px);
+        }
+
+        .navbar-nav .nav-link:hover::before,
+        .navbar-nav .nav-link.active::before {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-gold) !important;
+        }
+
+        .navbar-toggler {
+            border: 2px solid var(--primary-gold);
+            padding: 0.5rem 0.8rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23d4af37' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #2c2416 0%, #4a3a25 50%, #2c2416 100%);
+            color: var(--white);
+            padding: 4rem 0 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Add Products Section */
+        .add-products {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border-light);
+        }
+
+        .add-products h2 {
+            color: var(--dark-brown);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+            border-color: var(--primary-gold);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-brown);
+            font-weight: 600;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .product-card button {
+            width: 100%;
+            background: var(--primary-gold);
+            color: var(--white);
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card button:hover {
+            background: var(--dark-brown);
+            transform: scale(1.02);
+        }
+
+        /* Comparison Table */
+        .comparison-wrapper {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+            margin-bottom: 3rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, var(--cream) 0%, #f5f0e8 100%);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .comparison-table th:first-child,
+        .comparison-table td:first-child {
+            position: sticky;
+            left: 0;
+            background: var(--white);
+            font-weight: 600;
+            text-align: left;
+            z-index: 10;
+            color: var(--dark-brown);
+        }
+
+        .comparison-table thead th:first-child {
+            background: var(--cream);
+        }
+
+        .product-header {
+            position: relative;
+            min-width: 280px;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3rem;
+            line-height: 1;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .remove-btn:hover {
+            background: #bb2d3b;
+            transform: scale(1.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 0.8rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .badge-original {
+            background: linear-gradient(135deg, var(--primary-gold), var(--light-gold));
+            color: var(--dark-brown);
+        }
+
+        .badge-semi {
+            background: linear-gradient(135deg, #93c5fd, #dbeafe);
+            color: #1e40af;
+        }
+
+        .badge-artificial {
+            background: linear-gradient(135deg, #6ee7b7, #d1fae5);
+            color: #065f46;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .warranty-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .warranty-lifetime {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .warranty-standard {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .certified {
+            color: #059669;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .not-certified {
+            color: #9ca3af;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .star {
+            color: var(--primary-gold);
+            font-size: 1.3rem;
+        }
+
+        .star-empty {
+            color: #d1d5db;
+        }
+
+        .rating-text {
+            margin-left: 0.5rem;
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .buy-btn {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, var(--light-gold) 100%);
+            color: var(--dark-brown);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            background: linear-gradient(135deg, var(--dark-brown) 0%, #3a2e1a 100%);
+            color: var(--primary-gold);
+        }
+
+        .comparison-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #fafaf8;
+        }
+
+        /* Value Analysis */
+        .value-analysis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 3px solid;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+        }
+
+        .value-card-original {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-color: var(--primary-gold);
+        }
+
+        .value-card-semi {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-color: #60a5fa;
+        }
+
+        .value-card-artificial {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-color: #34d399;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .value-card-original h3 {
+            color: #78350f;
+        }
+
+        .value-card-semi h3 {
+            color: #1e3a8a;
+        }
+
+        .value-card-artificial h3 {
+            color: #064e3b;
+        }
+
+        .value-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+
+        .value-card-original p {
+            color: #92400e;
+        }
+
+        .value-card-semi p {
+            color: #1e40af;
+        }
+
+        .value-card-artificial p {
+            color: #065f46;
+        }
+
+        /* Info Box */
+        .info-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid;
+            height: 100%;
+        }
+
+        .info-box h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box ul li {
+            padding: 0.4rem 0;
+            line-height: 1.8;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .info-box ul li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+        }
+
+        .info-original {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-color: var(--primary-gold);
+        }
+
+        .info-original h4 {
+            color: #78350f;
+        }
+
+        .info-original ul li {
+            color: #92400e;
+        }
+
+        .info-original ul li::before {
+            color: var(--primary-gold);
+        }
+
+        .info-semi {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-color: #60a5fa;
+        }
+
+        .info-semi h4 {
+            color: #1e3a8a;
+        }
+
+        .info-semi ul li {
+            color: #1e40af;
+        }
+
+        .info-semi ul li::before {
+            color: #3b82f6;
+        }
+
+        .info-artificial {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-color: #34d399;
+        }
+
+        .info-artificial h4 {
+            color: #064e3b;
+        }
+
+        .info-artificial ul li {
+            color: #065f46;
+        }
+
+        .info-artificial ul li::before {
+            color: #10b981;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-brown) 0%, #1a1410 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1.05rem;
+        }
+
+        footer .social-icons {
+            margin-top: 1rem;
+        }
+
+        footer .social-icons a {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        footer .social-icons a:hover {
+            color: var(--light-gold);
+            transform: scale(1.2);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 991px) {
+            .navbar-nav {
+                padding: 1rem 0;
+                background: rgba(44, 36, 22, 0.95);
+                border-radius: 10px;
+                margin-top: 1rem;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 0.8rem 1.5rem !important;
+                border-left: 3px solid transparent;
+            }
+
+            .navbar-nav .nav-link:hover,
+            .navbar-nav .nav-link.active {
+                border-left-color: var(--primary-gold);
+                background: rgba(212, 175, 55, 0.1);
+            }
+
+            .navbar-nav .nav-link::before {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem;
+                font-size: 0.875rem;
+            }
+
+            .product-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="index (1).html">
+                <i class="fas fa-gem me-2"></i>PASCAL JEWELLERY
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index (1).html">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Product.html">
+                            <i class="fas fa-store"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="ProductComparison.html">
+                            <i class="fas fa-balance-scale"></i>
+                            <span>Comparison</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gerally.html">
+                            <i class="fas fa-images"></i>
+                            <span>Gallery</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aboutus.html">
+                            <i class="fas fa-info-circle"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">
+                            <i class="fas fa-comments"></i>
+                            <span>Feedback</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-balance-scale"></i> Product Comparison</h1>
+            <p>Compare jewelry by quality: Original, Semi-Precious & Artificial</p>
+        </div>
+    </div>
+
+    <div class="container" style="padding: 3rem 15px;">
+        <!-- Add Products Section -->
+        <div class="add-products" id="addProductsSection">
+            <h2><i class="fas fa-plus-circle"></i> Add Products to Compare</h2>
+            <div class="products-grid" id="availableProducts">
+                <div class="product-card" data-id="4">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&h=300&fit=crop" alt="Sapphire Pendant">
+                    <h3>Royal Sapphire Pendant</h3>
+                    <p>Original - Premium Quality</p>
+                    <button onclick="addProduct(4)"><i class="fas fa-plus"></i> Add to Compare</button>
+                </div>
+                <div class="product-card" data-id="5">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&h=300&fit=crop" alt="Emerald Bracelet">
+                    <h3>Emerald Grace Bracelet</h3>
+                    <p>Semi-Precious - Excellent Value</p>
+                    <button onclick="addProduct(5)"><i class="fas fa-plus"></i> Add to Compare</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-wrapper">
+            <table class="comparison-table">
+                <thead>
+                        <td><i class="fas fa-certificate"></i> Certification</td>
+                        <td><span class="certified">✓ GIA Certified</span></td>
+                        <td><span class="certified">✓ Quality Assured</span></td>
+                        <td><span class="not-certified">Not Certified</span></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-palette"></i> Color Options</td>
+                        <td>White, Yellow, Rose Gold</td>
+                        <td>Silver, Gold Plated</td>
+                        <td>Multiple Colors</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-star"></i> Rating</td>
+                        <td>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="rating-text">(5.0/5)</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star star-empty">★</span>
+                                <span class="rating-text">(4.3/5)</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star star-empty">★</span>
+                                <span class="rating-text">(4.0/5)</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-shopping-cart"></i> Action</td>
+                        <td><button class="buy-btn" onclick="buyProduct(1)"><i class="fas fa-shopping-bag"></i> Buy Now</button></td>
+                        <td><button class="buy-btn" onclick="buyProduct(2)"><i class="fas fa-shopping-bag"></i> Buy Now</button></td>
+                        <td><button class="buy-btn" onclick="buyProduct(3)"><i class="fas fa-shopping-bag"></i> Buy Now</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Value Analysis -->
+        <div class="value-analysis">
+            <div class="value-card value-card-original">
+                <h3><i class="fas fa-crown"></i> Original - Premium Quality</h3>
+                <p><strong>Best For:</strong> Special occasions, engagements, investments, and heirloom pieces.</p>
+                <p><strong>Benefits:</strong> Natural stones with exceptional brilliance, lifetime warranty, GIA certification, and excellent resale value. Crafted from 18K gold for lasting durability.</p>
+                <p><strong>Investment Value:</strong> Appreciates over time and can be passed down through generations.</p>
+            </div>
+            <div class="value-card value-card-semi">
+                <h3><i class="fas fa-gem"></i> Semi-Precious - Best Value</h3>
+                <p><strong>Best For:</strong> Everyday luxury, special gifts, and quality jewelry at accessible prices.</p>
+                <p><strong>Benefits:</strong> Lab-created or natural semi-precious stones with excellent clarity, 2-year warranty, quality assurance, and 14K gold plating for durability.</p>
+                <p><strong>Value Proposition:</strong> Outstanding balance of quality, beauty, and affordability for daily wear.</p>
+            </div>
+            <div class="value-card value-card-artificial">
+                <h3><i class="fas fa-star"></i> Artificial - Fashion Forward</h3>
+                <p><strong>Best For:</strong> Fashion jewelry, casual wear, trend experimentation, and budget-conscious buyers.</p>
+                <p><strong>Benefits:</strong> Stylish designs, multiple color options, lightweight comfort, and affordable pricing. Perfect for matching with various outfits.</p>
+                <p><strong>Style Flexibility:</strong> Experiment with different looks without significant investment.</p>
+            </div>
+        </div>
+
+        <!-- Understanding Quality Tiers -->
+        <div class="add-products" style="margin-top: 3rem;">
+            <h2><i class="fas fa-info-circle"></i> Understanding Quality Tiers</h2>
+            <div class="row g-4 mt-2">
+                <div class="col-md-4">
+                    <div class="info-box info-original">
+                        <h4><i class="fas fa-crown"></i> Original Jewelry</h4>
+                        <ul>
+                            <li>Natural precious stones (diamonds, rubies, emeralds)</li>
+                            <li>Solid gold (18K-24K) or platinum</li>
+                            <li>International certification (GIA, IGI)</li>
+                            <li>Lifetime warranty & free maintenance</li>
+                            <li>Investment-grade quality</li>
+                            <li>Excellent resale value</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-box info-semi">
+                        <h4><i class="fas fa-gem"></i> Semi-Precious</h4>
+                        <ul>
+                            <li>Lab-created or natural semi-precious stones</li>
+                            <li>14K gold plated or sterling silver</li>
+                            <li>Quality assurance certificates</li>
+                            <li>2-year warranty</li>
+                            <li>Excellent durability for daily wear</li>
+                            <li>Great value for money</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-box info-artificial">
+                        <h4><i class="fas fa-star"></i> Artificial Jewelry</h4>
+                        <ul>
+                            <li>Cubic zirconia or glass stones</li>
+                            <li>Brass, stainless steel base</li>
+                            <li>Quality assurance</li>
+                            <li>6-month warranty</li>
+                            <li>Budget-friendly pricing</li>
+                            <li>Fashion-forward designs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p style="font-size: 1.3rem; font-weight: 600; color: var(--primary-gold);">
+                <i class="fas fa-gem"></i> Pascal Jewellery
+            </p>
+            <p>&copy; 2025 Pascal Jewellery. All Rights Reserved.</p>
+            <p>Crafted with Excellence | Trusted Since 1985</p>
+            <div class="social-icons">
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener("scroll", function () {
+            const navbar = document.querySelector(".navbar-custom");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // Close mobile menu when link is clicked
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                const navbarCollapse = document.querySelector(".navbar-collapse");
+                if (navbarCollapse.classList.contains("show")) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                        toggle: false,
+                    });
+                    bsCollapse.hide();
+                }
+            });
+        });
+
+        // Product comparison functionality
+        let selectedProducts = [1, 2, 3];
+        const maxProducts = 4;
+
+        function removeProduct(productId) {
+            const index = selectedProducts.indexOf(productId);
+            if (index > -1) {
+                selectedProducts.splice(index, productId);
+                updateDisplay();
+            }
+        }
+
+        function addProduct(productId) {
+            if (selectedProducts.length < maxProducts && !selectedProducts.includes(productId)) {
+                selectedProducts.push(productId);
+                updateDisplay();
+            }
+        }
+
+        function updateDisplay() {
+            // Hide add products section if we have max products
+            const addSection = document.getElementById('addProductsSection');
+            if (selectedProducts.length >= maxProducts) {
+                addSection.classList.add('hidden');
+            } else {
+                addSection.classList.remove('hidden');
+            }
+
+            // Update table headers visibility
+            for (let i = 1; i <= 3; i++) {
+                const header = document.getElementById(`product${i}Header`);
+                if (header) {
+                    if (selectedProducts.includes(i)) {
+                        header.parentElement.style.display = '';
+                    } else {
+                        header.parentElement.style.display = 'none';
+                    }
+                }
+            }
+
+            // Update all table rows
+            const rows = document.querySelectorAll('.comparison-table tbody tr');
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                for (let i = 1; i <= 3; i++) {
+                    if (cells[i]) {
+                        if (selectedProducts.includes(i)) {
+                            cells[i].style.display = '';
+                        } else {
+                            cells[i].style.display = 'none';
+                        }
+                    }
+                }
+            });
+        }
+
+        function buyProduct(productId) {
+            alert('✓ Product added to cart! Thank you for shopping with Pascal Jewellery.');
+        }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>

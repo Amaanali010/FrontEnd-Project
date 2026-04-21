@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMARTFIT · Gallery & moments</title>
+  <!-- Bootstrap + Icons (consistent) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Uniform SMARTFIT palette + gallery extras -->
+  <style>
+    :root {
+      --smart-purple: #2c1a4d;
+      --smart-neon: #c3a2ff;
+      --smart-dark: #1a0f2e;
+      --smart-light: #f8f4ff;
+      --smart-glow: #b48aff;
+    }
+    body {
+      background-color: #fcfaff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .navbar, .footer-custom {
+      background: linear-gradient(145deg, var(--smart-purple), #1f123b) !important;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .navbar-brand img {
+      filter: drop-shadow(0 0 8px var(--smart-neon));
+    }
+    .nav-link {
+      color: #e0d0ff !important;
+      font-weight: 500;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      background-color: rgba(255,255,255,0.12);
+      color: white !important;
+      transform: translateY(-2px);
+    }
+    .btn-neon {
+      background: var(--smart-neon);
+      border: none;
+      color: #1a0f2e;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(173, 126, 255, 0.4);
+      border-radius: 40px;
+      padding: 0.6rem 2rem;
+    }
+    .btn-neon:hover {
+      background: #cfb2ff;
+      transform: scale(1.03);
+      color: #0e0820;
+    }
+    .btn-outline-neon {
+      border: 2px solid var(--smart-neon);
+      color: var(--smart-neon);
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .btn-outline-neon:hover {
+      background: var(--smart-neon);
+      color: #1f123b;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #2c1a4d, #7555b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+    .price-badge {
+      background: var(--smart-purple);
+      color: var(--smart-neon);
+      font-weight: 700;
+      padding: 0.3rem 1.2rem;
+      border-radius: 60px;
+      display: inline-block;
+    }
+    /* gallery card */
+    .gallery-item {
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 25px -8px rgba(44,26,77,0.2);
+      transition: 0.3s ease;
+      border: 2px solid transparent;
+      aspect-ratio: 1 / 1;
+    }
+    .gallery-item:hover {
+      transform: scale(1.02) translateY(-6px);
+      border-color: var(--smart-neon);
+      box-shadow: 0 30px 35px -10px #b48aff;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(26,15,46,0.9));
+      color: white;
+      padding: 1.5rem 1rem 1rem;
+      transform: translateY(100%);
+      transition: 0.25s;
+      text-align: center;
+    }
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+    .filter-btn {
+      border-radius: 60px;
+      padding: 0.5rem 1.8rem;
+      margin: 0.2rem;
+      border: 2px solid var(--smart-neon);
+      background: transparent;
+      color: var(--smart-purple);
+      font-weight: 600;
+    }
+    .filter-btn.active-filter {
+      background: var(--smart-neon);
+      color: #1f123b;
+    }
+    .footer-custom a {
+      color: #d3b9ff;
+      text-decoration: none;
+    }
+    .footer-custom a:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== UNIFORM NAVIGATION (Gallery active) ========== -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <i class="bi bi-lightning-charge-fill me-2" style="font-size: 2.2rem; color: var(--smart-neon);"></i>
+      <span style="font-weight: 700; font-size: 1.9rem; color: white;">SMARTFIT</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link active" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="register.html">Join</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item ms-2">
+          <a class="btn btn-neon py-2 px-4" href="register.html"><i class="bi bi-person-up me-1"></i>enroll</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== PAGE HEADER ========== -->
+<section class="container py-4">
+  <div class="text-center">
+    <span class="price-badge mb-3">📸 inside SMARTFIT</span>
+    <h1 class="section-title">GALLERY</h1>
+    <p class="lead text-secondary mx-auto" style="max-width: 700px;">Sneak peek into our spaces, events, and community energy.</p>
+  </div>
+</section>
+
+<!-- ========== FILTER BUTTONS ========== -->
+<section class="container">
+  <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+    <button class="filter-btn active-filter" id="filterAll" onclick="filterGallery('all')">all</button>
+    <button class="filter-btn" id="filterFacility" onclick="filterGallery('facility')">facilities</button>
+    <button class="filter-btn" id="filterEvent" onclick="filterGallery('event')">events</button>
+    <button class="filter-btn" id="filterTrainer" onclick="filterGallery('trainer')">trainers</button>
+    <button class="filter-btn" id="filterClass" onclick="filterGallery('class')">group classes</button>
+  </div>
+</section>
+
+<!-- ========== GALLERY GRID (modern masonry style with bootstrap) ========== -->
+<section class="container mb-5">
+  <div class="row g-4" id="galleryContainer">
+    <!-- facility 1 -->
+    <div class="col-md-6 col-lg-4 gallery-col facility">
+      <div class="gallery-item">
+        <img src="images/Strength-Zone-Training.jpeg" alt="strength zone">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">⚡ strength zone</h5>
+          <p class="small mb-0">power racks · dumbells up to 60kg</p>
+        </div>
+      </div>
+    </div>
+    <!-- event 1 -->
+    <div class="col-md-6 col-lg-4 gallery-col event">
+      <div class="gallery-item">
+        <img src="images/summer.jpg" alt="summer challenge">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">🏆 summer challenge</h5>
+          <p class="small mb-0">60+ participants · 2024</p>
+        </div>
+      </div>
+    </div>
+    <!-- trainer 1 -->
+    <div class="col-md-6 col-lg-4 gallery-col trainer">
+      <div class="gallery-item">
+        <img src="images/coach.jpg" alt="personal trainer maria">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">maria · head coach</h5>
+          <p class="small mb-0">specialist: powerlifting & mobility</p>
+        </div>
+      </div>
+    </div>
+    <!-- class 1 (zumba) -->
+    <div class="col-md-6 col-lg-4 gallery-col class">
+      <div class="gallery-item">
+        <img src="images/james.jfif" alt="zumba class">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">💃 zumba fiesta</h5>
+          <p class="small mb-0">every tuesday · 80+ regulars</p>
+        </div>
+      </div>
+    </div>
+    <!-- facility 2 (cardio) -->
+    <div class="col-md-6 col-lg-4 gallery-col facility">
+      <div class="gallery-item">
+        <img src="images/cardio.jfif" alt="cardio area">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">🚴 cardio deck</h5>
+          <p class="small mb-0">treadmills · bikes · rowers</p>
+        </div>
+      </div>
+    </div>
+    <!-- event 2 (workshop) -->
+    <div class="col-md-6 col-lg-4 gallery-col event">
+      <div class="gallery-item">
+        <img src="images/protein.jfif" alt="nutrition workshop">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">🥗 nutrition workshop</h5>
+          <p class="small mb-0">dietitian Q&A · 50+ attended</p>
+        </div>
+      </div>
+    </div>
+    <!-- trainer 2 -->
+    <div class="col-md-6 col-lg-4 gallery-col trainer">
+      <div class="gallery-item">
+        <img src="images/james.jfif" alt="trainer james">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">james · PT</h5>
+          <p class="small mb-0">functional training & rehab</p>
+        </div>
+      </div>
+    </div>
+    <!-- class 2 (yoga) -->
+    <div class="col-md-6 col-lg-4 gallery-col class">
+      <div class="gallery-item">
+        <img src="images/yoga.webp" alt="hot yoga">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">🧘 hot yoga</h5>
+          <p class="small mb-0">infrared · 40°C · all levels</p>
+        </div>
+      </div>
+    </div>
+    <!-- facility 3 (functional zone) -->
+    <div class="col-md-6 col-lg-4 gallery-col facility">
+      <div class="gallery-item">
+        <img src="images/functional.webp" alt="functional training">
+        <div class="gallery-overlay">
+          <h5 class="fw-bold">⚙️ functional zone</h5>
+          <p class="small mb-0">battle ropes · sledges · turf</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EVENTS TEASER (extra) ========== -->
+<section class="container my-4">
+  <div class="p-5 rounded-5 text-center" style="background: var(--smart-light); border: 2px solid var(--smart-neon);">
+    <h3 class="fw-bold"><i class="bi bi-camera-fill me-2" style="color: var(--smart-purple);"></i> capture the energy</h3>
+    <p class="mb-3">Tag us #smartfitfam on Instagram – your photo could be featured here!</p>
+    <div class="d-flex justify-content-center gap-3">
+      <i class="bi bi-instagram fs-2" style="color: var(--smart-purple);"></i>
+      <i class="bi bi-facebook fs-2" style="color: var(--smart-purple);"></i>
+      <i class="bi bi-tiktok fs-2" style="color: var(--smart-purple);"></i>
+    </div>
+  </div>
+</section>
+
+<!-- ========== UNIFORM FOOTER ========== -->
+<footer class="footer-custom text-white pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-md-4">
+        <i class="bi bi-lightning-charge-fill" style="font-size: 2.5rem; color: var(--smart-neon);"></i>
+        <span class="fw-bold fs-3 ms-2">SMARTFIT</span>
+        <p class="mt-3 small opacity-75">sweat smart · live fit · 5 branches nationwide</p>
+      </div>
+      <div class="col-md-2">
+        <h6>Explore</h6>
+        <ul class="list-unstyled"><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li></ul>
+      </div>
+      <div class="col-md-2">
+        <h6>Join</h6>
+        <ul class="list-unstyled"><li><a href="register.html">Membership</a></li><li><a href="feedback.html">Reviews</a></li><li><a href="contact.html">Locations</a></li></ul>
+      </div>
+      <div class="col-md-4">
+        <h6>#smartfitfam</h6>
+        <div class="d-flex gap-3">
+          <i class="bi bi-instagram fs-4"></i> <i class="bi bi-facebook fs-4"></i> <i class="bi bi-tiktok fs-4"></i>
+        </div>
+        <p class="mt-3 small"><i class="bi bi-envelope-fill me-1"></i> hello@smartfit.fit</p>
+      </div>
+    </div>
+    <hr class="border-light opacity-25">
+    <div class="text-center small">© 2025 SMARTFIT Gym & Fitness Club — all rights reserved</div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS + filter script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // simple gallery filter (by data category)
+  function filterGallery(category) {
+    // update active button style
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active-filter'));
+    if (category === 'all') document.getElementById('filterAll').classList.add('active-filter');
+    else if (category === 'facility') document.getElementById('filterFacility').classList.add('active-filter');
+    else if (category === 'event') document.getElementById('filterEvent').classList.add('active-filter');
+    else if (category === 'trainer') document.getElementById('filterTrainer').classList.add('active-filter');
+    else if (category === 'class') document.getElementById('filterClass').classList.add('active-filter');
+
+    // show/hide gallery items
+    const items = document.querySelectorAll('.gallery-col');
+    items.forEach(item => {
+      if (category === 'all') {
+        item.style.display = 'block';
+      } else {
+        if (item.classList.contains(category)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  // optional: reset on load (already all visible)
+  window.onload = function() {
+    // active all filter is default
+  };
+</script>
+</body>
+</html>

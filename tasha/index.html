@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASHA - Premium Kitchen Appliances</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* (All your existing CSS remains exactly the same – no changes needed) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #DC143C;
+            --deep-red: #8B0000;
+            --charcoal: #2B2B2B;
+            --dark-charcoal: #1a1a1a;
+            --black: #000000;
+            --light-gray: #E0E0E0;
+            --accent-red: #FF4444;
+            --gold: #FFD700;
+            --discount-orange: #FF8C00;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-charcoal);
+            color: var(--light-gray);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ========== NAVBAR – ADVANCED DROPDOWN ========== */
+        nav {
+            background: linear-gradient(180deg, var(--black) 0%, var(--charcoal) 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(220, 20, 60, 0.3);
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: var(--primary-red);
+            text-decoration: none;
+            letter-spacing: 4px;
+            padding: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent-red);
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links > li > a {
+            display: block;
+            padding: 2rem 1.5rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links > li > a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-red);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links > li > a:hover::before,
+        .nav-links > li > a.active::before {
+            transform: translateX(0);
+        }
+
+        .nav-links > li > a:hover {
+            background: var(--charcoal);
+            color: var(--primary-red);
+        }
+
+        .nav-links > li > a.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* DROPDOWN MENU */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 300px;
+            background: var(--black);
+            border: 1px solid var(--primary-red);
+            border-top: 3px solid var(--primary-red);
+            box-shadow: 0 10px 30px rgba(220,20,60,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+            padding: 0.8rem 0;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .nav-links > li:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0.9rem 1.8rem;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: all 0.25s;
+            border-bottom: 1px solid rgba(220,20,60,0.1);
+        }
+
+        .dropdown-menu a i {
+            color: var(--primary-red);
+            width: 24px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--charcoal);
+            color: white;
+            padding-left: 2.2rem;
+        }
+
+        .dropdown-menu a:hover i {
+            color: var(--accent-red);
+        }
+
+        .dropdown-menu li:last-child a {
+            border-bottom: none;
+        }
+
+        /* Hamburger menu (mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        /* ========== HERO SLIDESHOW (unchanged) ========== */
+        .hero-slideshow {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(139,0,0,0.5));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            letter-spacing: 6px;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .hero-nav {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .hero-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .hero-dot.active {
+            background: var(--primary-red);
+            transform: scale(1.2);
+            border-color: white;
+        }
+
+        .hero-dot:hover {
+            background: var(--primary-red);
+        }
+
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .hero-arrow:hover {
+            background: var(--primary-red);
+            border-color: white;
+        }
+
+        .hero-arrow-left {
+            left: 30px;
+        }
+
+        .hero-arrow-right {
+            right: 30px;
+        }
+
+        /* ========== DISCOUNT OFFERS SLIDESHOW – NEW ========== */
+        .discount-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .discount-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 1rem;
+        }
+
+        .discount-header h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.8rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .discount-header h2 i {
+            color: var(--discount-orange);
+            font-size: 2.5rem;
+        }
+
+        .discount-timer {
+            background: var(--charcoal);
+            padding: 0.8rem 1.8rem;
+            border-radius: 40px;
+            border: 2px solid var(--primary-red);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        .discount-timer span {
+            color: white;
+            margin-right: 5px;
+        }
+
+        /* Discount carousel */
+        .discount-carousel-container {
+            position: relative;
+            overflow: hidden;
+            padding: 1rem 0;
+        }
+
+        .discount-carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 2rem;
+        }
+
+        .discount-card {
+            flex: 0 0 calc(25% - 1.5rem);
+            background: linear-gradient(145deg, var(--charcoal), var(--black));
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(255,215,0,0.2);
+        }
+
+        .discount-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(255,215,0,0.3);
+            border-color: var(--primary-red);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--discount-orange);
+            color: black;
+            font-weight: 800;
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            z-index: 5;
+            box-shadow: 0 0 15px rgba(255,140,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .discount-badge i {
+            font-size: 1rem;
+        }
+
+        .discount-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold);
+            transition: transform 0.5s ease;
+        }
+
+        .discount-card:hover .discount-img {
+            transform: scale(1.05);
+        }
+
+        .discount-info {
+            padding: 1.8rem 1.5rem;
+        }
+
+        .discount-category {
+            color: var(--primary-red);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .discount-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.8rem;
+        }
+
+        .discount-price {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 1.2rem;
+        }
+
+        .current-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .old-price {
+            font-size: 1rem;
+            color: var(--light-gray);
+            text-decoration: line-through;
+        }
+
+        .discount-btn {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: var(--discount-orange);
+            color: black;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--discount-orange);
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .discount-btn:hover {
+            background: transparent;
+            color: var(--discount-orange);
+            border-color: var(--discount-orange);
+        }
+
+        /* Discount carousel navigation */
+        .discount-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2.5rem;
+            gap: 20px;
+        }
+
+        .discount-arrow {
+            width: 45px;
+            height: 45px;
+            background: var(--charcoal);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .discount-arrow:hover {
+            background: var(--gold);
+            color: black;
+            border-color: white;
+        }
+
+        .discount-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .discount-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,215,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .discount-dot.active {
+            background: var(--gold);
+            transform: scale(1.3);
+            border-color: white;
+        }
+
+        .discount-dot:hover {
+            background: var(--gold);
+        }
+
+        /* ========== HOT SELLING PRODUCTS (unchanged) ========== */
+        .products-section {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-red);
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            max-width: 700px;
+            margin: 2rem auto 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 15px 35px rgba(220,20,60,0.25);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-red);
+            color: white;
+            padding: 0.4rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 30px;
+            z-index: 2;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.8rem 1.5rem;
+        }
+
+        .product-category {
+            color: var(--primary-red);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .product-price span {
+            font-size: 1rem;
+            color: var(--light-gray);
+            font-weight: 400;
+            margin-left: 0.5rem;
+            text-decoration: line-through;
+        }
+
+        .btn-small {
+            display: inline-block;
+            padding: 0.7rem 1.8rem;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary-red);
+            transition: all 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .btn-small:hover {
+            background: transparent;
+            color: var(--primary-red);
+        }
+
+        /* ========== FEATURES SECTION ========== */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: var(--charcoal);
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .feature:hover {
+            background: var(--black);
+            box-shadow: 0 5px 20px rgba(220,20,60,0.2);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature p {
+            color: var(--light-gray);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--black);
+            color: var(--light-gray);
+            padding: 4rem 2rem 3rem;
+            margin-top: 4rem;
+            border-top: 2px solid var(--primary-red);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .footer-column p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-red);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--charcoal);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1200px) {
+            .discount-card {
+                flex: 0 0 calc(33.33% - 1.35rem);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 320px;
+                background: var(--black);
+                flex-direction: column;
+                padding-top: 5rem;
+                transition: right 0.3s ease;
+                border-left: 2px solid var(--primary-red);
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links > li {
+                width: 100%;
+            }
+
+            .nav-links > li > a {
+                padding: 1.2rem 2rem;
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                border-left: 3px solid var(--primary-red);
+                margin: 0 0 10px 20px;
+                background: var(--charcoal);
+                display: none;
+            }
+
+            .nav-links > li:hover .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-menu a {
+                padding: 0.8rem 2rem;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .hero-arrow-left {
+                left: 15px;
+            }
+
+            .hero-arrow-right {
+                right: 15px;
+            }
+
+            .discount-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .discount-card {
+                flex: 0 0 calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .hero-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .discount-card {
+                flex: 0 0 calc(100% - 0rem);
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== NAVIGATION – Home active ========== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TASHA</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                
+                <!-- PRODUCTS DROPDOWN -->
+                <li>
+                    <a href="#">Products <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cookware.html"><i class="fa-solid fa-bowl-food"></i> Cookware</a></li>
+                        <li><a href="refrigeration.html"><i class="fas fa-temperature-low"></i> Refrigeration</a></li>
+                        <li><a href="appliances.html"><i class="fas fa-robot"></i> Appliances</a></li>
+                        <li><a href="food-storage.html"><i class="fas fa-box"></i> Food Storage</a></li>
+                        <li><a href="knives-tools.html"><i class="fas fa-utensils"></i> Knives and tools</a></li>
+                        <li><a href="laundry.html"><i class="fas fa-tshirt"></i> Laundry</a></li>
+                        <li><a href="other-accessories.html"><i class="fas fa-puzzle-piece"></i> Other accessories</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SLIDESHOW (unchanged) ========== -->
+    <section class="hero-slideshow">
+        <div class="slide-container">
+            <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1556911220-bda9d7c3c9b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="hero-content">
+                    <h1>EXCELLENCE IN EVERY DETAIL</h1>
+                    <p>Discover premium kitchen appliances crafted for those who appreciate the finest culinary experience.</p>
+                    <a href="#hot-products" class="btn">Shop Hot Deals</a>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="hero-content">
+                    <h1>ITALIAN CRAFTSMANSHIP</h1>
+                    <p>Handcrafted cookware and appliances from the heart of Milan since 1995.</p>
+                    <a href="cookware.html" class="btn">Explore Cookware</a>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1585670149967-b4f4da88ccd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <div class="hero-content">
+                    <h1>SMART KITCHEN REVOLUTION</h1>
+                    <p>AI‑powered appliances that adapt to your cooking style.</p>
+                    <a href="appliances.html" class="btn">Discover Smart</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-arrow hero-arrow-left" onclick="prevHeroSlide()">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="hero-arrow hero-arrow-right" onclick="nextHeroSlide()">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="hero-nav">
+            <span class="hero-dot active" onclick="currentHeroSlide(0)"></span>
+            <span class="hero-dot" onclick="currentHeroSlide(1)"></span>
+            <span class="hero-dot" onclick="currentHeroSlide(2)"></span>
+        </div>
+    </section>
+
+    <!-- ========== DISCOUNT OFFERS SLIDESHOW – LIVE COUNTDOWN ADDED ========== -->
+    <section class="discount-section">
+        <div class="discount-header">
+            <h2>
+                <i class="fas fa-tag"></i> FLASH DEALS
+            </h2>
+            <div class="discount-timer">
+                <span>⏰ ENDS IN:</span> <span id="timer-countdown">23:59:47</span>
+            </div>
+        </div>
+
+        <div class="discount-carousel-container">
+            <div class="discount-carousel" id="discountCarousel">
+                <!-- Discount Card 1 - Cookware Set -->
+                <div class="discount-card">
+                    <div class="discount-badge">
+                        <i class="fas fa-bolt"></i> -40%
+                    </div>
+                    <img class="discount-img" src="image/10 piece stainless.jpg" alt="10-pc Stainless Steel Cookware Set" width="600" height="400">
+                    <div class="discount-info">
+                        <div class="discount-category">Cookware</div>
+                        <h3 class="discount-title">10‑pc Stainless Steel Set</h3>
+                        <div class="discount-price">
+                            <span class="current-price">$389</span>
+                            <span class="old-price">$649</span>
+                        </div>
+                        <a href="#" class="discount-btn">Claim Deal</a>
+                    </div>
+                </div>
+                <!-- Discount Card 2 - Refrigerator -->
+                <div class="discount-card">
+                    <div class="discount-badge">
+                        <i class="fas fa-bolt"></i> -35%
+                    </div>
+                    <img class="discount-img" src="image/bottom freezer.avif" alt="Bottom Freezer Refrigerator" width="800" height="600">
+                    <div class="discount-info">
+                        <div class="discount-category">Refrigeration</div>
+                        <h3 class="discount-title">Bottom Freezer 24 cu.ft</h3>
+                        <div class="discount-price">
+                            <span class="current-price">$1,299</span>
+                            <span class="old-price">$1,999</span>
+                        </div>
+                        <a href="#" class="discount-btn">Claim Deal</a>
+                    </div>
+                </div>
+                <!-- Discount Card 3 - Knife Set -->
+                <div class="discount-card">
+                    <div class="discount-badge">
+                        <i class="fas fa-bolt"></i> -25%
+                    </div>
+                    <img class="discount-img" src="image/knives.webp" alt="6-pc Forged Knife Block" width="600" height="400">
+                    <div class="discount-info">
+                        <div class="discount-category">Knives</div>
+                        <h3 class="discount-title">6‑pc Forged Knife Block</h3>
+                        <div class="discount-price">
+                            <span class="current-price">$224</span>
+                            <span class="old-price">$299</span>
+                        </div>
+                        <a href="#" class="discount-btn">Claim Deal</a>
+                    </div>
+                </div>
+                <!-- Discount Card 4 - Smart Oven -->
+                <div class="discount-card">
+                    <div class="discount-badge">
+                        <i class="fas fa-bolt"></i> -30%
+                    </div>
+                    <img class="discount-img" src="image/AI Smart Convection Oven.jpg" alt="AI Smart Convection Oven" width="600" height="400">
+                    <div class="discount-info">
+                        <div class="discount-category">Appliances</div>
+                        <h3 class="discount-title">AI Smart Convection Oven</h3>
+                        <div class="discount-price">
+                            <span class="current-price">$629</span>
+                            <span class="old-price">$899</span>
+                        </div>
+                        <a href="#" class="discount-btn">Claim Deal</a>
+                    </div>
+                </div>
+                <!-- Discount Card 5 - Coffee Grinder (FIXED: removed stray media query, added valid image) -->
+                <div class="discount-card">
+                    <div class="discount-badge">
+                        <i class="fas fa-bolt"></i> -20%
+                    </div>
+                    <img class="discount-img" src="image/coffee_grinder_resized_1284x936.jpg" alt="Precision Burr Coffee Grinder" width="600" height="400">
+                    <div class="discount-info">
+                        <div class="discount-category">Accessories</div>
+                        <h3 class="discount-title">Precision Burr Grinder</h3>
+                        <div class="discount-price">
+                            <span class="current-price">$127</span>
+                            <span class="old-price">$159</span>
+                        </div>
+                        <a href="#" class="discount-btn">Claim Deal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discount carousel navigation -->
+        <div class="discount-nav">
+            <div class="discount-arrow" onclick="prevDiscountSlide()">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="discount-dots" id="discountDots">
+                <span class="discount-dot active" onclick="currentDiscountSlide(0)"></span>
+                <span class="discount-dot" onclick="currentDiscountSlide(1)"></span>
+                <span class="discount-dot" onclick="currentDiscountSlide(2)"></span>
+                <span class="discount-dot" onclick="currentDiscountSlide(3)"></span>
+                <span class="discount-dot" onclick="currentDiscountSlide(4)"></span>
+            </div>
+            <div class="discount-arrow" onclick="nextDiscountSlide()">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== HOT SELLING PRODUCTS – FIXED IMAGES & DIMENSIONS ========== -->
+    <section id="hot-products" class="products-section">
+        <div class="section-title">
+            <h2>🔥 HOT SELLING PRODUCTS</h2>
+            <p>Our customers' favorites — premium quality, innovative design, exceptional performance</p>
+        </div>
+        <div class="product-grid">
+            <!-- Product 1 - French Door Refrigerator -->
+            <div class="product-card">
+                <div class="product-badge">BESTSELLER</div>
+                <img class="product-img" src="image/french.jpg" alt="TASHA French Door Pro Refrigerator" width="400" height="300">
+                <div class="product-info">
+                    <div class="product-category">Refrigeration</div>
+                    <h3 class="product-title">TASHA French Door Pro</h3>
+                    <div class="product-price">$2,499 <span>$2,999</span></div>
+                    <a href="refrigeration.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            <!-- Product 2 - Cookware Set -->
+            <div class="product-card">
+                <div class="product-badge">-30%</div>
+                <img class="product-img" src="image/10 piece stainless.jpg" alt="10-Piece Stainless Steel Cookware Set" width="400" height="300">
+                <div class="product-info">
+                    <div class="product-category">Cookware</div>
+                    <h3 class="product-title">10-Piece Stainless Steel Set</h3>
+                    <div class="product-price">$449 <span>$649</span></div>
+                    <a href="cookware.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            <!-- Product 3 - Knife Set -->
+            <div class="product-card">
+                <div class="product-badge">HOT</div>
+                <img class="product-img" src="image/knives.webp" alt="Professional Forged Knife Block" width="400" height="300">
+                <div class="product-info">
+                    <div class="product-category">Knives and tools</div>
+                    <h3 class="product-title">Professional Forged Knife Block (6-pc)</h3>
+                    <div class="product-price">$299 <span>$399</span></div>
+                    <a href="knives-tools.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            <!-- Product 4 - Smart Oven -->
+            <div class="product-card">
+                <div class="product-badge">NEW</div>
+                <img class="product-img" src="image/AI Smart Convection Oven.jpg" alt="AI Smart Convection Oven" width="400" height="300">
+                <div class="product-info">
+                    <div class="product-category">Appliances</div>
+                    <h3 class="product-title">AI Smart Convection Oven</h3>
+                    <div class="product-price">$899 <span>$1,099</span></div>
+                    <a href="appliances.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            <!-- Product 5 - Food Storage -->
+            <div class="product-card">
+                <div class="product-badge">Eco</div>
+                <img class="product-img" src="image/Glasslock 18-Piece Set.jpg" alt="Glasslock 18-Piece Food Storage Set" width="400" height="300">
+                <div class="product-info">
+                    <div class="product-category">Food Storage</div>
+                    <h3 class="product-title">Glasslock 18-Piece Set</h3>
+                    <div class="product-price">$79 <span>$129</span></div>
+                    <a href="food-storage.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            <!-- Product 6 - Laundry Washer -->
+            <div class="product-card">
+                <div class="product-badge">⚡ ENERGY STAR</div>
+                <img class="product-img" src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400&h=300&fit=crop&auto=format" alt="Smart Front Load Washer" width="400" height="300">
+                <div class="product-info">
+                    <div class="product-category">Laundry</div>
+                    <h3 class="product-title">Smart Front Load Washer</h3>
+                    <div class="product-price">$1,299 <span>$1,599</span></div>
+                    <a href="laundry.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            <!-- Product 7 - Coffee Grinder -->
+            <div class="product-card">
+                <div class="product-badge">LIMITED</div>
+                <img class="product-img" src="image/coffee_grinder_resized_1284x936.jpg" alt="Precision Burr Coffee Grinder" width="400px" height="300px">
+                <div class="product-info">
+                    <div class="product-category">Other accessories</div>
+                    <h3 class="product-title">Precision Burr Coffee Grinder</h3>
+                    <div class="product-price">$159 <span>$199</span></div>
+                    <a href="other-accessories.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+            <!-- Product 8 - Bottom Freezer -->
+            <div class="product-card">
+                <div class="product-badge">POPULAR</div>
+                <img class="product-img" src="image/bottom freezer.avif" alt="Bottom Freezer Refrigerator 24 cu. ft." width="400" height="300">
+                <div class="product-info">
+                    <div class="product-category">Refrigeration</div>
+                    <h3 class="product-title">Bottom Freezer 24 cu. ft.</h3>
+                    <div class="product-price">$1,899 <span>$2,199</span></div>
+                    <a href="refrigeration.html" class="btn-small">View Deal</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-truck"></i>
+            <h3>Free Shipping</h3>
+            <p>On orders over $99</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h3>5-Year Warranty</h3>
+            <p>Premium protection</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-credit-card"></i>
+            <h3>Secure Payments</h3>
+            <p>128-bit encrypted</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-undo-alt"></i>
+            <h3>30-Day Returns</h3>
+            <p>Hassle-free policy</p>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>TASHA</h3>
+                <p>Premium kitchen appliances designed for those who appreciate excellence in every detail. Crafted with passion, built to last.</p>
+                <p>Milan • New York • Tokyo • Dubai</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="cookware.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Via Monte Napoleone, 20121 Milan, Italy</p>
+                <p><i class="fas fa-phone"></i> +39 02 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> info@tasha.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TASHA - Premium Kitchen Appliances. All Rights Reserved.</p>
+            <p>Excellence in Every Detail</p>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // ---------- HERO SLIDESHOW ----------
+        let heroSlideIndex = 0;
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        const heroDots = document.querySelectorAll('.hero-dot');
+        let heroInterval = setInterval(nextHeroSlide, 5000);
+
+        function showHeroSlide(index) {
+            if (index >= heroSlides.length) index = 0;
+            if (index < 0) index = heroSlides.length - 1;
+            heroSlides.forEach(slide => slide.classList.remove('active'));
+            heroSlides[index].classList.add('active');
+            heroDots.forEach(dot => dot.classList.remove('active'));
+            heroDots[index].classList.add('active');
+            heroSlideIndex = index;
+        }
+
+        function nextHeroSlide() { showHeroSlide(heroSlideIndex + 1); resetHeroTimer(); }
+        function prevHeroSlide() { showHeroSlide(heroSlideIndex - 1); resetHeroTimer(); }
+        function currentHeroSlide(index) { showHeroSlide(index); resetHeroTimer(); }
+        function resetHeroTimer() {
+            clearInterval(heroInterval);
+            heroInterval = setInterval(nextHeroSlide, 5000);
+        }
+
+        const heroSlideshow = document.querySelector('.hero-slideshow');
+        heroSlideshow.addEventListener('mouseenter', () => clearInterval(heroInterval));
+        heroSlideshow.addEventListener('mouseleave', () => {
+            heroInterval = setInterval(nextHeroSlide, 5000);
+        });
+
+        // ---------- DISCOUNT CAROUSEL ("MOVE SLIDE") ----------
+        let discountIndex = 0;
+        const discountCarousel = document.getElementById('discountCarousel');
+        const discountCards = document.querySelectorAll('.discount-card');
+        const discountDots = document.querySelectorAll('.discount-dot');
+        let cardWidth = discountCards[0]?.offsetWidth + 32; // width + gap
+        let discountInterval = setInterval(nextDiscountSlide, 4000);
+
+        function showDiscountSlide(index) {
+            const totalCards = discountCards.length;
+            if (index >= totalCards) index = 0;
+            if (index < 0) index = totalCards - 1;
+            
+            if (discountCarousel) {
+                discountCarousel.style.transform = `translateX(-${index * cardWidth}px)`;
+            }
+            
+            discountDots.forEach(dot => dot.classList.remove('active'));
+            discountDots[index]?.classList.add('active');
+            
+            discountIndex = index;
+        }
+
+        function nextDiscountSlide() { showDiscountSlide(discountIndex + 1); resetDiscountTimer(); }
+        function prevDiscountSlide() { showDiscountSlide(discountIndex - 1); resetDiscountTimer(); }
+        function currentDiscountSlide(index) { showDiscountSlide(index); resetDiscountTimer(); }
+        function resetDiscountTimer() {
+            clearInterval(discountInterval);
+            discountInterval = setInterval(nextDiscountSlide, 4000);
+        }
+
+        window.addEventListener('resize', function() {
+            cardWidth = discountCards[0]?.offsetWidth + 32;
+            showDiscountSlide(discountIndex);
+        });
+
+        const discountContainer = document.querySelector('.discount-carousel-container');
+        if (discountContainer) {
+            discountContainer.addEventListener('mouseenter', () => clearInterval(discountInterval));
+            discountContainer.addEventListener('mouseleave', () => {
+                discountInterval = setInterval(nextDiscountSlide, 4000);
+            });
+        }
+
+        // ---------- HAMBURGER MENU ----------
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') !== '#') {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // ---------- LIVE COUNTDOWN TIMER FOR FLASH DEALS ----------
+        const timerElement = document.getElementById('timer-countdown');
+        // Set end time to 24 hours from now (stored in localStorage to persist across refreshes)
+        let countdownEndTime = localStorage.getItem('discountEndTime');
+        if (!countdownEndTime) {
+            countdownEndTime = new Date().getTime() + 24 * 60 * 60 * 1000;
+            localStorage.setItem('discountEndTime', countdownEndTime);
+        } else {
+            countdownEndTime = parseInt(countdownEndTime);
+            // If the saved time is in the past, reset to 24 hours from now
+            if (countdownEndTime <= new Date().getTime()) {
+                countdownEndTime = new Date().getTime() + 24 * 60 * 60 * 1000;
+                localStorage.setItem('discountEndTime', countdownEndTime);
+            }
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownEndTime - now;
+            
+            // If countdown finishes, reset to 24 hours for continuous demo
+            if (distance <= 0) {
+                countdownEndTime = new Date().getTime() + 24 * 60 * 60 * 1000;
+                localStorage.setItem('discountEndTime', countdownEndTime);
+            }
+            
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            timerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Run immediately and then every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

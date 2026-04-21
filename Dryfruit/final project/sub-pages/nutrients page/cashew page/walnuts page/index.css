@@ -1,0 +1,161 @@
+root {
+    --brown-dark: #5a3b27;
+    --brown-medium: #8c5a3c;
+    --brown-light: #d4b89c;
+    --bg-light: #4b2e1e;
+    --text-dark: #3a2a20;
+    --white: #4b2e1e;
+}
+.right.fade-up.delay {
+    background: #4b2b1e;
+    color: white;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+}
+
+/* LEFT PANEL */
+.left {
+    .left {
+    background: var(--brown-light);
+    border-radius: 15px;
+    padding: 35px 40px 50px 40px;
+    color: var(--brown-dark);
+    position: relative;
+    border: 3px solid var(--brown-medium);  /* <-- added brown border */
+} relative;
+}
+
+.screenshot {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgb(140 90 60 / 0.3);
+    margin-bottom: 35px;
+    display: block;
+}
+
+.left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    background-color: ;
+}
+
+.intro {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--brown-dark);
+}
+
+.checklist {
+    list-style: none;
+}
+
+.checklist li {
+    margin-bottom: 12px;
+    font-size: 15px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--brown-medium);
+    font-weight: bold;
+}
+
+/* RIGHT PANEL */
+.right {
+     background: var(--white);
+    border-radius: 15px;
+    padding: 30px 30px 30px 45px;
+    box-shadow: 0 8px 15px #4b2e1e;
+    color: var(--text-dark);
+    border: 3px solid var(--brown-medium); 
+}
+
+.right h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: var(--brown-dark);
+}
+
+.right p {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.right span {
+    font-size: 14px;
+    color: var(--brown-medium);
+}
+
+.table div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #4b2e1e;
+    font-size: 14px;
+}
+
+/* ANIMATIONS */
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: fadeUp 1s ease forwards;
+}
+
+.delay {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    .screenshot {
+        max-width: 100%;
+    }
+}
+div.right fade-up delay{
+  color: #4b2e1e;
+}

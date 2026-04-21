@@ -1,0 +1,892 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Doctors – MediCare Hospital</title>
+    <meta
+      name="description"
+      content="Meet the expert medical team at MediCare Hospital."
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="home-images/logo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div id="preloader"><div class="pulse"></div></div>
+
+    <div class="emergency-banner">
+      <i class="fas fa-ambulance me-2"></i>
+      <strong>24/7 Emergency Services Available</strong> – Call us:
+      <a href="tel:+18001234567">+1 (800) 123-4567</a>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+          <div class="brand-text">
+            <div class="brand-name">MediCare</div>
+            <div class="brand-tagline">Advanced Hospital</div>
+          </div>
+        </a>
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html"
+                ><i class="fas fa-home me-1"></i>Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="departments.html">Departments</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="doctors.html">Doctors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gallery.html">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item ms-2">
+              <a class="nav-link nav-btn" href="appointment.html"
+                ><i class="fas fa-calendar-plus me-1"></i>Book Appointment</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+      <div class="container text-center">
+        <h1 class="fade-up">Our Doctors</h1>
+        <nav aria-label="breadcrumb" class="fade-up">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Doctors</li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <section class="section-pad-sm pb-0">
+      <div class="container">
+        <div class="text-center fade-up mb-4">
+          <span
+            class="text-primary-custom fw-semibold text-uppercase"
+            style="font-size: 0.82rem; letter-spacing: 1px"
+            >Expert Team</span
+          >
+          <h2 class="section-title mt-1">Meet Our Specialists</h2>
+          <div class="divider"></div>
+          <p class="section-subtitle">
+            120+ board-certified physicians dedicated to providing world-class
+            medical care.
+          </p>
+        </div>
+        <!-- Filter Buttons -->
+        <div
+          class="d-flex flex-wrap justify-content-center gap-2 mb-4 fade-up"
+          id="filterBtns"
+        >
+          <button class="filter-btn active" data-filter="all">
+            All Doctors
+          </button>
+          <button class="filter-btn" data-filter="cardiology">
+            Cardiology
+          </button>
+          <button class="filter-btn" data-filter="neurology">Neurology</button>
+          <button class="filter-btn" data-filter="pediatrics">
+            Pediatrics
+          </button>
+          <button class="filter-btn" data-filter="orthopedics">
+            Orthopedics
+          </button>
+          <button class="filter-btn" data-filter="general">
+            General Medicine
+          </button>
+          <button class="filter-btn" data-filter="gynecology">
+            Gynecology
+          </button>
+          <button class="filter-btn" data-filter="dermatology">
+            Dermatology
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .filter-btn {
+        background: var(--white);
+        color: var(--text);
+        border: 1.5px solid var(--border);
+        border-radius: 50px;
+        padding: 7px 18px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+      .doctor-item {
+        transition: all 0.3s ease;
+      }
+      .doctor-item.hidden {
+        display: none !important;
+      }
+    </style>
+
+    <!-- ==================== DOCTORS GRID ==================== -->
+    <section class="section-pad" style="padding-top: 20px">
+      <div class="container">
+        <div class="row g-4" id="doctorsGrid">
+          <!-- Dr. James Wilson – Cardiology -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="cardiology"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. James Wilson.jpg"
+                  alt="Dr. James Wilson"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. James Wilson</h5>
+                <span class="specialty">Cardiology</span>
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, MD (Cardiology)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Mon–Fri, 9am–4pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.9 · 320 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#" title="LinkedIn"
+                    ><i class="fab fa-linkedin-in"></i
+                  ></a>
+                  <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html" title="Book"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Sarah Miller – Cardiology -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="cardiology"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Sarah Miller.jpg"
+                  alt="Dr. Sarah Miller"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Sarah Miller</h5>
+                <span class="specialty">Cardiology</span>
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, DM (Cardiology)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Tue–Sat, 10am–5pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.8 · 295 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Alan Grant – Neurology -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="neurology"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Alan Grant.webp"
+                  alt="Dr. Alan Grant"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Alan Grant</h5>
+                <span
+                  class="specialty"
+                  style="background: #f0e8fd; color: #8e44ad"
+                  >Neurology</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, DM (Neurology)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Mon–Thu, 8am–3pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.7 · 210 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Linda Carter – Neurology -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="neurology"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Linda Carter.jpg"
+                  alt="Dr. Linda Carter"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Linda Carter</h5>
+                <span
+                  class="specialty"
+                  style="background: #f0e8fd; color: #8e44ad"
+                  >Neurology</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, MD
+                    (Neuroscience)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Wed–Sat, 9am–4pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.9 · 180 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Emma Brown – Pediatrics -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="pediatrics"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Emma Brown.jpg"
+                  alt="Dr. Emma Brown"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Emma Brown</h5>
+                <span
+                  class="specialty"
+                  style="background: #e8f8fe; color: #17a2b8"
+                  >Pediatrics</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, DCH (Pediatrics)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Mon–Fri, 9am–3pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.9 · 410 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Noah Davis – Pediatrics -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="pediatrics"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Noah Davis.jpg"
+                  alt="Dr. Noah Davis"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Noah Davis</h5>
+                <span
+                  class="specialty"
+                  style="background: #e8f8fe; color: #17a2b8"
+                  >Pediatrics</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, MD (Pediatrics)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Mon–Thu, 9am–3pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.8 · 310 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Oliver Smith – Orthopedics -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="orthopedics"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Oliver Smith.webp"
+                  alt="Dr. Oliver Smith"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Oliver Smith</h5>
+                <span
+                  class="specialty"
+                  style="background: #eafaf1; color: #27ae60"
+                  >Orthopedics</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, MS (Ortho)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Tue–Sat, 10am–5pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.8 · 245 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Sophia Jones – Orthopedics -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="orthopedics"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Sophia Jones.webp"
+                  alt="Dr. Sophia Jones"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Sophia Jones</h5>
+                <span
+                  class="specialty"
+                  style="background: #eafaf1; color: #27ae60"
+                  >Orthopedics</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, DNB (Ortho)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Wed–Sun, 10am–6pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.7 · 180 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Liam Taylor – General Medicine -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="general"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Liam Taylor.jpg"
+                  alt="Dr. Liam Taylor"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Liam Taylor</h5>
+                <span class="specialty">General Medicine</span>
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, MD (Internal
+                    Med)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Mon–Sat, 9am–6pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.6 · 390 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Ava White – General Medicine -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="general"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img src="home-images/Dr. Ava White.avif" alt="Dr. Ava White" />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Ava White</h5>
+                <span class="specialty">General Medicine</span>
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, MRCP
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Mon–Thu, 9am–3pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.8 · 260 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Mia Hall – Gynecology -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="gynecology"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img src="home-images/Dr. Mia Hall.jpg" alt="Dr. Mia Hall" />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Mia Hall</h5>
+                <span
+                  class="specialty"
+                  style="background: #fde8f4; color: #e91e8c"
+                  >Gynecology</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, MS (OBG)
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Mon–Fri, 10am–5pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.9 · 350 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dr. Ethan Harris – Dermatology -->
+          <div
+            class="col-sm-6 col-lg-4 col-xl-3 fade-up doctor-item"
+            data-dept="dermatology"
+          >
+            <div class="doctor-card">
+              <div class="doc-img-wrap">
+                <img
+                  src="home-images/Dr. Ethan Harris.avif"
+                  alt="Dr. Ethan Harris"
+                />
+              </div>
+              <div class="doc-body">
+                <h5>Dr. Ethan Harris</h5>
+                <span
+                  class="specialty"
+                  style="background: #fef3e8; color: #f39c12"
+                  >Dermatology</span
+                >
+                <div class="doc-meta mt-2">
+                  <div class="mb-1">
+                    <i class="fas fa-graduation-cap"></i> MBBS, DVD
+                  </div>
+                  <div class="mb-1">
+                    <i class="fas fa-clock"></i> Tue–Sat, 11am–6pm
+                  </div>
+                  <div>
+                    <i class="fas fa-star text-warning"></i> 4.7 · 195 reviews
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fas fa-envelope"></i></a>
+                  <a href="appointment.html"
+                    ><i class="fas fa-calendar-check"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No results message -->
+        <div id="noResults" class="text-center py-5" style="display: none">
+          <i class="fas fa-search fa-3x text-muted mb-3"></i>
+          <p class="text-muted">No doctors found for this department.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section
+      class="section-pad-sm"
+      style="background: linear-gradient(135deg, #0d4f9e, #27ae60)"
+    >
+      <div class="container text-center">
+        <h2 class="text-white mb-3 fade-up">Book a Consultation Today</h2>
+        <p class="text-white opacity-75 mb-4 fade-up">
+          Choose your preferred doctor and schedule a visit at your convenience.
+        </p>
+        <a href="appointment.html" class="btn-hero-primary fade-up"
+          ><i class="fas fa-calendar-plus me-2"></i>Book Appointment</a
+        >
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-top">
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <div class="footer-brand">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div
+                    style="
+                      width: 38px;
+                      height: 38px;
+                      background: linear-gradient(135deg, #1a6fc4, #27ae60);
+                      border-radius: 9px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <i class="fas fa-heartbeat text-white"></i>
+                  </div>
+                  <span class="brand-name">MediCare Hospital</span>
+                </div>
+                <p>
+                  Dedicated to providing world-class healthcare services with
+                  compassion, innovation, and excellence since 1999.
+                </p>
+                <div class="social-links">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-lg-2">
+              <h6>Quick Links</h6>
+              <ul>
+                <li>
+                  <a href="index.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Home</a
+                  >
+                </li>
+                <li>
+                  <a href="about.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a href="departments.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Departments</a
+                  >
+                </li>
+                <li>
+                  <a href="doctors.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Our Doctors</a
+                  >
+                </li>
+                <li>
+                  <a href="gallery.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Gallery</a
+                  >
+                </li>
+                <li>
+                  <a href="contact.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Contact</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="col-6 col-lg-3">
+              <h6>Departments</h6>
+              <ul>
+                <li>
+                  <a href="departments.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Cardiology</a
+                  >
+                </li>
+                <li>
+                  <a href="departments.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Neurology</a
+                  >
+                </li>
+                <li>
+                  <a href="departments.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Pediatrics</a
+                  >
+                </li>
+                <li>
+                  <a href="departments.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >Orthopedics</a
+                  >
+                </li>
+                <li>
+                  <a href="departments.html"
+                    ><i
+                      class="fas fa-chevron-right me-1"
+                      style="font-size: 0.65rem"
+                    ></i
+                    >General Medicine</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-3">
+              <h6>Contact Us</h6>
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i
+                ><span>123 Health Avenue, NY 10001</span>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i
+                ><a
+                  href="tel:+18001234567"
+                  style="color: rgba(255, 255, 255, 0.7)"
+                  >+1 (800) 123-4567</a
+                >
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i
+                ><a
+                  href="mailto:info@medicare.com"
+                  style="color: rgba(255, 255, 255, 0.7)"
+                  >info@medicare.com</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div
+          class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2"
+        >
+          <span>© 2025 MediCare Hospital. All rights reserved.</span>
+          <span
+            >Designed with <i class="fas fa-heart text-danger mx-1"></i> for
+            better healthcare</span
+          >
+        </div>
+      </div>
+    </footer>
+
+    <button id="scrollTop" title="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      /* ---- Doctor Filter JS ---- */
+      document.addEventListener("DOMContentLoaded", function () {
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        const doctorItems = document.querySelectorAll(".doctor-item");
+        const noResults = document.getElementById("noResults");
+
+        filterBtns.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            filterBtns.forEach((b) => b.classList.remove("active"));
+            this.classList.add("active");
+
+            const filter = this.getAttribute("data-filter");
+            let visibleCount = 0;
+
+            doctorItems.forEach((item) => {
+              const dept = item.getAttribute("data-dept");
+              if (filter === "all" || dept === filter) {
+                item.classList.remove("hidden");
+                visibleCount++;
+              } else {
+                item.classList.add("hidden");
+              }
+            });
+            noResults.style.display = visibleCount === 0 ? "block" : "none";
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

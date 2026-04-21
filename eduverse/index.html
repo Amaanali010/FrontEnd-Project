@@ -1,0 +1,192 @@
+<!-- eduverse/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>EDUVERSE · Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ===== SAME NAVBAR EVERY PAGE ===== -->
+  <nav class="navbar">
+    <div class="logo">
+      <span class="logo-icon">🌀</span>
+      <span>EDUVERSE</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="instructors.html">Instructors</a></li>
+      <li><a href="testimonials.html">Testimonials</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- HERO - PERFECTLY CENTERED, NO TILT -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>learn beyond<br>the universe</h1>
+        <p class="hero-sub">pink · blue · infinite glow</p>
+        <div class="hero-buttons">
+          <!-- WORKING DROPDOWN for COURSE CATEGORIES -->
+          <div class="dropdown">
+            <button class="dropbtn">📚 Explore Categories ▼</button>
+            <div class="dropdown-content">
+              <a href="categories.html#prog">Programming</a>
+              <a href="categories.html#web">Web Development</a>
+              <a href="categories.html#data">Data Science</a>
+              <a href="categories.html#design">Design</a>
+              <a href="categories.html#digital">Digital Marketing</a>
+            </div>
+          </div>
+          <a href="courses.html"><button class="btn-pink">✨ view all courses</button></a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="fotos/first foto.webp" alt="student learning online" loading="lazy">
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTED COURSES - ACCURATE IMAGES (CODING, WEB, DATA, DESIGN, MARKETING, SECURITY) -->
+    <section class="long-home-section">
+      <h2 class="section-title">🔥 trending courses</h2>
+      <div class="card-grid">
+        <div class="card">
+          <img src= "fotos/python.jpeg"
+          <p>24hr · fees $299</p>
+          <p class="rating">⭐ 4.9 (12.4k)</p>
+        </div>
+        <div class="card">
+          <img src="fotos/mern.jpeg" loading="lazy">
+          <h3>Full‑Stack MERN</h3>
+          <p>40hr · fees $449</p>
+          <p class="rating">⭐ 4.8 (8.2k)</p>
+        </div>
+        <div class="card">
+          <img src="fotos/ds.webp" loading="lazy">
+          <h3>Data Science Master</h3>
+          <p>36hr · fees $399</p>
+          <p class="rating">⭐ 4.9 (5.9k)</p>
+        </div>
+        <div class="card">
+          <img src="fotos/ui ux.jpeg" loading="lazy">
+          <h3>UI/UX with Figma</h3>
+          <p>18hr · fees $249</p>
+          <p class="rating">⭐ 4.7 (3.1k)</p>
+        </div>
+        <div class="card">
+          <img src="fotos/growth market.jpeg" alt="digital marketing seo" loading="lazy">
+          <h3>Growth Marketing</h3>
+          <p>15hr · fees $199</p>
+          <p class="rating">⭐ 4.6 (2.3k)</p>
+        </div>
+        <div class="card">
+          <img src="fotos/security.webp" alt="cybersecurity protection" loading="lazy">
+          <h3>CyberSecurity+</h3>
+          <p>28hr · fees $379</p>
+          <p class="rating">⭐ 4.8 (1.9k)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTRUCTOR SPOTLIGHT - PROFESSIONAL CORPORATE HEADSHOTS (MATCHING INSTRUCTORS PAGE) -->
+    <section class="long-home-section alt-bg">
+      <h2 class="section-title">👨‍🏫 star instructors</h2>
+      <div class="card-grid">
+        <div class="card">
+          <img src="fotos/alina.webp" alt="Dr. Alina Khan - Female AI Professor" loading="lazy">
+          <h3>Dr. Alina Khan</h3>
+          <p class="instructor-tag pink-tag">PhD, Artificial Intelligence</p>
+          <p class="instructor-bio">Former Principal Scientist at Google Brain. Stanford CS adjunct faculty.</p>
+        </div>
+        <div class="card">
+          <img src="fotos/james.jpeg" alt="James Carter - Male Web Architect" loading="lazy">
+          <h3>James Carter</h3>
+          <p class="instructor-tag blue-tag">Senior Full-Stack Architect</p>
+          <p class="instructor-bio">Ex-Meta staff engineer, led React core team. 14+ years experience.</p>
+        </div>
+        <div class="card">
+          <img src="fotos/maya.webp" alt="Maya Rodriguez - Female Marketing Director" loading="lazy">
+          <h3>Maya Rodriguez</h3>
+          <p class="instructor-tag pink-tag">Chief Marketing Strategist</p>
+          <p class="instructor-bio">Forbes 30 Under 30, grew SaaS brands to $50M ARR.</p>
+        </div>
+        <div class="card">
+          <img src="fotos/elena.jpeg"Elena Wu - Female UX Director" loading="lazy">
+          <h3>Elena Wu</h3>
+          <p class="instructor-tag blue-tag">Adobe Design Achievement Award</p>
+          <p class="instructor-bio">8+ years leading product design at Figma and Adobe.</p>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="instructors.html" class="btn-pink" style="display: inline-block; text-decoration: none;">✨ meet all instructors</a>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS - TEXT ONLY, ELEGANT QUOTE CARDS (MATCHING TESTIMONIALS PAGE) -->
+    <section class="long-home-section">
+      <h2 class="section-title">💬 learner love</h2>
+      <div class="testimonials-grid">
+        <!-- FEMALE student - Riya S. -->
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p class="testimonial-text">"After completing EDUVERSE's Data Science Master track, I was promoted to Senior Data Analyst within 3 months. The practical projects and mentor support were exceptional."</p>
+            <div class="testimonial-author">
+              <h3>— Riya S.</h3>
+              <span class="student-role">Senior Data Analyst, Microsoft</span>
+            </div>
+          </div>
+        </div>
+        <!-- MALE student - Mark T. -->
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p class="testimonial-text">"The Full-Stack MERN program transformed my career. I went from self-taught beginner to landing a $120k role at Amazon. The curriculum is world-class."</p>
+            <div class="testimonial-author">
+              <h3>— Mark T.</h3>
+              <span class="student-role">Frontend Engineer, Amazon</span>
+            </div>
+          </div>
+        </div>
+        <!-- FEMALE student - Priya K. -->
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p class="testimonial-text">"Elena Wu's UI/UX course gave me the portfolio I needed. I'm now a Product Designer at a fast-growing unicorn startup. Couldn't have done it without EDUVERSE."</p>
+            <div class="testimonial-author">
+              <h3>— Priya K.</h3>
+              <span class="student-role">Product Designer, Canva</span>
+            </div>
+          </div>
+        </div>
+        <!-- MALE student - Alex N. -->
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <p class="testimonial-text">"Zero coding experience to full-stack developer in 6 months. The career support team helped me prepare for interviews. Now I'm earning 5x my previous salary."</p>
+            <div class="testimonial-author">
+              <h3>— Alex N.</h3>
+              <span class="student-role">Full Stack Developer, Shopify</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="testimonials.html" class="btn-blue" style="display: inline-block; text-decoration: none;">💖 read more stories</a>
+      </div>
+    </section>
+    
+    <!-- CTA REGISTER BUTTON -->
+    <div class="cta-section">
+      <a href="register.html"><button class="btn-blue cta-button">🎓 register now →</button></a>
+    </div>
+  </main>
+
+  <footer>
+    <p>🌀 EDUVERSE — learn beyond limits. All images from Pexels (free). pink·blue forever.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
