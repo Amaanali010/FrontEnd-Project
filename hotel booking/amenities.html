@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aurélia — Amenities & Facilities</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --gold:#C8A96E; --gold-light:#E2CFA3; --gold-dark:#9A7A44;
+      --deep:#0E0C0A; --charcoal:#1C1A17; --warm-white:#F8F5F0;
+      --muted:#9A9590; --border:rgba(200,169,110,.22);
+      --ff-display:'Cormorant Garamond',serif; --ff-body:'DM Sans',sans-serif;
+      --tr:.35s cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--ff-body);background:var(--warm-white);color:var(--charcoal);overflow-x:hidden;line-height:1.7}
+    h1,h2,h3,h4{font-family:var(--ff-display);font-weight:400}
+    a{text-decoration:none;color:inherit}
+    ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--deep)} ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+    /* ===== NAVBAR ===== */
+    #mainNav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(14,12,10,.97);padding:14px 0;border-bottom:1px solid var(--border)}
+    .nav-logo{font-family:var(--ff-display);font-size:1.75rem;font-weight:300;letter-spacing:.12em;color:var(--warm-white)}
+    .nav-logo span{color:var(--gold);font-style:italic}
+    .navbar-nav .nav-link{font-size:.78rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(248,245,240,.7)!important;padding:6px 16px!important;transition:color var(--tr)}
+    .navbar-nav .nav-link:hover,.navbar-nav .nav-link.active{color:var(--gold)!important}
+    .btn-nav-book{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--deep)!important;background:var(--gold);border:none;padding:8px 24px!important;border-radius:0;transition:background var(--tr)}
+    .btn-nav-book:hover{background:var(--gold-light)}
+    .navbar-toggler{border:1px solid var(--border);padding:6px 10px}
+    .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28200,169,110,1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+
+    /* ===== PAGE HERO ===== */
+    .page-hero{
+      height:460px; position:relative; display:flex; align-items:flex-end;
+      background:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1800&q=80') center/cover no-repeat;
+      margin-top:0; /* nav is already solid */
+    }
+    .page-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,12,10,.88) 0%,rgba(14,12,10,.3) 100%)}
+    .page-hero-content{position:relative;z-index:1;padding-bottom:64px}
+    .page-eyebrow{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+    .page-title{font-size:clamp(2.4rem,5vw,4.2rem);color:var(--warm-white);font-weight:300;line-height:1.05}
+    .page-title em{color:var(--gold);font-style:italic}
+    .page-subtitle{font-size:.92rem;color:rgba(248,245,240,.6);max-width:460px;margin-top:14px}
+
+    /* ===== SHARED ===== */
+    section{padding:100px 0}
+    .section-eyebrow{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+    .section-title{font-size:clamp(2.2rem,4.5vw,3.4rem);line-height:1.1;font-weight:300;color:var(--charcoal)}
+    .section-title em{color:var(--gold-dark);font-style:italic}
+    .section-title-white{color:var(--warm-white)}
+    .section-title-white em{color:var(--gold)}
+    .divider-gold{width:52px;height:1px;background:var(--gold);margin:22px 0 40px}
+    .divider-gold.mx-auto{margin-left:auto;margin-right:auto}
+
+    /* ===== HERO AMENITY TILES ===== */
+    #overview{background:var(--warm-white)}
+    .amenity-tile{
+      position:relative; overflow:hidden; height:340px; cursor:pointer;
+    }
+    .amenity-tile img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+    .amenity-tile:hover img{transform:scale(1.07)}
+    .amenity-tile-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(14,12,10,.88) 0%,rgba(14,12,10,.1) 60%);
+      display:flex;flex-direction:column;justify-content:flex-end;
+      padding:28px;transition:background var(--tr);
+    }
+    .amenity-tile:hover .amenity-tile-overlay{background:linear-gradient(to top,rgba(14,12,10,.94) 0%,rgba(14,12,10,.3) 60%)}
+    .tile-icon{font-size:1.6rem;color:var(--gold);margin-bottom:10px;display:block}
+    .tile-name{font-family:var(--ff-display);font-size:1.45rem;font-weight:300;color:var(--warm-white);margin-bottom:6px}
+    .tile-desc{font-size:.8rem;color:rgba(248,245,240,.65);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .4s ease}
+    .amenity-tile:hover .tile-desc{max-height:80px}
+
+    /* ===== DETAILED AMENITY CARDS ===== */
+    #details{background:var(--charcoal);position:relative;overflow:hidden}
+    #details::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1800&q=40') center/cover no-repeat;opacity:.06}
+    .detail-card{
+      position:relative;z-index:1;
+      border:1px solid var(--border);padding:38px 32px;
+      transition:border-color var(--tr),background var(--tr),transform var(--tr);
+      height:100%;
+    }
+    .detail-card:hover{border-color:var(--gold);background:rgba(200,169,110,.05);transform:translateY(-4px)}
+    .detail-card-icon{font-size:2.2rem;color:var(--gold);margin-bottom:20px;display:block}
+    .detail-card-title{font-family:var(--ff-display);font-size:1.35rem;color:var(--warm-white);margin-bottom:12px}
+    .detail-card-desc{font-size:.84rem;color:rgba(248,245,240,.55);line-height:1.75;margin-bottom:20px}
+    .detail-card-list{list-style:none;padding:0}
+    .detail-card-list li{font-size:.8rem;color:rgba(248,245,240,.5);padding:5px 0;border-bottom:1px solid rgba(200,169,110,.1);display:flex;align-items:center;gap:8px}
+    .detail-card-list li:last-child{border-bottom:none}
+    .detail-card-list i{color:var(--gold);font-size:.75rem}
+
+    /* ===== SPA HIGHLIGHT (Full-width feature) ===== */
+    #spaFeature{padding:0}
+    .spa-split{display:grid;grid-template-columns:1fr 1fr;min-height:560px}
+    @media(max-width:767px){.spa-split{grid-template-columns:1fr}}
+    .spa-img{overflow:hidden}
+    .spa-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+    .spa-img:hover img{transform:scale(1.04)}
+    .spa-content{background:var(--deep);display:flex;flex-direction:column;justify-content:center;padding:72px 64px}
+    @media(max-width:991px){.spa-content{padding:52px 40px}}
+    @media(max-width:767px){.spa-content{padding:52px 32px}}
+    .spa-feature-item{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}
+    .spa-feature-icon{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1rem;flex-shrink:0;margin-top:2px}
+    .spa-feature-title{font-family:var(--ff-display);font-size:1.1rem;color:var(--warm-white);margin-bottom:4px}
+    .spa-feature-desc{font-size:.82rem;color:rgba(248,245,240,.5);line-height:1.65}
+
+    /* ===== DINING SECTION ===== */
+    #dining{background:var(--warm-white)}
+    .dining-card{overflow:hidden;border:1px solid rgba(0,0,0,.07);transition:box-shadow var(--tr),transform var(--tr);height:100%}
+    .dining-card:hover{box-shadow:0 20px 50px rgba(0,0,0,.12);transform:translateY(-5px)}
+    .dining-img-wrap{height:220px;overflow:hidden}
+    .dining-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+    .dining-card:hover .dining-img-wrap img{transform:scale(1.06)}
+    .dining-body{padding:28px}
+    .dining-badge{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px;display:block}
+    .dining-name{font-family:var(--ff-display);font-size:1.4rem;color:var(--charcoal);margin-bottom:10px}
+    .dining-desc{font-size:.84rem;color:var(--muted);line-height:1.65;margin-bottom:16px}
+    .dining-hours{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+    .dining-hours i{color:var(--gold)}
+
+    /* ===== GALLERY STRIP ===== */
+    #gallery{padding:80px 0;background:var(--deep)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:200px 200px;gap:4px}
+    @media(max-width:991px){.gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(4,200px)}}
+    @media(max-width:575px){.gallery-grid{grid-template-columns:1fr;grid-template-rows:repeat(5,220px)}}
+    .g-item{overflow:hidden;position:relative}
+    .g-item:first-child{grid-column:span 2;grid-row:span 2}
+    @media(max-width:991px){.g-item:first-child{grid-column:span 2;grid-row:span 1}}
+    @media(max-width:575px){.g-item:first-child{grid-column:span 1;grid-row:span 1}}
+    .g-item img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease,filter .4s ease}
+    .g-item:hover img{transform:scale(1.06);filter:brightness(1.1)}
+    .g-overlay{position:absolute;inset:0;background:rgba(14,12,10,0);transition:background var(--tr);display:flex;align-items:center;justify-content:center}
+    .g-item:hover .g-overlay{background:rgba(14,12,10,.25)}
+    .g-overlay i{font-size:1.5rem;color:rgba(248,245,240,0);transition:color .3s ease}
+    .g-item:hover .g-overlay i{color:var(--gold)}
+
+    /* ===== CTA ===== */
+    #cta{background:var(--gold);padding:72px 0;text-align:center}
+    .cta-title{font-family:var(--ff-display);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--deep);margin-bottom:12px}
+    .cta-sub{font-size:.9rem;color:rgba(14,12,10,.6);max-width:400px;margin:0 auto 36px}
+    .btn-cta-dark{background:var(--deep);color:var(--warm-white);border:none;border-radius:0;font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:16px 48px;transition:background var(--tr),transform var(--tr);display:inline-block}
+    .btn-cta-dark:hover{background:var(--charcoal);transform:translateY(-2px)}
+
+    /* ===== FOOTER ===== */
+    footer{background:var(--deep);border-top:1px solid var(--border);color:rgba(248,245,240,.55)}
+    .footer-top{padding:72px 0 56px}
+    .footer-bottom{border-top:1px solid var(--border);padding:20px 0;font-size:.75rem}
+    .footer-logo{font-family:var(--ff-display);font-size:2rem;font-weight:300;letter-spacing:.1em;color:var(--warm-white);margin-bottom:14px}
+    .footer-logo span{color:var(--gold);font-style:italic}
+    .footer-tagline{font-size:.82rem;color:rgba(248,245,240,.4);max-width:240px;line-height:1.65;margin-bottom:28px}
+    .footer-heading{font-size:.65rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px}
+    .footer-links{list-style:none;padding:0}
+    .footer-links li{margin-bottom:10px}
+    .footer-links a{font-size:.85rem;color:rgba(248,245,240,.5);transition:color var(--tr)}
+    .footer-links a:hover{color:var(--gold)}
+    .footer-contact-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;font-size:.85rem}
+    .footer-contact-item i{color:var(--gold);margin-top:3px;flex-shrink:0}
+    .social-links{display:flex;gap:12px;margin-top:4px}
+    .social-link{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:rgba(248,245,240,.5);font-size:.9rem;transition:border-color var(--tr),color var(--tr),background var(--tr)}
+    .social-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,.08)}
+
+    /* ===== REVEAL ===== */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav id="mainNav" class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand nav-logo" href="index.html">Aurél<span>ia</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="rooms.html">Rooms</a></li>
+        <li class="nav-item"><a class="nav-link active" href="amenities.html">Amenities</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="rooms.html" class="btn btn-nav-book">Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== PAGE HERO ==================== -->
+<div class="page-hero" style="margin-top:57px">
+  <div class="container page-hero-content">
+    <p class="page-eyebrow">World-Class Facilities</p>
+    <h1 class="page-title">Amenities &amp; <em>Experiences</em></h1>
+    <p class="page-subtitle">Every space within Aurélia is designed to elevate — from the first breath of spa air to the final sip of a curated cocktail.</p>
+  </div>
+</div>
+
+<!-- ==================== OVERVIEW TILES ==================== -->
+<section id="overview">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <p class="section-eyebrow">At a Glance</p>
+      <h2 class="section-title">Eight <em>pillars</em> of excellence</h2>
+      <div class="divider-gold mx-auto"></div>
+      <p style="color:var(--muted);font-size:.9rem;max-width:480px;margin:0 auto">Each amenity is a destination in itself — conceived and refined to deliver experiences that surpass expectation.</p>
+    </div>
+    <div class="row g-3">
+      <!-- Tile 1 -->
+      <div class="col-lg-4 col-md-6 reveal">
+        <div class="amenity-tile">
+          <img src="images/infinity pool.jfif" alt="Infinity Pool"/>
+          <div class="amenity-tile-overlay">
+            <i class="bi bi-water tile-icon"></i>
+            <div class="tile-name">Infinity Pool</div>
+            <p class="tile-desc">Dissolve into the horizon from our heated rooftop infinity pool, open year-round with dedicated poolside service.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Tile 2 -->
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.08s">
+        <div class="amenity-tile">
+          <img src="images/spa and wellness.jfif" alt="Spa"/>
+          <div class="amenity-tile-overlay">
+            <i class="bi bi-flower1 tile-icon"></i>
+            <div class="tile-name">Spa & Wellness</div>
+            <p class="tile-desc">Nine treatment rooms, a hammam, floatation tanks, and award-winning therapists for total rejuvenation.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Tile 3 -->
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.16s">
+        <div class="amenity-tile">
+          <img src="images/fine dining.jfif" alt="Fine Dining"/>
+          <div class="amenity-tile-overlay">
+            <i class="bi bi-cup-hot tile-icon"></i>
+            <div class="tile-name">Fine Dining</div>
+            <p class="tile-desc">Three Michelin-starred restaurants with live culinary theatre and curated wine cellars.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Tile 4 -->
+      <div class="col-lg-3 col-md-6 reveal" style="transition-delay:.24s">
+        <div class="amenity-tile" style="height:280px">
+          <img src="images/fitness centre.jfif" alt="Fitness"/>
+          <div class="amenity-tile-overlay">
+            <i class="bi bi-activity tile-icon"></i>
+            <div class="tile-name">Fitness Centre</div>
+            <p class="tile-desc">Technogym equipment and daily sunrise yoga sessions.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Tile 5 -->
+      <div class="col-lg-3 col-md-6 reveal" style="transition-delay:.32s">
+        <div class="amenity-tile" style="height:280px">
+          <img src="images/business lounge.jfif" alt="Business"/>
+          <div class="amenity-tile-overlay">
+            <i class="bi bi-briefcase tile-icon"></i>
+            <div class="tile-name">Business Lounge</div>
+            <p class="tile-desc">Sophisticated meeting rooms for up to 300 delegates.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Tile 6 -->
+      <div class="col-lg-3 col-md-6 reveal" style="transition-delay:.4s">
+        <div class="amenity-tile" style="height:280px">
+          <img src="images/24h concierge.jfif" alt="Concierge"/>
+          <div class="amenity-tile-overlay">
+            <i class="bi bi-moon-stars tile-icon"></i>
+            <div class="tile-name">24h Concierge</div>
+            <p class="tile-desc">Anticipating every need, from theatre tickets to private chefs.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Tile 7 -->
+      <div class="col-lg-3 col-md-6 reveal" style="transition-delay:.48s">
+        <div class="amenity-tile" style="height:280px">
+          <img src="images/private transfer.jfif" alt="Transfer"/>
+          <div class="amenity-tile-overlay">
+            <i class="bi bi-car-front tile-icon"></i>
+            <div class="tile-name">Private Transfer</div>
+            <p class="tile-desc">Seamless airport transfers in our fleet of luxury vehicles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DETAILED AMENITY CARDS ==================== -->
+<section id="details">
+  <div class="container position-relative">
+    <div class="text-center mb-5 reveal">
+      <p class="section-eyebrow">In Depth</p>
+      <h2 class="section-title section-title-white">Every detail, <em>perfected</em></h2>
+      <div class="divider-gold mx-auto"></div>
+    </div>
+    <div class="row g-4">
+
+      <div class="col-lg-4 col-md-6 reveal">
+        <div class="detail-card">
+          <i class="bi bi-water detail-card-icon"></i>
+          <h3 class="detail-card-title">Rooftop Infinity Pool</h3>
+          <p class="detail-card-desc">An architectural marvel suspended above the Riviera — 42 metres of heated infinity pool with unbroken sea views, private cabanas, and a full poolside menu.</p>
+          <ul class="detail-card-list">
+            <li><i class="bi bi-check2"></i> Open 7AM – 10PM year-round</li>
+            <li><i class="bi bi-check2"></i> Heated to 28°C / 82°F</li>
+            <li><i class="bi bi-check2"></i> Private cabana hire available</li>
+            <li><i class="bi bi-check2"></i> Dedicated towel & cocktail service</li>
+            <li><i class="bi bi-check2"></i> Children's pool adjacent</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.08s">
+        <div class="detail-card">
+          <i class="bi bi-flower1 detail-card-icon"></i>
+          <h3 class="detail-card-title">The Aurélia Spa</h3>
+          <p class="detail-card-desc">A 3,000 sqm sanctuary of wellness featuring nine bespoke treatment rooms, a traditional hammam, hydrotherapy circuits, and an organic skincare laboratory.</p>
+          <ul class="detail-card-list">
+            <li><i class="bi bi-check2"></i> 9 private treatment suites</li>
+            <li><i class="bi bi-check2"></i> Hammam & steam rooms</li>
+            <li><i class="bi bi-check2"></i> Floatation therapy pods</li>
+            <li><i class="bi bi-check2"></i> Organic product range</li>
+            <li><i class="bi bi-check2"></i> Couples' rituals available</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.16s">
+        <div class="detail-card">
+          <i class="bi bi-activity detail-card-icon"></i>
+          <h3 class="detail-card-title">Performance Fitness</h3>
+          <p class="detail-card-desc">A 800 sqm state-of-the-art facility equipped with Technogym machines, a dedicated free-weight zone, and a mirrored yoga/pilates studio with harbour views.</p>
+          <ul class="detail-card-list">
+            <li><i class="bi bi-check2"></i> Open 24 hours daily</li>
+            <li><i class="bi bi-check2"></i> Personal trainers on request</li>
+            <li><i class="bi bi-check2"></i> Daily yoga at sunrise</li>
+            <li><i class="bi bi-check2"></i> Pilates & barre classes</li>
+            <li><i class="bi bi-check2"></i> Complimentary for all guests</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.24s">
+        <div class="detail-card">
+          <i class="bi bi-briefcase detail-card-icon"></i>
+          <h3 class="detail-card-title">Business & Events</h3>
+          <p class="detail-card-desc">Nine versatile meeting spaces and a grand ballroom for up to 300 delegates, equipped with latest AV technology and supported by a dedicated events team.</p>
+          <ul class="detail-card-list">
+            <li><i class="bi bi-check2"></i> Grand Ballroom — 300 capacity</li>
+            <li><i class="bi bi-check2"></i> 8 boardroom configurations</li>
+            <li><i class="bi bi-check2"></i> Full AV & streaming support</li>
+            <li><i class="bi bi-check2"></i> Dedicated events coordinator</li>
+            <li><i class="bi bi-check2"></i> Bespoke catering packages</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.32s">
+        <div class="detail-card">
+          <i class="bi bi-car-front detail-card-icon"></i>
+          <h3 class="detail-card-title">Transfers & Concierge</h3>
+          <p class="detail-card-desc">From the moment you depart home, our concierge team is at your service. Private airport transfers, yacht charters, helicopter excursions, and tailor-made itineraries.</p>
+          <ul class="detail-card-list">
+            <li><i class="bi bi-check2"></i> Rolls-Royce & Mercedes fleet</li>
+            <li><i class="bi bi-check2"></i> Helicopter transfers available</li>
+            <li><i class="bi bi-check2"></i> Yacht & boat charters</li>
+            <li><i class="bi bi-check2"></i> 24-hour concierge desk</li>
+            <li><i class="bi bi-check2"></i> Bespoke excursion planning</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.4s">
+        <div class="detail-card">
+          <i class="bi bi-wifi detail-card-icon"></i>
+          <h3 class="detail-card-title">Technology & Connectivity</h3>
+          <p class="detail-card-desc">Ultra-fast 1 Gbps fibre WiFi blankets every corner of the resort. In-room smart controls manage lighting, temperature, entertainment, and butler requests via a single panel.</p>
+          <ul class="detail-card-list">
+            <li><i class="bi bi-check2"></i> 1 Gbps WiFi — complimentary</li>
+            <li><i class="bi bi-check2"></i> Smart room control panel</li>
+            <li><i class="bi bi-check2"></i> Streaming via Apple TV 4K</li>
+            <li><i class="bi bi-check2"></i> Bose sound system</li>
+            <li><i class="bi bi-check2"></i> In-room digital butler app</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SPA FEATURE (Split) ==================== -->
+<section id="spaFeature">
+  <div class="spa-split">
+    <!-- Image side -->
+    <div class="spa-img reveal">
+      <img src="images/ritual.jfif" alt="Spa Treatment"/>
+    </div>
+    <!-- Content side -->
+    <div class="spa-content">
+      <p class="section-eyebrow">Signature Experience</p>
+      <h2 class="section-title section-title-white mb-3">The Aurélia <em>Ritual</em></h2>
+      <div class="divider-gold" style="margin-bottom:32px"></div>
+      <p style="color:rgba(248,245,240,.55);font-size:.9rem;line-height:1.8;margin-bottom:36px">
+        Our signature 3-hour immersion ritual — a bespoke journey combining ancient hydrotherapy techniques
+        with modern science, culminating in a personalised facial and a 90-minute deep-tissue treatment.
+        Available exclusively for Aurélia guests.
+      </p>
+      <div class="spa-feature-item reveal">
+        <div class="spa-feature-icon"><i class="bi bi-droplet"></i></div>
+        <div>
+          <div class="spa-feature-title">Hydrotherapy Circuit</div>
+          <p class="spa-feature-desc">Cold plunge pools, sauna chambers, and jet hydrotherapy channels designed to stimulate circulation and deep recovery.</p>
+        </div>
+      </div>
+      <div class="spa-feature-item reveal" style="transition-delay:.1s">
+        <div class="spa-feature-icon"><i class="bi bi-flower2"></i></div>
+        <div>
+          <div class="spa-feature-title">Organic Skin Rituals</div>
+          <p class="spa-feature-desc">Treatments crafted from cold-pressed botanicals, marine minerals, and rare alpine extracts — all sustainably sourced.</p>
+        </div>
+      </div>
+      <div class="spa-feature-item reveal" style="transition-delay:.2s">
+        <div class="spa-feature-icon"><i class="bi bi-moon-stars"></i></div>
+        <div>
+          <div class="spa-feature-title">Evening Moonrise Ritual</div>
+          <p class="spa-feature-desc">Our most exclusive treatment — a rooftop candlelit ceremony under open skies, available by private reservation only.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DINING ==================== -->
+<section id="dining">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <p class="section-eyebrow">Culinary Arts</p>
+      <h2 class="section-title">A world of <em>flavour</em></h2>
+      <div class="divider-gold mx-auto"></div>
+      <p style="color:var(--muted);font-size:.9rem;max-width:440px;margin:0 auto">Three distinct dining concepts, one shared philosophy — that every meal should be a memory.</p>
+    </div>
+    <div class="row g-4">
+
+      <!-- Restaurant 1 -->
+      <div class="col-lg-4 col-md-6 reveal">
+        <div class="dining-card">
+          <div class="dining-img-wrap">
+            <img src="images/L essentiel.jfif" alt="L'Essentiel"/>
+          </div>
+          <div class="dining-body">
+            <span class="dining-badge">★★★ Michelin · French Fine Dining</span>
+            <h3 class="dining-name">L'Essentiel</h3>
+            <p class="dining-desc">Our flagship restaurant — a 12-seat chef's table experience celebrating the purest expression of seasonal French cuisine under Chef Antoine Lefèvre.</p>
+            <div class="dining-hours"><i class="bi bi-clock"></i> Dinner Only · Tue–Sat · 7PM–10PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Restaurant 2 -->
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.12s">
+        <div class="dining-card">
+          <div class="dining-img-wrap">
+            <img src="images/azul.jfif" alt="Azul"/>
+          </div>
+          <div class="dining-body">
+            <span class="dining-badge">Mediterranean · Terrace Dining</span>
+            <h3 class="dining-name">Azul</h3>
+            <p class="dining-desc">Alfresco terrace dining overlooking the sea — vibrant Mediterranean dishes prepared with market-fresh ingredients and wood-fired techniques.</p>
+            <div class="dining-hours"><i class="bi bi-clock"></i> Lunch & Dinner · Daily · 12PM–11PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Restaurant 3 -->
+      <div class="col-lg-4 col-md-6 reveal" style="transition-delay:.24s">
+        <div class="dining-card">
+          <div class="dining-img-wrap">
+            <img src="images/obsidian bar.jfif" alt="Obsidian Bar"/>
+          </div>
+          <div class="dining-body">
+            <span class="dining-badge">Cocktail Bar · Jazz Lounge</span>
+            <h3 class="dining-name">Obsidian Bar</h3>
+            <p class="dining-desc">A moody, hand-crafted cocktail experience with rare spirits, live jazz from Thursday to Sunday, and a curated small-plates menu until midnight.</p>
+            <div class="dining-hours"><i class="bi bi-clock"></i> Daily · 5PM – 1AM</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<section id="gallery">
+  <div class="container mb-4 reveal">
+    <p class="section-eyebrow" style="color:var(--gold)">Visual Tour</p>
+    <h2 class="section-title section-title-white">See Aurélia <em>in full</em></h2>
+    <div class="divider-gold"></div>
+  </div>
+  <div class="container">
+    <div class="gallery-grid">
+      <div class="g-item reveal">
+        <img src="images/hotel.jfif" alt="Hotel"/>
+        <div class="g-overlay"><i class="bi bi-zoom-in"></i></div>
+      </div>
+      <div class="g-item reveal" style="transition-delay:.06s">
+        <img src="images/room.jfif" alt="Room"/>
+        <div class="g-overlay"><i class="bi bi-zoom-in"></i></div>
+      </div>
+      <div class="g-item reveal" style="transition-delay:.12s">
+        <img src="images/spaaaaa.jfif" alt="Spa"/>
+        <div class="g-overlay"><i class="bi bi-zoom-in"></i></div>
+      </div>
+      <div class="g-item reveal" style="transition-delay:.18s">
+        <img src="images/poooll.jfif" alt="Pool"/>
+        <div class="g-overlay"><i class="bi bi-zoom-in"></i></div>
+      </div>
+      <div class="g-item reveal" style="transition-delay:.24s">
+        <img src="images/diningg.jfif" alt="Dining"/>
+        <div class="g-overlay"><i class="bi bi-zoom-in"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section id="cta">
+  <div class="container reveal">
+    <h2 class="cta-title">Ready to experience <em style="font-style:italic">Aurélia</em>?</h2>
+    <p class="cta-sub">Book your suite today and let every detail of your stay be curated for you.</p>
+    <a href="rooms.html" class="btn-cta-dark"><i class="bi bi-calendar-check me-2"></i>Reserve Your Suite</a>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-top">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-logo">Aurél<span>ia</span></div>
+          <p class="footer-tagline">Where luxury is not a statement but a standard — crafted across 48 years of unbroken excellence.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <div class="footer-heading">Navigate</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <div class="footer-heading">Facilities</div>
+          <ul class="footer-links">
+            <li><a href="#overview">Infinity Pool</a></li>
+            <li><a href="#details">The Spa</a></li>
+            <li><a href="#dining">Dining</a></li>
+            <li><a href="#details">Fitness Centre</a></li>
+            <li><a href="#details">Business Events</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-heading">Contact</div>
+          <div class="footer-contact-item"><i class="bi bi-geo-alt"></i><span>1 Grand Avenue, Riviera Estate, Monaco 98000</span></div>
+          <div class="footer-contact-item"><i class="bi bi-telephone"></i><span>+1 (800) 287-3542</span></div>
+          <div class="footer-contact-item"><i class="bi bi-envelope"></i><span>reservations@aurelia.com</span></div>
+          <div class="footer-contact-item"><i class="bi bi-clock"></i><span>Check-in: 3PM · Check-out: 12PM</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <span>© 2026 Aurélia Luxury Hotel & Resort. All rights reserved.</span>
+      <div class="d-flex gap-3">
+        <a href="#" style="color:rgba(248,245,240,.4)">Privacy Policy</a>
+        <a href="#" style="color:rgba(248,245,240,.4)">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Scroll Reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

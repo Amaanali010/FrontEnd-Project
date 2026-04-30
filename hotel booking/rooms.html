@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aurélia — Rooms & Suites</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --gold:#C8A96E; --gold-light:#E2CFA3; --gold-dark:#9A7A44;
+      --deep:#0E0C0A; --charcoal:#1C1A17; --warm-white:#F8F5F0;
+      --muted:#9A9590; --border:rgba(200,169,110,.22);
+      --ff-display:'Cormorant Garamond',serif; --ff-body:'DM Sans',sans-serif;
+      --tr:.35s cubic-bezier(.4,0,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--ff-body);background:var(--warm-white);color:var(--charcoal);overflow-x:hidden;line-height:1.7}
+    h1,h2,h3,h4{font-family:var(--ff-display);font-weight:400}
+    a{text-decoration:none;color:inherit}
+    ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--deep)} ::-webkit-scrollbar-thumb{background:var(--gold);border-radius:3px}
+
+    /* ===== NAVBAR ===== */
+    #mainNav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:background var(--tr),padding var(--tr)}
+    #mainNav.scrolled{background:rgba(14,12,10,.93);backdrop-filter:blur(14px);padding:14px 0;border-bottom:1px solid var(--border)}
+    #mainNav.solid{background:rgba(14,12,10,.97);padding:14px 0;border-bottom:1px solid var(--border)}
+    .nav-logo{font-family:var(--ff-display);font-size:1.75rem;font-weight:300;letter-spacing:.12em;color:var(--warm-white)}
+    .nav-logo span{color:var(--gold);font-style:italic}
+    .navbar-nav .nav-link{font-size:.78rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(248,245,240,.7)!important;padding:6px 16px!important;transition:color var(--tr)}
+    .navbar-nav .nav-link:hover,.navbar-nav .nav-link.active{color:var(--gold)!important}
+    .btn-nav-book{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--deep)!important;background:var(--gold);border:none;padding:8px 24px!important;border-radius:0;transition:background var(--tr)}
+    .btn-nav-book:hover{background:var(--gold-light)}
+    .navbar-toggler{border:1px solid var(--border);padding:6px 10px}
+    .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28200,169,110,1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+
+    /* ===== PAGE HERO (mini) ===== */
+    .page-hero{
+      height:420px; position:relative; display:flex; align-items:flex-end;
+      background:url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=1800&q=80') center/cover no-repeat;
+    }
+    .page-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(14,12,10,.85) 0%,rgba(14,12,10,.35) 100%)}
+    .page-hero-content{position:relative;z-index:1;padding-bottom:60px}
+    .page-eyebrow{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+    .page-title{font-size:clamp(2.4rem,5vw,4rem);color:var(--warm-white);font-weight:300;line-height:1.05}
+    .page-title em{color:var(--gold);font-style:italic}
+
+    /* ===== SHARED ===== */
+    section{padding:90px 0}
+    .section-eyebrow{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:14px}
+    .section-title{font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;font-weight:300;color:var(--charcoal)}
+    .section-title em{color:var(--gold-dark);font-style:italic}
+    .divider-gold{width:52px;height:1px;background:var(--gold);margin:22px 0 40px}
+
+    /* ===== FILTER TABS ===== */
+    .filter-wrap{display:flex;gap:0;flex-wrap:wrap;border:1px solid rgba(0,0,0,.1);display:inline-flex}
+    .filter-btn{font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:10px 24px;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:background var(--tr),color var(--tr);border-right:1px solid rgba(0,0,0,.08)}
+    .filter-btn:last-child{border-right:none}
+    .filter-btn.active,.filter-btn:hover{background:var(--charcoal);color:var(--gold)}
+
+    /* ===== ROOM CARDS ===== */
+    .room-card{position:relative;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,.06);transition:box-shadow var(--tr),transform var(--tr)}
+    .room-card:hover{box-shadow:0 24px 60px rgba(0,0,0,.14);transform:translateY(-6px)}
+    .room-img-wrap{position:relative;overflow:hidden;height:260px}
+    .room-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+    .room-card:hover .room-img-wrap img{transform:scale(1.06)}
+    .room-badge{position:absolute;top:18px;right:18px;background:var(--gold);color:var(--deep);font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:5px 14px}
+    .room-body{padding:28px 28px 24px}
+    .room-type{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:8px}
+    .room-name{font-size:1.55rem;font-weight:400;color:var(--charcoal);margin-bottom:12px;font-family:var(--ff-display)}
+    .room-desc{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:22px}
+    .room-features{display:flex;gap:16px;font-size:.75rem;color:var(--muted);margin-bottom:24px;flex-wrap:wrap}
+    .room-features span{display:flex;align-items:center;gap:5px}
+    .room-features i{color:var(--gold)}
+    .room-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,.06);padding-top:20px}
+    .room-price{font-family:var(--ff-display);font-size:1.7rem;font-weight:400;color:var(--charcoal)}
+    .room-price span{font-family:var(--ff-body);font-size:.72rem;color:var(--muted);font-weight:400}
+    .btn-book-room{font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid var(--gold);padding:9px 22px;border-radius:0;cursor:pointer;transition:background var(--tr),color var(--tr)}
+    .btn-book-room:hover{background:var(--gold);color:var(--deep)}
+
+    /* ===== ROOM DETAIL STRIP ===== */
+    .room-detail-strip{background:var(--charcoal);padding:60px 0}
+    .detail-item{text-align:center;padding:16px}
+    .detail-icon{font-size:1.8rem;color:var(--gold);margin-bottom:12px;display:block}
+    .detail-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(248,245,240,.5);font-weight:500;margin-bottom:4px}
+    .detail-value{font-family:var(--ff-display);font-size:1.1rem;color:var(--warm-white)}
+
+    /* ===== BOOKING MODAL ===== */
+    .modal-content{background:var(--deep);border:1px solid var(--border);border-radius:0;color:var(--warm-white)}
+    .modal-header{border-bottom:1px solid var(--border);padding:28px 36px 24px}
+    .modal-title{font-family:var(--ff-display);font-size:1.8rem;font-weight:300;color:var(--warm-white)}
+    .btn-close{filter:invert(1) brightness(.6)}
+    .modal-body{padding:32px 36px}
+    .modal-footer{border-top:1px solid var(--border);padding:20px 36px}
+    .form-label-modal{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px;display:block}
+    .form-control-modal,.form-select-modal{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:0;color:var(--warm-white);font-family:var(--ff-body);font-size:.9rem;padding:12px 16px;transition:border-color var(--tr);width:100%}
+    .form-control-modal:focus,.form-select-modal:focus{outline:none;border-color:var(--gold);background:rgba(200,169,110,.06);box-shadow:none;color:var(--warm-white)}
+    .form-control-modal::placeholder{color:rgba(248,245,240,.3)}
+    .form-select-modal option{background:var(--charcoal)}
+    .btn-submit{background:var(--gold);color:var(--deep);border:none;border-radius:0;font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:14px 40px;transition:background var(--tr),transform var(--tr);cursor:pointer}
+    .btn-submit:hover{background:var(--gold-light);transform:translateY(-2px)}
+    .btn-cancel{background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:0;font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:color var(--tr),border-color var(--tr)}
+    .btn-cancel:hover{color:var(--warm-white);border-color:var(--warm-white)}
+
+    /* ===== CONFIRMATION RECEIPT ===== */
+    #confirmSection{display:none;padding:80px 0;background:var(--warm-white)}
+    .receipt{background:#fff;border:1px solid rgba(0,0,0,.08);padding:48px;max-width:700px;margin:0 auto}
+    .receipt-header{display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:28px;margin-bottom:32px}
+    .receipt-logo{font-family:var(--ff-display);font-size:1.9rem;font-weight:300;letter-spacing:.1em;color:var(--charcoal)}
+    .receipt-logo span{color:var(--gold-dark);font-style:italic}
+    .receipt-badge{background:var(--gold);color:var(--deep);font-size:.62rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:6px 16px;align-self:flex-start}
+    .receipt-id{font-size:.72rem;letter-spacing:.12em;color:var(--muted);margin-top:6px}
+    .receipt-title{font-family:var(--ff-display);font-size:2rem;font-weight:300;color:var(--charcoal);margin-bottom:6px}
+    .receipt-subtitle{font-size:.8rem;color:var(--muted);margin-bottom:32px}
+    .receipt-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;margin-bottom:32px}
+    .r-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dark);font-weight:500;margin-bottom:5px}
+    .r-value{font-size:.95rem;color:var(--charcoal)}
+    .receipt-total{background:var(--charcoal);color:var(--warm-white);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .receipt-total-label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(248,245,240,.6)}
+    .receipt-total-amount{font-family:var(--ff-display);font-size:2rem;color:var(--gold)}
+    .receipt-foot{text-align:center;padding-top:24px;border-top:1px solid rgba(0,0,0,.08);font-size:.78rem;color:var(--muted)}
+    .btn-print{background:var(--charcoal);color:var(--warm-white);border:none;border-radius:0;font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:12px 28px;cursor:pointer;transition:background var(--tr)}
+    .btn-print:hover{background:var(--gold);color:var(--deep)}
+    .btn-back{background:transparent;color:var(--charcoal);border:1px solid rgba(0,0,0,.15);border-radius:0;font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;padding:12px 28px;cursor:pointer;transition:border-color var(--tr)}
+    .btn-back:hover{border-color:var(--charcoal)}
+
+    /* ===== FOOTER ===== */
+    footer{background:var(--deep);border-top:1px solid var(--border);color:rgba(248,245,240,.55)}
+    .footer-top{padding:72px 0 56px}
+    .footer-bottom{border-top:1px solid var(--border);padding:20px 0;font-size:.75rem}
+    .footer-logo{font-family:var(--ff-display);font-size:2rem;font-weight:300;letter-spacing:.1em;color:var(--warm-white);margin-bottom:14px}
+    .footer-logo span{color:var(--gold);font-style:italic}
+    .footer-tagline{font-size:.82rem;color:rgba(248,245,240,.4);max-width:240px;line-height:1.65;margin-bottom:28px}
+    .footer-heading{font-size:.65rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:20px}
+    .footer-links{list-style:none;padding:0}
+    .footer-links li{margin-bottom:10px}
+    .footer-links a{font-size:.85rem;color:rgba(248,245,240,.5);transition:color var(--tr)}
+    .footer-links a:hover{color:var(--gold)}
+    .footer-contact-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;font-size:.85rem}
+    .footer-contact-item i{color:var(--gold);margin-top:3px;flex-shrink:0}
+    .social-links{display:flex;gap:12px;margin-top:4px}
+    .social-link{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:rgba(248,245,240,.5);font-size:.9rem;transition:border-color var(--tr),color var(--tr),background var(--tr)}
+    .social-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,.08)}
+
+    /* ===== REVEAL ===== */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* ===== FLATPICKR OVERRIDES ===== */
+    .flatpickr-calendar{background:var(--charcoal);border:1px solid var(--border);border-radius:0;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .flatpickr-day.selected,.flatpickr-day.selected:hover{background:var(--gold);border-color:var(--gold);color:var(--deep)}
+    .flatpickr-day:hover{background:rgba(200,169,110,.2)}
+    .flatpickr-months{background:var(--deep)}
+    .flatpickr-month,.flatpickr-weekday,.flatpickr-day{color:var(--warm-white)!important}
+
+    /* ===== PRINT ===== */
+    @media print {
+      body>*:not(#printArea){display:none!important}
+      #printArea{display:block!important}
+      .no-print{display:none!important}
+      body{background:#fff;color:#000}
+      .receipt{border:none;padding:24px 0;max-width:100%;box-shadow:none}
+      .receipt-header{border-bottom:2px solid #C8A96E}
+      .receipt-total{background:#1C1A17;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .r-label{color:#9A7A44}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav id="mainNav" class="navbar navbar-expand-lg solid">
+  <div class="container">
+    <a class="navbar-brand nav-logo" href="index.html">Aurél<span>ia</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="rooms.html">Rooms</a></li>
+        <li class="nav-item"><a class="nav-link" href="amenities.html">Amenities</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="btn btn-nav-book" data-bs-toggle="modal" data-bs-target="#bookingModal">Book Now</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== PAGE HERO ==================== -->
+<div class="page-hero">
+  <div class="container page-hero-content">
+    <p class="page-eyebrow">Accommodations</p>
+    <h1 class="page-title">Rooms &amp; <em>Suites</em></h1>
+  </div>
+</div>
+
+<!-- ==================== ROOMS LIST ==================== -->
+<section id="roomsMain" style="background:var(--warm-white)">
+  <div class="container">
+    <!-- Header + Filter -->
+    <div class="row align-items-center mb-5">
+      <div class="col-md-6 reveal">
+        <p class="section-eyebrow">Curated Accommodations</p>
+        <h2 class="section-title">Find your perfect <em>retreat</em></h2>
+        <div class="divider-gold"></div>
+      </div>
+      <div class="col-md-6 text-md-end reveal" style="transition-delay:.1s">
+        <!-- Filter buttons -->
+        <div class="filter-wrap">
+          <button class="filter-btn active" onclick="filterRooms('all',this)">All</button>
+          <button class="filter-btn" onclick="filterRooms('deluxe',this)">Deluxe</button>
+          <button class="filter-btn" onclick="filterRooms('suite',this)">Suite</button>
+          <button class="filter-btn" onclick="filterRooms('villa',this)">Villa</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Room Cards Grid -->
+    <div class="row g-4" id="roomGrid">
+
+      <!-- 1. Deluxe King -->
+      <div class="col-lg-4 col-md-6 reveal room-item" data-cat="deluxe">
+        <div class="room-card h-100">
+          <div class="room-img-wrap">
+            <img src="images/deluxe king room.jfif" alt="Deluxe King Room" loading="lazy"/>
+            <span class="room-badge">Available</span>
+          </div>
+          <div class="room-body">
+            <p class="room-type">Deluxe</p>
+            <h3 class="room-name">Deluxe King Room</h3>
+            <p class="room-desc">Refined elegance in 42 sqm of thoughtfully curated living space with panoramic city views and a marble en-suite.</p>
+            <div class="room-features">
+              <span><i class="bi bi-arrows-angle-expand"></i> 42 m²</span>
+              <span><i class="bi bi-people"></i> 2 Guests</span>
+              <span><i class="bi bi-wifi"></i> WiFi</span>
+              <span><i class="bi bi-cup-hot"></i> Breakfast</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">$380 <span>/ night</span></div>
+              <button class="btn-book-room" data-room="Deluxe King Room" data-rate="380" onclick="openModal(this)">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Deluxe Twin -->
+      <div class="col-lg-4 col-md-6 reveal room-item" data-cat="deluxe" style="transition-delay:.08s">
+        <div class="room-card h-100">
+          <div class="room-img-wrap">
+            <img src="images/deluxe twin room.jfif" alt="Deluxe Twin Room" loading="lazy"/>
+            <span class="room-badge">Available</span>
+          </div>
+          <div class="room-body">
+            <p class="room-type">Deluxe</p>
+            <h3 class="room-name">Deluxe Twin Room</h3>
+            <p class="room-desc">Two plush queen beds in a beautifully appointed 40 sqm room, ideal for companions seeking individual comfort.</p>
+            <div class="room-features">
+              <span><i class="bi bi-arrows-angle-expand"></i> 40 m²</span>
+              <span><i class="bi bi-people"></i> 2 Guests</span>
+              <span><i class="bi bi-wifi"></i> WiFi</span>
+              <span><i class="bi bi-wind"></i> AC</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">$340 <span>/ night</span></div>
+              <button class="btn-book-room" data-room="Deluxe Twin Room" data-rate="340" onclick="openModal(this)">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Junior Suite (Best Seller) -->
+      <div class="col-lg-4 col-md-6 reveal room-item" data-cat="suite" style="transition-delay:.16s">
+        <div class="room-card h-100">
+          <div class="room-img-wrap">
+            <img src="images/junior suite.jfif" alt="Junior Suite" loading="lazy"/>
+            <span class="room-badge" style="background:var(--charcoal);color:var(--gold)">Best Seller</span>
+          </div>
+          <div class="room-body">
+            <p class="room-type">Suite</p>
+            <h3 class="room-name">Junior Suite</h3>
+            <p class="room-desc">A spacious 68 sqm haven with a separate lounge, deep-soaking tub, and exclusive butler service from arrival to departure.</p>
+            <div class="room-features">
+              <span><i class="bi bi-arrows-angle-expand"></i> 68 m²</span>
+              <span><i class="bi bi-people"></i> 3 Guests</span>
+              <span><i class="bi bi-wifi"></i> WiFi</span>
+              <span><i class="bi bi-wind"></i> Spa</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">$620 <span>/ night</span></div>
+              <button class="btn-book-room" data-room="Junior Suite" data-rate="620" onclick="openModal(this)">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Ocean View Suite -->
+      <div class="col-lg-4 col-md-6 reveal room-item" data-cat="suite" style="transition-delay:.24s">
+        <div class="room-card h-100">
+          <div class="room-img-wrap">
+            <img src="images/ocean view suite.jfif" alt="Ocean View Suite" loading="lazy"/>
+            <span class="room-badge">Sea View</span>
+          </div>
+          <div class="room-body">
+            <p class="room-type">Suite</p>
+            <h3 class="room-name">Ocean View Suite</h3>
+            <p class="room-desc">Wake to unobstructed ocean panoramas in this elevated 80 sqm suite with a private balcony and champagne turndown service.</p>
+            <div class="room-features">
+              <span><i class="bi bi-arrows-angle-expand"></i> 80 m²</span>
+              <span><i class="bi bi-people"></i> 2 Guests</span>
+              <span><i class="bi bi-water"></i> Sea View</span>
+              <span><i class="bi bi-gem"></i> VIP</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">$750 <span>/ night</span></div>
+              <button class="btn-book-room" data-room="Ocean View Suite" data-rate="750" onclick="openModal(this)">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Garden Villa -->
+      <div class="col-lg-4 col-md-6 reveal room-item" data-cat="villa" style="transition-delay:.32s">
+        <div class="room-card h-100">
+          <div class="room-img-wrap">
+            <img src="images/garden villa.jfif" alt="Garden Villa" loading="lazy"/>
+            <span class="room-badge">Private</span>
+          </div>
+          <div class="room-body">
+            <p class="room-type">Villa</p>
+            <h3 class="room-name">Garden Villa</h3>
+            <p class="room-desc">A 110 sqm private villa set within lush tropical gardens, featuring a plunge pool, open-air living room, and dedicated villa host.</p>
+            <div class="room-features">
+              <span><i class="bi bi-arrows-angle-expand"></i> 110 m²</span>
+              <span><i class="bi bi-people"></i> 4 Guests</span>
+              <span><i class="bi bi-water"></i> Pool</span>
+              <span><i class="bi bi-flower1"></i> Garden</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">$890 <span>/ night</span></div>
+              <button class="btn-book-room" data-room="Garden Villa" data-rate="890" onclick="openModal(this)">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Presidential Suite -->
+      <div class="col-lg-4 col-md-6 reveal room-item" data-cat="suite" style="transition-delay:.4s">
+        <div class="room-card h-100">
+          <div class="room-img-wrap">
+            <img src="images/presidential suite.jfif" alt="Presidential Suite" loading="lazy"/>
+            <span class="room-badge">Exclusive</span>
+          </div>
+          <div class="room-body">
+            <p class="room-type">Presidential</p>
+            <h3 class="room-name">Presidential Suite</h3>
+            <p class="room-desc">The pinnacle of luxury — 140 sqm of private splendour with rooftop terrace, private plunge pool, and 24-hr personal concierge.</p>
+            <div class="room-features">
+              <span><i class="bi bi-arrows-angle-expand"></i> 140 m²</span>
+              <span><i class="bi bi-people"></i> 4 Guests</span>
+              <span><i class="bi bi-gem"></i> VIP</span>
+              <span><i class="bi bi-water"></i> Pool</span>
+            </div>
+            <div class="room-footer">
+              <div class="room-price">$1,250 <span>/ night</span></div>
+              <button class="btn-book-room" data-room="Presidential Suite" data-rate="1250" onclick="openModal(this)">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /room grid -->
+  </div>
+</section>
+
+<!-- ==================== ROOM DETAIL STRIP ==================== -->
+<div class="room-detail-strip">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 col-md-3 reveal">
+        <div class="detail-item">
+          <i class="bi bi-clock detail-icon"></i>
+          <div class="detail-label">Check-In / Check-Out</div>
+          <div class="detail-value">3:00 PM / 12:00 PM</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal" style="transition-delay:.08s">
+        <div class="detail-item">
+          <i class="bi bi-credit-card detail-icon"></i>
+          <div class="detail-label">Payment Methods</div>
+          <div class="detail-value">All Major Cards</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal" style="transition-delay:.16s">
+        <div class="detail-item">
+          <i class="bi bi-shield-check detail-icon"></i>
+          <div class="detail-label">Cancellation Policy</div>
+          <div class="detail-value">48-Hour Free Cancel</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal" style="transition-delay:.24s">
+        <div class="detail-item">
+          <i class="bi bi-telephone detail-icon"></i>
+          <div class="detail-label">Reservations</div>
+          <div class="detail-value">+1 (800) 287-3542</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CONFIRMATION ==================== -->
+<section id="confirmSection">
+  <div class="container">
+    <div class="text-center mb-5 no-print">
+      <div style="width:64px;height:64px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px">
+        <i class="bi bi-check-lg" style="font-size:1.8rem;color:var(--deep)"></i>
+      </div>
+      <h2 class="section-title">Booking <em>Confirmed</em></h2>
+      <p style="color:var(--muted);font-size:.9rem;margin-top:10px">Your reservation is confirmed. Your receipt is displayed below.</p>
+    </div>
+    <!-- Receipt -->
+    <div id="printArea">
+      <div class="receipt" id="bookingReceipt">
+        <div class="receipt-header">
+          <div>
+            <div class="receipt-logo">Aurél<span>ia</span></div>
+            <div class="receipt-id" id="receiptId">REF: AUR-000000</div>
+          </div>
+          <span class="receipt-badge">Confirmed</span>
+        </div>
+        <h3 class="receipt-title">Booking Receipt</h3>
+        <p class="receipt-subtitle">Thank you for choosing Aurélia. We look forward to welcoming you.</p>
+        <div class="receipt-grid">
+          <div><div class="r-label">Guest Name</div><div class="r-value" id="r-name">—</div></div>
+          <div><div class="r-label">Email Address</div><div class="r-value" id="r-email">—</div></div>
+          <div><div class="r-label">Phone Number</div><div class="r-value" id="r-phone">—</div></div>
+          <div><div class="r-label">Room Type</div><div class="r-value" id="r-room">—</div></div>
+          <div><div class="r-label">Check-In Date</div><div class="r-value" id="r-checkin">—</div></div>
+          <div><div class="r-label">Check-Out Date</div><div class="r-value" id="r-checkout">—</div></div>
+          <div><div class="r-label">Guests</div><div class="r-value" id="r-guests">—</div></div>
+          <div><div class="r-label">Duration</div><div class="r-value" id="r-nights">—</div></div>
+        </div>
+        <div class="receipt-total">
+          <div>
+            <div class="receipt-total-label">Estimated Total</div>
+            <div style="font-size:.75rem;color:rgba(248,245,240,.4);margin-top:4px">Taxes &amp; fees included</div>
+          </div>
+          <div class="receipt-total-amount" id="r-total">—</div>
+        </div>
+        <div class="receipt-foot">
+          <p>For inquiries: <strong style="color:var(--gold-dark)">reservations@aurelia.com</strong> · +1 (800) 287-3542</p>
+          <p style="margin-top:6px">Aurélia Luxury Hotel &amp; Resort · 1 Grand Avenue, Riviera Estate, Monaco 98000</p>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center gap-3 mt-4 no-print">
+      <button class="btn-print" onclick="window.print()"><i class="bi bi-printer me-2"></i>Print Receipt</button>
+      <button class="btn-back" onclick="hideConfirm()"><i class="bi bi-arrow-left me-2"></i>Back to Rooms</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-top">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4 col-md-6">
+          <div class="footer-logo">Aurél<span>ia</span></div>
+          <p class="footer-tagline">Where luxury is not a statement but a standard — crafted across 48 years of unbroken excellence.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <div class="footer-heading">Navigate</div>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms</a></li>
+            <li><a href="amenities.html">Amenities</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="footer-heading">Contact</div>
+          <div class="footer-contact-item"><i class="bi bi-geo-alt"></i><span>1 Grand Avenue, Riviera Estate, Monaco 98000</span></div>
+          <div class="footer-contact-item"><i class="bi bi-telephone"></i><span>+1 (800) 287-3542</span></div>
+          <div class="footer-contact-item"><i class="bi bi-envelope"></i><span>reservations@aurelia.com</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <span>© 2026 Aurélia Luxury Hotel & Resort. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== BOOKING MODAL ==================== -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title">Reserve Your Suite</h5>
+          <p style="font-size:.8rem;color:var(--muted);margin:4px 0 0">Complete all fields — our team confirms within 2 hours.</p>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="bookingForm" novalidate>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="form-label-modal">Full Name *</label>
+              <input type="text" id="f-name" class="form-control-modal" placeholder="Your full name" required minlength="2"/>
+              <div class="err-msg" id="err-name"></div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-modal">Email Address *</label>
+              <input type="email" id="f-email" class="form-control-modal" placeholder="you@email.com" required/>
+              <div class="err-msg" id="err-email"></div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-modal">Phone Number *</label>
+              <input type="tel" id="f-phone" class="form-control-modal" placeholder="+1 (000) 000-0000" required pattern="[\+]?[\d\s\-\(\)]{7,}"/>
+              <div class="err-msg" id="err-phone"></div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label-modal">Room Type *</label>
+              <select id="f-room" class="form-select-modal" required>
+                <option value="">Select a room type</option>
+                <option value="Deluxe King Room|380">Deluxe King Room — $380/night</option>
+                <option value="Deluxe Twin Room|340">Deluxe Twin Room — $340/night</option>
+                <option value="Junior Suite|620">Junior Suite — $620/night</option>
+                <option value="Ocean View Suite|750">Ocean View Suite — $750/night</option>
+                <option value="Garden Villa|890">Garden Villa — $890/night</option>
+                <option value="Presidential Suite|1250">Presidential Suite — $1,250/night</option>
+              </select>
+              <div class="err-msg" id="err-room"></div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label-modal">Check-In Date *</label>
+              <input type="text" id="f-checkin" class="form-control-modal" placeholder="Select date" required readonly/>
+              <div class="err-msg" id="err-checkin"></div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label-modal">Check-Out Date *</label>
+              <input type="text" id="f-checkout" class="form-control-modal" placeholder="Select date" required readonly/>
+              <div class="err-msg" id="err-checkout"></div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label-modal">Guests *</label>
+              <select id="f-guests" class="form-select-modal" required>
+                <option value="">Select guests</option>
+                <option>1 Guest</option><option>2 Guests</option>
+                <option>3 Guests</option><option>4 Guests</option><option>5+ Guests</option>
+              </select>
+              <div class="err-msg" id="err-guests"></div>
+            </div>
+            <div class="col-12">
+              <label class="form-label-modal">Special Requests</label>
+              <textarea id="f-requests" class="form-control-modal" rows="3" placeholder="Dietary requirements, celebrations, special arrangements…" style="resize:vertical"></textarea>
+            </div>
+          </div>
+          <div id="formErr" style="display:none;margin-top:20px;padding:14px 18px;border:1px solid rgba(220,53,69,.4);background:rgba(220,53,69,.08);color:#dc3545;font-size:.8rem">
+            <i class="bi bi-exclamation-triangle me-2"></i>Please fill in all required fields correctly.
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div style="font-size:.75rem;color:var(--muted)"><i class="bi bi-shield-check me-1" style="color:var(--gold)"></i>Secure booking · No card required</div>
+        <div class="d-flex gap-3">
+          <button class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn-submit" onclick="submitBooking()"><i class="bi bi-calendar-check me-2"></i>Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Inline error messages */
+  .err-msg{font-size:.73rem;color:#dc3545;margin-top:5px;display:none}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  /* ---- Navbar ---- */
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* ---- Date Pickers ---- */
+  const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+  const fCI = flatpickr('#f-checkin', { minDate:'today', dateFormat:'M d, Y', onChange(s){ fCO.set('minDate',s[0]); } });
+  const fCO = flatpickr('#f-checkout', { minDate: tomorrow, dateFormat:'M d, Y' });
+
+  /* ---- Scroll Reveal ---- */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ---- Filter ---- */
+  function filterRooms(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.room-item').forEach(card => {
+      const show = cat === 'all' || card.dataset.cat === cat;
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  /* ---- Open Modal & pre-fill room ---- */
+  function openModal(btn) {
+    const room = btn.getAttribute('data-room');
+    // Match option by text content
+    const sel = document.getElementById('f-room');
+    [...sel.options].forEach(opt => { if(opt.text.startsWith(room)) sel.value = opt.value; });
+    new bootstrap.Modal(document.getElementById('bookingModal')).show();
+  }
+
+  /* ---- Validate field ---- */
+  function validateField(id, errId, msg) {
+    const el = document.getElementById(id);
+    const err = document.getElementById(errId);
+    const valid = el.checkValidity() && el.value.trim() !== '';
+    el.style.borderColor = valid ? 'var(--gold)' : '#dc3545';
+    err.textContent = valid ? '' : msg;
+    err.style.display = valid ? 'none' : 'block';
+    return valid;
+  }
+
+  /* ---- Submit Booking ---- */
+  function submitBooking() {
+    let ok = true;
+    ok = validateField('f-name','err-name','Please enter your full name.') && ok;
+    ok = validateField('f-email','err-email','Please enter a valid email.') && ok;
+    ok = validateField('f-phone','err-phone','Please enter a valid phone number.') && ok;
+    ok = validateField('f-room','err-room','Please select a room type.') && ok;
+    ok = validateField('f-checkin','err-checkin','Please select a check-in date.') && ok;
+    ok = validateField('f-checkout','err-checkout','Please select a check-out date.') && ok;
+    ok = validateField('f-guests','err-guests','Please select number of guests.') && ok;
+    const errBox = document.getElementById('formErr');
+    if(!ok){ errBox.style.display='block'; return; }
+    errBox.style.display='none';
+
+    // Parse values
+    const roomVal = document.getElementById('f-room').value; // "Junior Suite|620"
+    const [roomName, rateStr] = roomVal.split('|');
+    const rate = parseInt(rateStr) || 500;
+    const checkin = document.getElementById('f-checkin').value;
+    const checkout = document.getElementById('f-checkout').value;
+    const nights = Math.max(1, Math.round((new Date(checkout) - new Date(checkin)) / 86400000));
+    const total = (nights * rate).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
+    const ref = 'AUR-' + Math.floor(100000 + Math.random() * 900000);
+
+    // Fill receipt
+    document.getElementById('receiptId').textContent   = 'REF: ' + ref;
+    document.getElementById('r-name').textContent      = document.getElementById('f-name').value.trim();
+    document.getElementById('r-email').textContent     = document.getElementById('f-email').value.trim();
+    document.getElementById('r-phone').textContent     = document.getElementById('f-phone').value.trim();
+    document.getElementById('r-room').textContent      = roomName;
+    document.getElementById('r-checkin').textContent   = checkin;
+    document.getElementById('r-checkout').textContent  = checkout;
+    document.getElementById('r-guests').textContent    = document.getElementById('f-guests').value;
+    document.getElementById('r-nights').textContent    = nights + (nights===1?' Night':' Nights');
+    document.getElementById('r-total').textContent     = total;
+
+    // Close modal & show confirmation
+    bootstrap.Modal.getInstance(document.getElementById('bookingModal')).hide();
+    document.getElementById('confirmSection').style.display = 'block';
+    setTimeout(() => document.getElementById('confirmSection').scrollIntoView({behavior:'smooth'}), 350);
+  }
+
+  /* ---- Hide Confirm ---- */
+  function hideConfirm() {
+    document.getElementById('confirmSection').style.display = 'none';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
