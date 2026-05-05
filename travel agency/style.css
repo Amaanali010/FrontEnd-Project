@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: black;
+    color: white;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 20px;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: gold;
+    border-bottom: 1px solid gold;
+}
+
+/* HERO SECTION */
+.hero {
+    height: 300px;
+    background: url('images/luxury-bg.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero h2 {
+    font-size: 40px;
+    background: rgba(0,0,0,0.6);
+    padding: 15px 30px;
+    border: 1px solid gold;
+}
+
+/* LAYOUT */
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* GLASS EFFECT */
+.glass {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,215,0,0.3);
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 25%;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.sidebar h2 {
+    color: gold;
+}
+
+.sidebar input, .sidebar select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: transparent;
+    border: 1px solid gold;
+    color: white;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 12px;
+    background: gold;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sidebar button:hover {
+    background: #d4af37;
+}
+
+/* MAIN */
+.main {
+    width: 75%;
+    padding-left: 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid gold;
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 230px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.card h3 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    text-align: center;
+    padding: 10px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: 1px solid gold;
+    color: gold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: gold;
+    color: black;
+}
