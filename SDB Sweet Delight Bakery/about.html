@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Sweet Delights Bakery</title>
+    
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+         :root {
+            --primary: #f296d3;
+            --accent: #f296d3;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        h1, h2, h3, h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ================= STYLISH NAVBAR ================= */
+        .custom-navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            padding: 18px 0;
+        }
+
+        .custom-navbar.scrolled {
+            padding: 12px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #222 !important;
+        }
+
+        .nav-link {
+            color: #2c2c2c !important;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 22px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            bottom: -6px;
+            left: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 75%;
+            left: 12.5%;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            font-size: 1.5rem;
+            color: #333;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.15);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.8rem;
+            font-weight: 700;
+            min-width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Order Now Button */
+        .btn-order {
+            background: linear-gradient(45deg, #ffb6c1, #ff7f9c);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(230, 57, 57, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .btn-order:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(230, 57, 57, 0.4);
+        }
+
+        /* Hero */
+        .hero {
+            height: 70vh;
+            min-height: 550px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.75)),
+                        url('images/about background.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+        }
+
+        .story-img {
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease;
+        }
+        
+        .story-img:hover {
+            transform: scale(1.03);
+        }
+
+        .story-image-container {
+            position: relative;
+        }
+
+        .main-story-img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .overlay-story-img {
+            position: absolute;
+            bottom: -30px;
+            right: -25px;
+            width: 48%;
+            border: 6px solid white;
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: transform 0.4s ease;
+        }
+
+        .overlay-story-img:hover {
+            transform: scale(1.05);
+        }
+
+        .value-card {
+            border: none;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            transition: all 0.4s;
+            height: 100%;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .team-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover .team-img {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Stylish Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar" id="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" href="index.html">
+            🍰 Sweet Delights
+        </a>
+
+        <!-- Toggler -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav mx-auto align-items-center gap-4">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4">
+                <!-- Cart -->
+                <a href="cart.html" class="cart-icon position-relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- Order Now -->
+                <a href="checkout.html" class="btn btn-order">
+                    Checkout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero text-center text-white">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3" data-aos="fade-up">Our Story</h1>
+        <p class="lead fs-4" data-aos="fade-up" data-aos-delay="200">
+            Where every bite tells a story of passion, quality, and love 🍰
+        </p>
+    </div>
+</section>
+
+<div class="container my-5">
+
+    <!-- Our Story Section -->
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-aos="fade-right">
+            <div class="story-image-container">
+                <img src="images/chocolate pastery.jpg" 
+                     class="main-story-img" 
+                     alt="Our Bakery">
+                
+                <img src="images/floral cake pastery.jpg" 
+                     class="overlay-story-img" 
+                     alt="Custom Cake">
+            </div>
+        </div>
+       
+        <div class="col-lg-6" data-aos="fade-left">
+            <h2 class="display-5 mb-4">Sweet Delights Bakery</h2>
+            <p class="lead text-muted">
+                Founded in the heart of Karachi, Sweet Delights was born from a simple dream — 
+                to create bakery products that bring happiness to every table.
+            </p>
+            <p>
+                What started as a small home kitchen has grown into a beloved local bakery known 
+                for its fresh cakes, artisanal pastries, and custom celebration cakes.
+            </p>
+            <p>
+                We believe that every dessert should be made with the finest ingredients, 
+                crafted with care, and delivered with love.
+            </p>
+           
+            <div class="mt-4">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-heart fa-2x text-danger me-3"></i>
+                    <div><strong>Passion in Every Batch</strong></div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-leaf fa-2x text-success me-3"></i>
+                    <div><strong>Quality Without Compromise</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why Choose Us -->
+    <div class="mt-5 pt-5">
+        <h2 class="text-center display-5 mb-5" data-aos="fade-up">Why Choose Sweet Delights?</h2>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="value-card text-center bg-white shadow-sm">
+                    <i class="fas fa-fire fa-3x text-warning mb-4"></i>
+                    <h4>Fresh Daily</h4>
+                    <p class="text-muted">Everything is baked fresh every morning using premium ingredients.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="value-card text-center bg-white shadow-sm">
+                    <i class="fas fa-user-tie fa-3x text-primary mb-4"></i>
+                    <h4>Expert Bakers</h4>
+                    <p class="text-muted">Our team consists of passionate and highly skilled bakers with years of experience.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="value-card text-center bg-white shadow-sm">
+                    <i class="fas fa-birthday-cake fa-3x text-danger mb-4"></i>
+                    <h4>Custom Creations</h4>
+                    <p class="text-muted">We specialize in turning your dream cakes and designs into reality.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meet Our Team -->
+    <div class="mt-5 pt-5">
+        <h2 class="text-center display-5 mb-5" data-aos="fade-up">Meet Our Team 👩‍🍳</h2>
+        <div class="row g-5 text-center">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="team-member">
+                    <img src="images/head chef.jpg" class="team-img rounded-circle mx-auto d-block" alt="Chef Sarah">
+                    <h5 class="mt-4 mb-1">Sarah Khan</h5>
+                    <p class="text-muted">Head Baker & Founder</p>
+                    <small class="text-warning">10+ years of experience</small>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="team-member">
+                    <img src="images/pastery specialist.jpg" class="team-img rounded-circle mx-auto d-block" alt="Chef Ayesha">
+                    <h5 class="mt-4 mb-1">Ayesha Malik</h5>
+                    <p class="text-muted">Pastry Specialist</p>
+                    <small class="text-warning">French & Italian trained</small>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="team-member">
+                    <img src="images/creative desiner.jpg" class="team-img rounded-circle mx-auto d-block" alt="Chef Fatima">
+                    <h5 class="mt-4 mb-1">Fatima Ahmed</h5>
+                    <p class="text-muted">Cake Designer & Decorator</p>
+                    <small class="text-warning">Brings your vision to life</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Final CTA -->
+<section class="py-5 bg-light text-center">
+    <div class="container">
+        <h3 class="mb-4" data-aos="fade-up">Ready to taste the difference?</h3>
+        <a href="products.html" class="btn btn-warning btn-lg px-5" data-aos="fade-up" data-aos-delay="100">
+            Explore Our Products
+        </a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center py-5">
+    <div class="container">
+        <p class="mb-1">© 2026 Sweet Delights Bakery • Karachi, Pakistan</p>
+        <p>Made with ❤️ for sweet moments</p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100
+    });
+
+    // Navbar scroll effect
+    window.addEventListener("scroll", function() {
+        const navbar = document.querySelector(".custom-navbar");
+        if (window.scrollY > 80) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+</script>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Sweet Delights Bakery</title>
+    
+    <!-- Bootstrap 5.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        :root {
+            --primary:#f296d3;
+            --accent: #f296d3;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        h1, h2, h3, h5 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* ================= STYLISH NAVBAR (Matched to Add to Cart color) ================= */
+        .custom-navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            padding: 18px 0;
+        }
+
+        .custom-navbar.scrolled {
+            padding: 12px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #222 !important;
+        }
+
+        .nav-link {
+            color: #2c2c2c !important;
+            font-weight: 500;
+            position: relative;
+            padding: 10px 22px !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            bottom: -6px;
+            left: 50%;
+            transition: all 0.4s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 75%;
+            left: 12.5%;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            font-size: 1.5rem;
+            color: #333;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.15);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.8rem;
+            font-weight: 700;
+            min-width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Order Now Button */
+        .btn-order {
+            background: linear-gradient(45deg, #ffb6c1, #ff7f9c);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(230, 57, 57, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .btn-order:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(230, 57, 57, 0.4);
+        }
+
+        /* Hero */
+        .hero {
+            height: 65vh;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.7)),
+                        url('images/product bg.jpg') center/cover no-repeat;
+        }
+
+        .product-card {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .category-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2.5rem;
+        }
+
+        .category-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Stylish Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar" id="navbar">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand fw-bold" href="index.html">
+            🍰 Sweet Delights
+        </a>
+
+        <!-- Toggler -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav mx-auto align-items-center gap-4">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="products.html">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-4">
+                <!-- Cart -->
+                <a href="cart.html" class="cart-icon position-relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- Order Now -->
+                <a href="checkout.html" class="btn btn-order">
+                    Checkout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero text-center text-white d-flex align-items-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3" data-aos="fade-up">Our Bakery Products</h1>
+        <p class="lead fs-4" data-aos="fade-up" data-aos-delay="200">Freshly baked daily with love in Karachi</p>
+    </div>
+</section>
+
+<div class="container my-5">
+
+    <!-- Cakes Section -->
+    <h2 class="text-center category-title" data-aos="fade-up">Cakes 🎂</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/blackberry cake.jpg" class="card-img-top" alt="Blackberry Cake">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Blackberry Cake</h5>
+                    <p class="price mt-auto">$30</p>
+                    <button onclick="addToCart('Blackberry Cake', 30, 'images/blackberry cake.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/vanilla cake.jpg" class="card-img-top" alt="Vanilla Cake">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Vanilla Cake</h5>
+                    <p class="price mt-auto">$40</p>
+                    <button onclick="addToCart('Vanilla Cake', 40, 'images/vanilla cake.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/strawberry cake.jpg" class="card-img-top" alt="Strawberry Cake">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Strawberry Cake</h5>
+                    <p class="price mt-auto">$50</p>
+                    <button onclick="addToCart('Strawberry Cake', 50, 'images/strawberry cake.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookies Section -->
+    <h2 class="text-center category-title mt-5" data-aos="fade-up">Cookies 🍪</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/chocolate cookies.jpg" class="card-img-top" alt="Chocolate Cookie">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Chocolate Cookie</h5>
+                    <p class="price mt-auto">$6</p>
+                    <button onclick="addToCart('Chocolate Cookie', 6, 'images/chocolate cookies.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/almond cookies.jpg" class="card-img-top" alt="Almond Cookie">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Almond Cookie</h5>
+                    <p class="price mt-auto">$5</p>
+                    <button onclick="addToCart('Almond Cookie', 5, 'images/almond cookies.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/oreo cookies.jpg" class="card-img-top" alt="Oreo Cookie">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Oreo Cookie</h5>
+                    <p class="price mt-auto">$5</p>
+                    <button onclick="addToCart('Oreo Cookie', 5, 'images/oreo cookies.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cupcakes Section -->
+    <h2 class="text-center category-title mt-5" data-aos="fade-up">Cupcakes 🧁</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/chocolate cupcakes.jpg" class="card-img-top" alt="Chocolate Cupcake">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Chocolate Cupcake</h5>
+                    <p class="price mt-auto">$20</p>
+                    <button onclick="addToCart('Chocolate Cupcake', 20, 'images/chocolate cupcakes.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/vanilla cupcakes.jpg" class="card-img-top" alt="Vanilla Cupcake">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Vanilla Cupcake</h5>
+                    <p class="price mt-auto">$15</p>
+                    <button onclick="addToCart('Vanilla Cupcake', 15, 'images/vanilla cupcakes.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/strawberry cupcakes.jpg" class="card-img-top" alt="Strawberry Cupcake">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Strawberry Cupcake</h5>
+                    <p class="price mt-auto">$10</p>
+                    <button onclick="addToCart('Strawberry Cupcake', 10, 'images/strawberry cupcakes.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Croissants Section -->
+    <h2 class="text-center category-title mt-5" data-aos="fade-up">Croissants 🥐</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/butter croissant.jpg" class="card-img-top" alt="Butter Croissant">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Butter Croissant</h5>
+                    <p class="price mt-auto">$15</p>
+                    <button onclick="addToCart('Butter Croissant', 15, 'images/butter croissant.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/chocolate croissants.jpg" class="card-img-top" alt="Chocolate Croissant">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Chocolate Croissant</h5>
+                    <p class="price mt-auto">$30</p>
+                    <button onclick="addToCart('Chocolate Croissant', 30, 'images/chocolate croissants.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/almound croissants.jpg" class="card-img-top" alt="Almond Croissant">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Almond Croissant</h5>
+                    <p class="price mt-auto">$20</p>
+                    <button onclick="addToCart('Almond Croissant', 20, 'images/almound croissants.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pastries Section -->
+    <h2 class="text-center category-title mt-5" data-aos="fade-up">Pastries 🥮</h2>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/rasberry pastery.jpg" class="card-img-top" alt="Raspberry Pastry">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Raspberry Pastry</h5>
+                    <p class="price mt-auto">$15</p>
+                    <button onclick="addToCart('Raspberry Pastry', 15, 'images/rasberry pastery.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/chocolate pastery.jpg" class="card-img-top" alt="Chocolate Pastry">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Chocolate Pastry</h5>
+                    <p class="price mt-auto">$20</p>
+                    <button onclick="addToCart('Chocolate Pastry', 20, 'images/chocolate pastery.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+            <div class="product-card card h-100 text-center">
+                <img src="images/floral cake pastery.jpg" class="card-img-top" alt="Floral Cake Pastry">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Floral Cake Pastry</h5>
+                    <p class="price mt-auto">$25</p>
+                    <button onclick="addToCart('Floral Cake Pastry', 25, 'images/floral cake pastery.jpg', this)" 
+                            class="btn btn-warning mt-3">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-5 mt-5">
+    <div class="container">
+        <p>© 2026 Sweet Delights Bakery | Karachi, Pakistan</p>
+        <p>Made with ❤️ for sweet moments</p>
+    </div>
+</footer>
+
+<!-- Cart Popup -->
+<div id="cart-popup" class="position-fixed bottom-0 end-0 m-4 bg-white shadow rounded-4 p-3 d-none" style="max-width: 320px; z-index: 1050;">
+    <div class="d-flex align-items-center">
+        <img id="popup-img" src="" alt="" class="rounded" width="70">
+        <div class="ms-3">
+            <p id="popup-text" class="mb-1 fw-medium"></p>
+            <small class="text-success">Added to cart ✓</small>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+
+    // Navbar scroll effect
+    window.addEventListener("scroll", function() {
+        const navbar = document.querySelector(".custom-navbar");
+        if (window.scrollY > 80) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+</script>
+
+<script src="js/script.js"></script>
+</body>
+</html>
