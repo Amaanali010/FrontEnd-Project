@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — NEXUS GAMES</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nexus-nav navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand nav-logo" href="index.html">NEXUS<span>.</span>GG</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="color:var(--blue)">
+      <i class="bi bi-list" style="font-size:1.6rem"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-center gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html"><i class="bi bi-cart3"></i> Cart
+            <span class="cart-badge cart-count">0</span></a>
+        </li>
+        <li class="nav-item ms-2">
+          <a href="checkout.html" class="btn-neon" style="font-size:0.7rem;padding:0.5rem 1.2rem;">
+            <i class="bi bi-lightning-fill"></i> Checkout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb-neon">
+      <a href="index.html" style="color:var(--text-muted);">Home</a><span> / My Cart</span>
+    </div>
+    <h1 class="page-hero-title">MY <span style="color:var(--blue)">CART</span></h1>
+    <p style="color:var(--text-muted);margin-top:0.4rem;" id="cartCountLabel"></p>
+  </div>
+</div>
+
+<div class="page-wrapper">
+  <div class="container pb-5">
+    <div class="row g-4">
+
+      <!-- Cart Items -->
+      <div class="col-lg-8">
+        <div id="cartContent"></div>
+      </div>
+
+      <!-- Summary -->
+      <div class="col-lg-4">
+        <div class="cart-summary">
+          <h3 class="font-head mb-4" style="font-size:0.85rem;letter-spacing:3px;color:var(--blue);text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:1rem;">
+            Order Summary
+          </h3>
+          <div class="summary-row">
+            <span class="label">Subtotal</span>
+            <span class="value" id="subtotalVal">$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Shipping</span>
+            <span class="value" style="color:var(--green)">FREE</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Tax (8%)</span>
+            <span class="value" id="taxVal">$0.00</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span id="totalVal">$0.00</span>
+          </div>
+          <a href="checkout.html" class="btn-neon w-100 justify-content-center mt-3" id="checkoutBtn">
+            <i class="bi bi-lightning-fill"></i> Proceed to Checkout
+          </a>
+          <a href="categories.html" class="btn-ghost w-100 justify-content-center mt-2" style="font-size:0.7rem;">
+            <i class="bi bi-arrow-left"></i> Continue Shopping
+          </a>
+
+          <!-- Promo -->
+          <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);">
+            <div class="spec-label mb-2">PROMO CODE</div>
+            <div class="d-flex gap-2">
+              <input type="text" id="promoInput" placeholder="Enter code..." style="flex:1;background:rgba(10,10,20,0.8);border:1.5px solid var(--border);color:var(--text);border-radius:8px;padding:0.5rem 0.75rem;font-family:var(--font-body);outline:none;font-size:0.85rem;">
+              <button onclick="applyPromo()" style="background:transparent;border:1.5px solid var(--blue);color:var(--blue);border-radius:8px;padding:0.5rem 0.85rem;cursor:pointer;font-family:var(--font-head);font-size:0.7rem;letter-spacing:1px;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,212,255,0.1)'" onmouseout="this.style.background='transparent'">APPLY</button>
+            </div>
+            <div id="promoMsg" style="font-family:var(--font-mono);font-size:0.7rem;margin-top:0.4rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Suggested -->
+    <div class="mt-5" id="suggestedSection" style="display:none;">
+      <div class="mb-4">
+        <div class="section-label">You Might Like</div>
+        <h2 class="section-title" style="font-size:1.5rem;">ADD TO YOUR <span class="accent">HAUL</span></h2>
+        <div class="divider-glow"></div>
+      </div>
+      <div class="row g-4" id="suggested-grid"></div>
+    </div>
+  </div>
+</div>
+
+<footer style="padding:1.5rem 0;border-top:1px solid var(--border);">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <a href="index.html" class="footer-logo" style="font-size:1.1rem;">NEXUS.GG</a>
+    <div class="footer-copy">© 2024 NEXUS.GG</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="cart.js"></script>
+<script>
+  let promoDiscount = 0;
+
+  function renderCart() {
+    const cart = getCart();
+    const content = document.getElementById('cartContent');
+    const label = document.getElementById('cartCountLabel');
+    const count = cart.reduce((s, i) => s + i.qty, 0);
+    label.textContent = `${count} item${count !== 1 ? 's' : ''} in your cart`;
+
+    if (cart.length === 0) {
+      content.innerHTML = `
+        <div class="cart-empty">
+          <div class="cart-empty-icon"><i class="bi bi-cart-x"></i></div>
+          <h3 class="font-head" style="font-size:1.2rem;letter-spacing:2px;margin-bottom:0.75rem;">YOUR CART IS EMPTY</h3>
+          <p style="color:var(--text-muted);margin-bottom:1.5rem;">Looks like you haven't added anything yet.</p>
+          <a href="categories.html" class="btn-neon"><i class="bi bi-grid-fill"></i> Browse Games</a>
+        </div>`;
+      updateSummary(0);
+      document.getElementById('checkoutBtn').style.pointerEvents = 'none';
+      document.getElementById('checkoutBtn').style.opacity = '0.5';
+      return;
+    }
+
+    document.getElementById('checkoutBtn').style.pointerEvents = '';
+    document.getElementById('checkoutBtn').style.opacity = '';
+
+    content.innerHTML = `<div class="d-flex flex-column gap-3">` +
+      cart.map(item => {
+        const p = PRODUCTS.find(pr => pr.id === item.id);
+        if (!p) return '';
+        const lineTotal = (p.price * item.qty).toFixed(2);
+        const free = p.price === 0;
+        return `
+          <div class="cart-item" id="cart-item-${p.id}">
+            <div class="cart-item-img">
+              <img src="${p.img}" alt="${p.title}">
+            </div>
+            <div class="cart-item-info">
+              <div class="cart-item-genre">${p.genre}</div>
+              <div class="cart-item-title">${p.title}</div>
+              <div class="d-flex align-items-center gap-3 mt-2">
+                <div class="qty-selector" style="transform:scale(0.85);transform-origin:left;">
+                  <button class="qty-btn" onclick="cartQty(${p.id}, -1)">−</button>
+                  <input type="number" class="qty-input" value="${item.qty}" min="1" max="10" onchange="cartQtySet(${p.id}, this.value)" style="width:44px;">
+                  <button class="qty-btn" onclick="cartQty(${p.id}, 1)">+</button>
+                </div>
+                <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);">× $${p.price.toFixed(2)}</span>
+              </div>
+            </div>
+            <div class="d-flex flex-column align-items-end gap-2">
+              <div class="cart-item-price">${free ? 'FREE' : '$'+lineTotal}</div>
+              <button class="btn-remove" onclick="removeItem(${p.id})" title="Remove"><i class="bi bi-trash3"></i></button>
+            </div>
+          </div>`;
+      }).join('') + `</div>
+      <button class="btn-ghost mt-3" onclick="clearAll()" style="font-size:0.65rem;padding:0.4rem 1rem;color:var(--pink);border-color:rgba(244,114,182,0.3);">
+        <i class="bi bi-trash"></i> Clear Cart
+      </button>`;
+
+    const subtotal = cartTotal();
+    updateSummary(subtotal);
+    renderSuggested();
+  }
+
+  function updateSummary(subtotal) {
+    const discounted = subtotal * (1 - promoDiscount);
+    const tax = discounted * 0.08;
+    const total = discounted + tax;
+    document.getElementById('subtotalVal').textContent = '$' + subtotal.toFixed(2);
+    document.getElementById('taxVal').textContent = '$' + tax.toFixed(2);
+    document.getElementById('totalVal').textContent = '$' + total.toFixed(2);
+  }
+
+  function cartQty(id, delta) {
+    const cart = getCart();
+    const item = cart.find(i => i.id === id);
+    if (item) { item.qty = Math.max(1, item.qty + delta); saveCart(cart); }
+    renderCart();
+  }
+  function cartQtySet(id, val) {
+    updateQty(id, parseInt(val));
+    renderCart();
+  }
+  function removeItem(id) {
+    const el = document.getElementById('cart-item-' + id);
+    if (el) { el.style.opacity = '0'; el.style.transform = 'translateX(30px)'; el.style.transition = '0.3s'; }
+    setTimeout(() => { removeFromCart(id); renderCart(); }, 280);
+  }
+  function clearAll() {
+    if (confirm('Clear entire cart?')) { localStorage.removeItem('nexus_cart'); updateCartBadge(); renderCart(); }
+  }
+  function applyPromo() {
+    const code = document.getElementById('promoInput').value.trim().toUpperCase();
+    const msg = document.getElementById('promoMsg');
+    if (code === 'NEXUS20') {
+      promoDiscount = 0.20;
+      msg.innerHTML = '<span style="color:var(--green)">✓ 20% discount applied!</span>';
+    } else if (code === 'GAMER10') {
+      promoDiscount = 0.10;
+      msg.innerHTML = '<span style="color:var(--green)">✓ 10% discount applied!</span>';
+    } else {
+      promoDiscount = 0;
+      msg.innerHTML = '<span style="color:var(--pink)">✗ Invalid promo code.</span>';
+    }
+    renderCart();
+  }
+  function renderSuggested() {
+    const cart = getCart();
+    const inCart = cart.map(i => i.id);
+    const suggested = PRODUCTS.filter(p => !inCart.includes(p.id)).sort(() => Math.random() - 0.5).slice(0, 4);
+    const sec = document.getElementById('suggestedSection');
+    const grid = document.getElementById('suggested-grid');
+    if (suggested.length && cart.length > 0) {
+      sec.style.display = '';
+      grid.innerHTML = suggested.map(p => `<div class="col-6 col-md-3">${buildGameCard(p)}</div>`).join('');
+    } else {
+      sec.style.display = 'none';
+    }
+  }
+
+  renderCart();
+</script>
+</body>
+</html>

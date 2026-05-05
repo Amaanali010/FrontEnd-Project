@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — NEXUS GAMES</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nexus-nav navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand nav-logo" href="index.html">NEXUS<span>.</span>GG</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="color:var(--blue)">
+      <i class="bi bi-list" style="font-size:1.6rem"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-center gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html"><i class="bi bi-cart3"></i> Cart
+            <span class="cart-badge cart-count">0</span></a>
+        </li>
+        <li class="nav-item ms-2">
+          <a href="checkout.html" class="btn-neon" style="font-size:0.7rem;padding:0.5rem 1.2rem;">
+            <i class="bi bi-lightning-fill"></i> Checkout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="container py-5">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-neon mb-4">
+      <a href="index.html" style="color:var(--text-muted);">Home</a>
+      <span> / </span>
+      <a href="categories.html" style="color:var(--text-muted);">Categories</a>
+      <span> / </span><span id="breadTitle">Product</span>
+    </div>
+
+    <div class="row g-5" id="product-detail"></div>
+
+    <!-- Related Games -->
+    <div class="mt-6" style="margin-top:5rem">
+      <div class="mb-4">
+        <div class="section-label">You May Also Like</div>
+        <h2 class="section-title" style="font-size:1.8rem;">RELATED <span class="accent">GAMES</span></h2>
+        <div class="divider-glow"></div>
+      </div>
+      <div class="row g-4" id="related-grid"></div>
+    </div>
+
+  </div>
+</div>
+
+<footer style="padding:1.5rem 0;border-top:1px solid var(--border);margin-top:3rem;">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <a href="index.html" class="footer-logo" style="font-size:1.1rem;">NEXUS.GG</a>
+    <div class="footer-copy">© 2024 NEXUS.GG</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="cart.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const id = parseInt(params.get('id')) || 1;
+  const product = PRODUCTS.find(p => p.id === id) || PRODUCTS[0];
+
+  document.title = `${product.title} — NEXUS GAMES`;
+  document.getElementById('breadTitle').textContent = product.title;
+
+  const free = product.price === 0;
+  const priceStr = free ? 'FREE' : `$${product.price.toFixed(2)}`;
+  const oldStr = product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : '';
+  const platforms = product.platform.map(pl => {
+    const cls = pl === 'PC' ? 'pc' : pl === 'PS5' ? 'ps' : 'xbox';
+    return `<span class="platform-badge ${cls}">${pl}</span>`;
+  }).join('');
+  const stars = '★'.repeat(Math.floor(product.rating)) + (product.rating % 1 >= 0.5 ? '½' : '');
+
+  // Extra images (reuse same image with filter tricks for demo)
+  const thumbImgs = [product.img, product.img, product.img];
+
+  document.getElementById('product-detail').innerHTML = `
+    <!-- Images -->
+    <div class="col-lg-6">
+      <div class="product-img-main" id="mainImgWrap">
+        <img src="${product.img}" alt="${product.title}" id="mainImg">
+      </div>
+      <div class="product-thumbs">
+        ${thumbImgs.map((img, i) => `
+          <div class="product-thumb ${i===0?'active':''}" onclick="switchThumb(this,'${img}')">
+            <img src="${img}" alt="thumb ${i+1}" style="filter:${i===1?'hue-rotate(30deg)':i===2?'hue-rotate(180deg)':''}">
+          </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="col-lg-6">
+      <div class="game-card-genre mb-2">${product.genre}</div>
+      <h1 class="product-title mb-3">${product.title}</h1>
+
+      <div class="d-flex align-items-center gap-3 mb-3">
+        <div class="stars">${stars}</div>
+        <span class="font-mono" style="font-size:0.75rem;color:var(--text-muted);">${product.rating} / 5 rating</span>
+      </div>
+
+      ${platforms ? `<div class="product-platform-badges mb-4">${platforms}</div>` : ''}
+
+      <div class="product-price-display mb-4">${priceStr}${oldStr}</div>
+
+      <p style="color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;font-size:1rem;">
+        Experience the next evolution of gaming with ${product.title}. Featuring cutting-edge graphics, 
+        immersive gameplay mechanics, and a living world that reacts to your every decision. 
+        Whether you're a casual player or hardcore gamer, this title delivers hours of unforgettable entertainment.
+      </p>
+
+      <!-- Qty -->
+      <div class="d-flex align-items-center gap-4 mb-4 flex-wrap">
+        <div>
+          <div class="spec-label mb-2">QUANTITY</div>
+          <div class="qty-selector">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <input type="number" class="qty-input" value="1" min="1" max="10" id="qtyInput">
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+        </div>
+        <div style="color:var(--green);font-family:var(--font-mono);font-size:0.75rem;">
+          <i class="bi bi-check-circle-fill"></i> In Stock
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="d-flex gap-3 flex-wrap mb-4">
+        <button class="btn-neon" id="addCartBtn" onclick="handleDetailAddCart()">
+          <i class="bi bi-cart-plus"></i> Add to Cart
+        </button>
+        <button class="btn-green" onclick="buyNow()">
+          <i class="bi bi-lightning-fill"></i> Buy Now
+        </button>
+        <button class="btn-ghost" title="Wishlist" style="padding:0.75rem 1rem;">
+          <i class="bi bi-heart"></i>
+        </button>
+      </div>
+
+      <!-- Specs -->
+      <div class="product-specs">
+        <div class="spec-row">
+          <div class="spec-label">Developer</div>
+          <div class="spec-value">Nexus Studios</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-label">Genre</div>
+          <div class="spec-value">${product.genre}</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-label">Release Date</div>
+          <div class="spec-value">2024</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-label">Platform</div>
+          <div class="spec-value">${product.platform.join(', ') || 'Universal'}</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-label">Delivery</div>
+          <div class="spec-value" style="color:var(--green)">Instant Digital Key</div>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  // Related
+  const related = PRODUCTS.filter(p => p.id !== product.id && (p.genre === product.genre || Math.random() > 0.6)).slice(0, 4);
+  document.getElementById('related-grid').innerHTML = related.map(p => `<div class="col-6 col-md-3">${buildGameCard(p)}</div>`).join('');
+
+  function changeQty(delta) {
+    const input = document.getElementById('qtyInput');
+    input.value = Math.max(1, Math.min(10, parseInt(input.value) + delta));
+  }
+  function handleDetailAddCart() {
+    const qty = parseInt(document.getElementById('qtyInput').value);
+    addToCart(product.id, qty);
+    const btn = document.getElementById('addCartBtn');
+    btn.innerHTML = '<i class="bi bi-check-lg"></i> Added!';
+    setTimeout(() => btn.innerHTML = '<i class="bi bi-cart-plus"></i> Add to Cart', 2000);
+  }
+  function buyNow() {
+    addToCart(product.id, parseInt(document.getElementById('qtyInput').value));
+    location.href = 'checkout.html';
+  }
+  function switchThumb(el, src) {
+    document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('mainImg').src = src;
+  }
+</script>
+</body>
+</html>

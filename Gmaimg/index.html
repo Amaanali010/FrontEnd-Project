@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS GAMES — The Ultimate Gaming Store</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="nexus-nav navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand nav-logo" href="index.html">NEXUS<span>.</span>GG</a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="color:var(--blue)">
+      <i class="bi bi-list" style="font-size:1.6rem"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-center gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.html">
+            <i class="bi bi-cart3"></i> Cart
+            <span class="cart-badge cart-count">0</span>
+          </a>
+        </li>
+        <li class="nav-item ms-2">
+          <a href="checkout.html" class="btn-neon" style="font-size:0.7rem;padding:0.5rem 1.2rem;">
+            <i class="bi bi-lightning-fill"></i> Checkout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero-section">
+  <div class="hero-grid"></div>
+  <div class="hero-particles"></div>
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6 hero-content">
+        <div class="hero-eyebrow"><i class="bi bi-broadcast-pin"></i> &nbsp;NOW LIVE — SUMMER SALE UP TO 60% OFF</div>
+        <h1 class="hero-title">
+          <span class="line1">LEVEL UP YOUR</span>
+          <span class="line2">GAMING WORLD</span>
+        </h1>
+        <p class="hero-sub">Discover the universe's best games, accessories, and gear. Fast delivery. Instant keys. Unbeatable prices.</p>
+        <div class="hero-ctas d-flex flex-wrap gap-3">
+          <a href="categories.html" class="btn-neon"><i class="bi bi-grid-fill"></i> Shop Now</a>
+          <a href="#trending" class="btn-ghost"><i class="bi bi-fire"></i> Trending</a>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-visual">
+        <div class="hero-img-wrap">
+          <img src="images/gaming world.jfif" alt="Gaming Setup">
+          <div class="hero-float-badge badge-1"><i class="bi bi-check-circle-fill"></i> &nbsp;Instant Delivery</div>
+          <div class="hero-float-badge badge-2"><i class="bi bi-shield-check-fill"></i> &nbsp;Secure Payments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MARQUEE ==================== -->
+<div class="marquee-band">
+  <div class="marquee-track" id="marqueeTrack">
+    <!-- duplicated by JS -->
+  </div>
+</div>
+
+<!-- ==================== STATS ==================== -->
+<div class="stats-band">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">50K+</div>
+          <div class="stat-label">Games Available</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">2M+</div>
+          <div class="stat-label">Happy Players</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">99%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TRENDING ==================== -->
+<section class="section-gap" id="trending">
+  <div class="container">
+    <div class="mb-5">
+      <div class="section-label"><i class="bi bi-fire"></i> &nbsp;Hot Right Now</div>
+      <h2 class="section-title">TRENDING <span class="accent">GAMES</span></h2>
+      <div class="divider-glow"></div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar mb-4">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="sale">On Sale</button>
+      <button class="filter-btn" data-filter="new">New</button>
+      <button class="filter-btn" data-filter="Action RPG">RPG</button>
+      <button class="filter-btn" data-filter="FPS">FPS</button>
+    </div>
+
+    <div class="row g-4" id="trending-grid"></div>
+
+    <div class="text-center mt-5">
+      <a href="categories.html" class="btn-ghost"><i class="bi bi-grid"></i> View All Categories</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURED BANNER ==================== -->
+<section style="background:var(--dark2);padding:4rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <div class="section-label"><i class="bi bi-star-fill"></i> &nbsp;Featured Title</div>
+        <h2 class="section-title mb-3">DRAGON ABYSS <span class="accent-purple">AWAITS</span></h2>
+        <p style="color:var(--text-muted);max-width:480px;font-size:1.05rem;line-height:1.7;">
+          Embark on an epic fantasy journey through cursed lands and forgotten realms. Over 200 hours of gameplay, stunning visuals, and a living open world.
+        </p>
+        <div class="d-flex align-items-center gap-3 mt-3 mb-4">
+          <div class="stars">★★★★★</div>
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">4.9 / 5  (12,400 reviews)</span>
+        </div>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="product.html?id=6" class="btn-purple"><i class="bi bi-eye-fill"></i> View Details</a>
+          <button class="btn-neon" onclick="addToCart(6)"><i class="bi bi-cart-plus"></i> Add to Cart — $44.99</button>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <img src="https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=700&q=80" alt="Dragon Abyss"
+             style="border-radius:20px;width:100%;border:1px solid var(--border);box-shadow:var(--glow-purple);">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACCESSORIES PREVIEW ==================== -->
+<section class="section-gap">
+  <div class="container">
+    <div class="mb-5">
+      <div class="section-label"><i class="bi bi-controller"></i> &nbsp;Gear Up</div>
+      <h2 class="section-title">TOP <span class="accent">ACCESSORIES</span></h2>
+      <div class="divider-glow"></div>
+    </div>
+    <div class="row g-4" id="acc-grid"></div>
+  </div>
+</section>
+
+<!-- ==================== WHY US ==================== -->
+<section style="background:var(--dark2);padding:5rem 0;border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">THE <span class="accent">NEXUS</span> DIFFERENCE</h2>
+      <div class="divider-glow mx-auto"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="bg-card rounded-3 p-4 h-100" style="border-radius:16px!important;transition:transform 0.3s;cursor:default;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:2.5rem;margin-bottom:1rem;color:var(--blue);filter:drop-shadow(0 0 15px var(--blue))">⚡</div>
+          <h4 class="font-head" style="font-size:1rem;letter-spacing:2px;margin-bottom:0.5rem;">INSTANT DELIVERY</h4>
+          <p style="color:var(--text-muted);font-size:0.95rem;">Digital keys delivered to your inbox within seconds. Start playing immediately after purchase.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bg-card rounded-3 p-4 h-100" style="border-radius:16px!important;transition:transform 0.3s;cursor:default;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:2.5rem;margin-bottom:1rem;color:var(--purple);filter:drop-shadow(0 0 15px var(--purple))">🛡️</div>
+          <h4 class="font-head" style="font-size:1rem;letter-spacing:2px;margin-bottom:0.5rem;">SECURE CHECKOUT</h4>
+          <p style="color:var(--text-muted);font-size:0.95rem;">Military-grade encryption protects every transaction. We never store your payment details.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="bg-card rounded-3 p-4 h-100" style="border-radius:16px!important;transition:transform 0.3s;cursor:default;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:2.5rem;margin-bottom:1rem;color:var(--green);filter:drop-shadow(0 0 15px var(--green))">🔁</div>
+          <h4 class="font-head" style="font-size:1rem;letter-spacing:2px;margin-bottom:0.5rem;">EASY RETURNS</h4>
+          <p style="color:var(--text-muted);font-size:0.95rem;">Not satisfied? 30-day hassle-free returns on physical products. Our team is always ready to help.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-logo">NEXUS.GG</div>
+        <p class="footer-desc mt-2">Your ultimate destination for games, gear, and everything in between. Level up your life.</p>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" style="color:var(--blue);font-size:1.3rem;"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" style="color:var(--blue);font-size:1.3rem;"><i class="bi bi-twitch"></i></a>
+          <a href="#" style="color:var(--blue);font-size:1.3rem;"><i class="bi bi-discord"></i></a>
+          <a href="#" style="color:var(--blue);font-size:1.3rem;"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2 offset-lg-1">
+        <div class="footer-heading">Shop</div>
+        <ul class="footer-links">
+          <li><a href="categories.html">All Games</a></li>
+          <li><a href="categories.html">PC Games</a></li>
+          <li><a href="categories.html">Console</a></li>
+          <li><a href="categories.html">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-heading">Account</div>
+        <ul class="footer-links">
+          <li><a href="cart.html">My Cart</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="#">Orders</a></li>
+          <li><a href="#">Wishlist</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="footer-heading">Help</div>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <div class="footer-copy">© 2024 NEXUS.GG — All rights reserved.</div>
+      <div class="footer-copy">Built with <span style="color:var(--pink)">♥</span> for gamers</div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="cart.js"></script>
+<script>
+  // Marquee items
+  const marqueeItems = ['PC GAMES', 'CONSOLE EXCLUSIVES', 'ACCESSORIES', 'INSTANT KEYS', 'SUMMER SALE', 'FREE SHIPPING', 'NEW RELEASES', '4K GAMING', 'PRO GEAR'];
+  const track = document.getElementById('marqueeTrack');
+  const double = [...marqueeItems, ...marqueeItems];
+  track.innerHTML = double.map(t => `<div class="marquee-item"><span class="dot"></span>${t}</div>`).join('');
+
+  // Trending grid — first 8 non-accessory products
+  const trendingEl = document.getElementById('trending-grid');
+  const trending = PRODUCTS.filter(p => p.genre !== 'Accessory').slice(0, 8);
+  trendingEl.innerHTML = trending.map(p => `<div class="col-6 col-md-4 col-lg-3">${buildGameCard(p)}</div>`).join('');
+
+  // Accessories
+  const accEl = document.getElementById('acc-grid');
+  const accs = PRODUCTS.filter(p => p.genre === 'Accessory');
+  accEl.innerHTML = accs.map(p => `<div class="col-md-4">${buildGameCard(p)}</div>`).join('');
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      let filtered;
+      if (f === 'all') filtered = trending;
+      else if (f === 'sale') filtered = trending.filter(p => p.badge === 'sale');
+      else if (f === 'new')  filtered = trending.filter(p => p.badge === 'new');
+      else filtered = trending.filter(p => p.genre.toLowerCase().includes(f.toLowerCase()));
+      trendingEl.innerHTML = filtered.map(p => `<div class="col-6 col-md-4 col-lg-3">${buildGameCard(p)}</div>`).join('');
+    });
+  });
+</script>
+</body>
+</html>
