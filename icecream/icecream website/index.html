@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ice Cream Paradise - Premium handmade ice creams, shakes & sundaes in Karachi">
+  <title>Ice Cream Paradise 🍦 | Summer Dreams in Every Scoop</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff9ecd 0%, #a8e6cf 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-img {
+      max-width: 100%;
+      animation: float 7s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3" href="index.html">🍦 Ice Cream Paradise</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html">Menu</a></li>
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="cart.html">
+            <i class="fas fa-shopping-cart"></i> Cart
+            <span id="cartCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero d-flex align-items-center text-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-center text-md-start">
+        <h1 class="display-3 fw-bold brand-font">ICE CREAM IS<br>SUMMER DREAM</h1>
+        <p class="lead mb-4">Handcrafted scoops, sundaes & shakes made fresh with love in Karachi 🍦</p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
+          <a href="products.html" class="btn btn-custom btn-lg" onclick="startTransition(event)">Explore Menu</a>
+          <a href="cart.html" class="btn btn-outline-light btn-lg" onclick="startTransition(event)">View Cart 🛒</a>
+        </div>
+      </div>
+      <div class="col-md-6 text-center mt-5 mt-md-0">
+        <img src="images/main page.png" alt="Ice Cream Paradise" class="hero-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POPULAR TREATS -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h3 class="fw-bold brand-font">🍦 Popular Treats</h3>
+    </div>
+    <div class="row g-4 justify-content-center" id="featuredProducts"></div>
+  </div>
+</section>
+
+<!-- FRIDGE TRANSITION -->
+<div id="pageTransition">
+  <div class="fridge-light"></div>
+  <div class="door left"><div class="handle"></div></div>
+  <div class="door right"><div class="handle"></div></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer text-center mt-auto py-5">
+  <div class="container">
+    <h5 class="mb-3">🍦 Ice Cream Paradise</h5>
+    <p>Sweet treats made with love 💖</p>
+    <div class="mb-3">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="products.html" class="footer-link">Products</a>
+      <a href="cart.html" class="footer-link">Cart</a>
+    </div>
+    <p class="small mb-0">© 2026 Ice Cream Paradise • Karachi</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

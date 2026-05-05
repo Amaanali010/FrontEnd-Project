@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside the Freezer ❄️ | Ice Cream Paradise</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body { background: linear-gradient(180deg, #eaf6ff, #d4f0ff, #eaf6ff); }
+    .freezer-header h1 { font-family: 'Fredoka', sans-serif; font-size: 3rem; }
+    .freezer-box {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 40px 25px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top" style="background: rgba(255, 192, 203, 0.96); backdrop-filter: blur(12px);">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3" href="index.html">🍦 Ice Cream Paradise</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="products.html">Menu</a></li>
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="cart.html">
+            <i class="fas fa-shopping-cart me-1"></i> Cart
+            <span id="cartCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="freezer-header text-center">
+  <h1>❄️ Inside the Freezer</h1>
+  <p class="lead">Choose your favorite scoops before they melt 🍦</p>
+</div>
+
+<div class="container">
+  <!-- Search -->
+  <div class="mx-auto mb-5" style="max-width: 520px;">
+    <input type="text" id="searchInput" class="form-control form-control-lg" 
+           placeholder="Search your favorite flavor... 🍦" onkeyup="searchProducts()">
+  </div>
+
+  <!-- Categories -->
+  <div class="text-center mb-5">
+    <button class="cat-btn active" onclick="filterProducts('All', this)">All</button>
+    <button class="cat-btn" onclick="filterProducts('Scoops', this)">Scoops</button>
+    <button class="cat-btn" onclick="filterProducts('Sundaes', this)">Sundaes</button>
+    <button class="cat-btn" onclick="filterProducts('Shakes', this)">Shakes</button>
+  </div>
+
+  <!-- Products -->
+  <div class="row g-4" id="productList"></div>
+</div>
+
+<!-- Fridge Transition -->
+<div id="pageTransition">
+  <div class="fridge-light"></div>
+  <div class="door left"><div class="handle"></div></div>
+  <div class="door right"><div class="handle"></div></div>
+</div>
+
+<!-- Footer -->
+<footer class="footer text-center mt-5 py-5">
+  <div class="container">
+    <h5 class="mb-3">🍦 Ice Cream Paradise</h5>
+    <p>Sweet treats made with love 💖</p>
+    <div class="mb-3">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="products.html" class="footer-link">Products</a>
+      <a href="cart.html" class="footer-link">Cart</a>
+    </div>
+    <p class="small mb-0">© 2026 Ice Cream Paradise • Karachi</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

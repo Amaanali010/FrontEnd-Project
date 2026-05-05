@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart 🛒 | Ice Cream Paradise</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .cart-header {
+      text-align: center;
+      padding: 50px 20px 30px;
+    }
+    .cart-header h1 {
+      font-family: 'Fredoka', sans-serif;
+      color: #2b4f6b;
+    }
+    .cart-box {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 35px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    .cart-item {
+      background: white;
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    .btn-place-order {
+      background: linear-gradient(135deg, #ff6bcb, #ff4da8);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px;
+      font-weight: 600;
+    }
+
+    /* Receipt Styles */
+    .receipt-container {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    .receipt {
+      background: white;
+      width: 400px;
+      max-width: 95%;
+      padding: 35px 25px;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .receipt-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .receipt-header h2 {
+      font-family: 'Fredoka', sans-serif;
+      color: #ff6bcb;
+    }
+
+    .btn-print {
+      background: #6b5eff;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 25px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top" style="background: rgba(255, 192, 203, 0.96); backdrop-filter: blur(12px);">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3" href="index.html">🍦 Ice Cream Paradise</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="products.html">Menu</a></li>
+        <li class="nav-item">
+          <a class="nav-link active position-relative" href="cart.html">
+            <i class="fas fa-shopping-cart me-1"></i> Cart
+            <span id="cartCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="cart-header">
+  <h1>🛒 Your Cart</h1>
+  <p class="lead">Review your sweet selections before checkout</p>
+</div>
+
+<div class="container">
+
+  <!-- Delivery Details -->
+  <div class="cart-box">
+    <h5 class="mb-4">📝 Delivery Details</h5>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <input id="name" type="text" class="form-control" placeholder="Full Name *" required>
+      </div>
+      <div class="col-md-6">
+        <input id="phone" type="tel" class="form-control" placeholder="Phone Number *" required>
+      </div>
+      <div class="col-12">
+        <input id="address" type="text" class="form-control" placeholder="Full Delivery Address *" required>
+      </div>
+      <div class="col-md-6">
+        <select id="payment" class="form-select">
+          <option value="Cash on Delivery">Cash on Delivery</option>
+          <option value="Card Payment">Card Payment</option>
+          <option value="EasyPaisa / JazzCash">EasyPaisa / JazzCash</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Items -->
+  <div class="cart-box">
+    <h5 class="mb-4">🧊 Your Items</h5>
+    <div id="cartItems"></div>
+
+    <div class="mt-4 p-4 bg-white rounded-4 shadow-sm">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0">Total Amount</h5>
+        <h4 class="mb-0 text-pink fw-bold" id="totalPrice">Rs 0</h4>
+      </div>
+      <button onclick="checkout()" class="btn btn-place-order w-100">
+        Place Order 🍦
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PRINTABLE RECEIPT -->
+<div id="receiptContainer" class="receipt-container">
+  <div class="receipt" id="receipt">
+    <div class="receipt-header">
+      <h2>🍦 Ice Cream Paradise</h2>
+      <p>Order Receipt</p>
+      <hr>
+    </div>
+    <div class="receipt-body" id="receiptBody"></div>
+    
+    <div class="text-center mt-4">
+      <button onclick="printReceipt()" class="btn btn-print">
+        <i class="fas fa-print"></i> Print Receipt
+      </button>
+      <button onclick="closeReceipt()" class="btn btn-outline-secondary ms-3">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FRIDGE TRANSITION -->
+<div id="pageTransition">
+  <div class="fridge-light"></div>
+  <div class="door left"><div class="handle"></div></div>
+  <div class="door right"><div class="handle"></div></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer text-center mt-5 py-5">
+  <div class="container">
+    <h5 class="mb-3">🍦 Ice Cream Paradise</h5>
+    <p>Sweet treats made with love 💖</p>
+    <div class="mb-3">
+      <a href="index.html" class="footer-link">Home</a>
+      <a href="products.html" class="footer-link">Products</a>
+      <a href="cart.html" class="footer-link">Cart</a>
+    </div>
+    <p class="small mb-0">© 2026 Ice Cream Paradise • Karachi</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
