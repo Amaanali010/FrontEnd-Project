@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aurélia — Luxury Hotel & Resort</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
+<style>
+:root{
+  --gold:#C9A96E; --gold2:#E8D5A3; --gold3:#8B6E3A;
+  --ink:#08070A; --ink2:#141218; --ink3:#1E1B24;
+  --cream:#F5F0E8; --cream2:#EDE7D9; --mist:rgba(245,240,232,.06);
+  --border:rgba(201,169,110,.18); --border2:rgba(201,169,110,.35);
+  --ff:'Cormorant Garamond',serif; --fb:'Jost',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1); --ease2:cubic-bezier(.76,0,.24,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--fb);background:var(--ink);color:var(--cream);overflow-x:hidden;cursor:none}
+#cursor{position:fixed;z-index:9999;pointer-events:none;mix-blend-mode:difference}
+.c-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+.c-ring{width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),border-color .3s;opacity:.6}
+body:has(a:hover) .c-ring, body:has(button:hover) .c-ring{width:60px;height:60px;border-color:var(--gold2)}
+#curtain{position:fixed;inset:0;background:var(--ink);z-index:9990;transform-origin:bottom;animation:curtainOut 1s var(--ease) .1s forwards}
+@keyframes curtainOut{to{transform:scaleY(0)}}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity:.4}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:28px 0;transition:padding .6s var(--ease),background .6s var(--ease),border-color .6s}
+nav.stuck{padding:16px 0;background:rgba(8,7,10,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+@media(max-width:768px){.nav-inner{padding:0 24px}}
+.nav-logo{font-family:var(--ff);font-size:1.7rem;font-weight:300;letter-spacing:.08em;color:var(--cream);text-decoration:none;opacity:0;animation:fadeD .8s .6s var(--ease) forwards}
+.nav-logo em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:40px;list-style:none;opacity:0;animation:fadeD .8s .8s var(--ease) forwards}
+@media(max-width:768px){.nav-links{display:none}}
+.nav-links a{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(245,240,232,.6);text-decoration:none;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s var(--ease)}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--gold)}
+.nav-links a.active::after{width:100%}
+.nav-cta{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:11px 28px;text-decoration:none;transition:background .3s,transform .3s;opacity:0;animation:fadeD .8s 1s var(--ease) forwards}
+.nav-cta:hover{background:var(--gold2);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+@media(max-width:768px){.hamburger{display:flex}}
+.hamburger span{width:24px;height:1px;background:var(--gold);transition:transform .4s,opacity .3s}
+.mob-menu{position:fixed;inset:0;background:var(--ink2);z-index:99;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:36px;transform:translateX(100%);transition:transform .7s var(--ease)}
+.mob-menu.open{transform:translateX(0)}
+.mob-menu a{font-family:var(--ff);font-size:2.5rem;font-weight:300;color:var(--cream);text-decoration:none;letter-spacing:.05em;transition:color .3s}
+.mob-menu a:hover{color:var(--gold)}
+#hero{position:relative;height:100vh;min-height:700px;overflow:hidden;display:flex;align-items:center}
+.hero-slides{position:absolute;inset:0}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.hero-slide.active{opacity:1}
+.hero-slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:none}
+.hero-slide.active img{animation:kenBurns 9s var(--ease) forwards}
+@keyframes kenBurns{to{transform:scale(1)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,7,10,.85) 0%,rgba(8,7,10,.45) 55%,rgba(8,7,10,.2) 100%)}
+.hero-overlay2{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,7,10,.9) 0%,transparent 50%)}
+#three-hero{position:absolute;inset:0;z-index:1;pointer-events:none}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{position:absolute;border-radius:50%;background:var(--gold);animation:particleFloat linear infinite;opacity:0}
+@keyframes particleFloat{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:.6}90%{opacity:.1}100%{transform:translateY(-100px) rotate(720deg);opacity:0}}
+.hero-content{position:relative;z-index:2;padding:0 48px;max-width:900px}
+@media(max-width:768px){.hero-content{padding:0 24px}}
+.hero-tagline{font-size:.62rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-family:var(--fb);font-weight:400;margin-bottom:24px;opacity:0;animation:slideUp .9s .8s var(--ease) forwards;display:flex;align-items:center;gap:16px}
+.hero-tagline::before{content:'';width:40px;height:1px;background:var(--gold)}
+.hero-h1{font-family:var(--ff);font-size:clamp(3.5rem,8vw,7.5rem);line-height:.95;font-weight:300;color:var(--cream);margin-bottom:32px}
+.hero-h1 .line{display:block;overflow:hidden}
+.hero-h1 .line span{display:block;transform:translateY(110%);animation:lineReveal 1s var(--ease) forwards}
+.hero-h1 .line:nth-child(1) span{animation-delay:.9s}
+.hero-h1 .line:nth-child(2) span{animation-delay:1.1s}
+.hero-h1 .line:nth-child(3) span{animation-delay:1.3s}
+.hero-h1 em{color:var(--gold);font-style:italic}
+@keyframes lineReveal{to{transform:translateY(0)}}
+.hero-sub{font-size:.88rem;color:rgba(245,240,232,.6);max-width:380px;line-height:1.9;margin-bottom:52px;opacity:0;animation:slideUp .9s 1.6s var(--ease) forwards;font-weight:300}
+.hero-search{background:rgba(8,7,10,.7);backdrop-filter:blur(20px);border:1px solid var(--border);padding:0;display:flex;flex-wrap:wrap;opacity:0;animation:slideUp .9s 1.8s var(--ease) forwards;max-width:780px}
+.hs-field{flex:1;min-width:160px;padding:22px 24px;border-right:1px solid var(--border);position:relative}
+.hs-field:last-child{border-right:none;flex:0 0 auto}
+.hs-label{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px;display:block}
+.hs-input{background:transparent;border:none;color:var(--cream);font-family:var(--fb);font-size:.85rem;width:100%;outline:none;font-weight:300}
+.hs-input::placeholder{color:rgba(245,240,232,.3)}
+.hs-input option{background:var(--ink3)}
+.hs-btn{background:var(--gold);color:var(--ink);border:none;padding:22px 36px;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;font-family:var(--fb);font-weight:500;cursor:pointer;transition:background .3s,transform .3s;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.hs-btn:hover{background:var(--gold2);transform:scale(1.02)}
+.slide-dots{position:absolute;bottom:44px;left:48px;z-index:3;display:flex;gap:10px;opacity:0;animation:fadeD .8s 2.2s forwards}
+.dot{width:24px;height:2px;background:rgba(245,240,232,.3);cursor:pointer;transition:background .4s,width .4s}
+.dot.active{background:var(--gold);width:48px}
+.scroll-cue{position:absolute;bottom:44px;right:48px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,240,232,.4);opacity:0;animation:fadeD .8s 2.4s forwards}
+.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2.2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
+.section-tag{font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-family:var(--fb);font-weight:400;display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.section-tag::before{content:'';width:32px;height:1px;background:var(--gold)}
+.sec-title{font-family:var(--ff);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:300;line-height:1.05;color:var(--cream)}
+.sec-title em{color:var(--gold);font-style:italic}
+.sec-title-dark{color:var(--ink)}
+.sec-title-dark em{color:var(--gold3)}
+.gold-bar{width:48px;height:1px;background:var(--gold);margin:24px 0 40px}
+.reveal{opacity:0;transform:translateY(44px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.on{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-44px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal-left.on{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(44px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal-right.on{opacity:1;transform:none}
+.reveal-scale{opacity:0;transform:scale(.94);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal-scale.on{opacity:1;transform:none}
+.marquee-strip{background:var(--gold);padding:14px 0;overflow:hidden;position:relative;z-index:2}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marquee 28s linear infinite}
+.marquee-item{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--ink);font-weight:500;padding:0 48px;display:flex;align-items:center;gap:16px}
+.marquee-item::after{content:'✦';color:var(--gold3)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#why{padding:130px 48px;background:var(--ink);position:relative;overflow:hidden}
+@media(max-width:768px){#why{padding:90px 24px}}
+#why::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%);pointer-events:none}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr;gap:60px}}
+.why-visual{position:relative}
+.why-img-main{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.why-img-badge{position:absolute;bottom:-28px;right:-28px;background:var(--gold);padding:28px 24px;text-align:center}
+.why-img-badge .num{font-family:var(--ff);font-size:2.8rem;font-weight:300;color:var(--ink);line-height:1}
+.why-img-badge .lbl{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(8,7,10,.7);font-weight:500;margin-top:4px}
+.why-cards{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:40px}
+.why-card{background:var(--ink2);padding:32px 28px;border:1px solid transparent;transition:border-color .4s,background .4s,transform .4s var(--ease)}
+.why-card:hover{border-color:var(--border);background:var(--ink3);transform:translateY(-4px)}
+.wc-icon{font-size:1.5rem;color:var(--gold);margin-bottom:16px;display:block;transition:transform .4s var(--ease)}
+.why-card:hover .wc-icon{transform:scale(1.2) rotate(-5deg)}
+.wc-title{font-family:var(--ff);font-size:1.2rem;color:var(--cream);margin-bottom:8px}
+.wc-desc{font-size:.8rem;color:rgba(245,240,232,.45);line-height:1.75;font-weight:300}
+#rooms-prev{padding:130px 48px;background:var(--cream);position:relative}
+@media(max-width:768px){#rooms-prev{padding:90px 24px}}
+.rooms-header{max-width:1200px;margin:0 auto 60px;display:flex;justify-content:space-between;align-items:flex-end}
+@media(max-width:768px){.rooms-header{flex-direction:column;align-items:flex-start;gap:24px}}
+.rp-link{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold3);text-decoration:none;display:flex;align-items:center;gap:10px;transition:gap .3s}
+.rp-link:hover{gap:18px}
+.rp-link::after{content:'→'}
+.rooms-scroll{display:flex;gap:24px;max-width:1200px;margin:0 auto;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+.rooms-scroll::-webkit-scrollbar{display:none}
+.room-card{flex:0 0 340px;background:#fff;overflow:hidden;cursor:pointer;border:1px solid rgba(0,0,0,.06);transition:box-shadow .5s var(--ease),transform .5s var(--ease)}
+.room-card:hover{box-shadow:0 32px 80px rgba(0,0,0,.18);transform:translateY(-8px)}
+.rc-img{height:260px;overflow:hidden;position:relative}
+.rc-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.room-card:hover .rc-img img{transform:scale(1.08)}
+.rc-tag{position:absolute;bottom:18px;left:18px;background:var(--gold);color:var(--ink);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;padding:5px 14px;font-weight:500}
+.rc-body{padding:28px}
+.rc-type{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:#9A9590;font-weight:500;margin-bottom:8px}
+.rc-name{font-family:var(--ff);font-size:1.5rem;color:var(--ink);margin-bottom:10px;font-weight:400}
+.rc-feats{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.rc-feats span{font-size:.72rem;color:#9A9590;display:flex;align-items:center;gap:5px}
+.rc-feats i{color:var(--gold3);font-size:.85rem}
+.rc-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,.06);padding-top:20px}
+.rc-price{font-family:var(--ff);font-size:1.8rem;color:var(--ink);font-weight:400}
+.rc-price small{font-family:var(--fb);font-size:.7rem;color:#9A9590;font-weight:400}
+.rc-btn{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);border:1px solid var(--gold3);padding:9px 20px;background:transparent;cursor:pointer;transition:background .3s,color .3s;text-decoration:none}
+.rc-btn:hover{background:var(--gold3);color:#fff}
+/* 3D tilt */
+.tilt-card{transform-style:preserve-3d;transition:transform .15s}
+#stats{background:var(--ink2);padding:90px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:1200px;margin:0 auto;gap:2px}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-box{padding:48px 32px;text-align:center;border:1px solid transparent;transition:border-color .4s,background .4s}
+.stat-box:hover{border-color:var(--border);background:var(--mist)}
+.stat-num{font-family:var(--ff);font-size:clamp(3rem,5vw,4.5rem);font-weight:300;color:var(--cream);line-height:1}
+.stat-suf{font-size:1.5rem;color:var(--gold)}
+.stat-label{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(245,240,232,.4);font-weight:400;margin-top:12px}
+.stat-line{width:24px;height:1px;background:var(--gold);margin:14px auto 0}
+#testi{padding:130px 48px;background:var(--cream);position:relative;overflow:hidden}
+@media(max-width:768px){#testi{padding:90px 24px}}
+#testi::before{content:'❝';position:absolute;right:-40px;top:60px;font-family:var(--ff);font-size:40vw;color:rgba(201,169,110,.04);line-height:1;pointer-events:none;user-select:none}
+.testi-slider{max-width:1200px;margin:0 auto;position:relative}
+.testi-track{display:flex;transition:transform .9s var(--ease)}
+.testi-slide{flex:0 0 100%;padding:0 12px}
+.testi-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+@media(max-width:768px){.testi-inner{grid-template-columns:1fr;gap:40px}}
+.testi-img-wrap{position:relative;aspect-ratio:4/5;overflow:hidden}
+.testi-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.testi-slide.active .testi-img-wrap img{transform:scale(1.03)}
+.testi-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(8,7,10,.3))}
+.testi-quote-mark{font-family:var(--ff);font-size:5rem;color:var(--gold);line-height:0;opacity:.5;margin-bottom:28px;display:block}
+.testi-text{font-family:var(--ff);font-size:1.32rem;font-style:italic;color:var(--ink);line-height:1.7;margin-bottom:28px;font-weight:400}
+.testi-stars{color:var(--gold);font-size:.9rem;margin-bottom:20px;letter-spacing:3px}
+.testi-author-name{font-family:var(--ff);font-size:1.05rem;color:var(--ink);margin-bottom:4px}
+.testi-author-loc{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#9A9590;font-weight:400}
+.testi-controls{display:flex;gap:12px;margin-top:40px;align-items:center}
+.tc-btn{width:44px;height:44px;border:1px solid rgba(0,0,0,.15);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--ink);transition:border-color .3s,background .3s,color .3s}
+.tc-btn:hover{border-color:var(--gold3);background:var(--gold3);color:#fff}
+.tc-dots{display:flex;gap:8px}
+.tc-dot{width:20px;height:2px;background:rgba(8,7,10,.2);cursor:pointer;transition:background .3s,width .3s}
+.tc-dot.active{background:var(--gold3);width:40px}
+#experience{display:grid;grid-template-columns:1fr 1fr}
+@media(max-width:768px){#experience{grid-template-columns:1fr}}
+.exp-img{position:relative;overflow:hidden;min-height:600px}
+.exp-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .9s var(--ease)}
+.exp-img:hover img{transform:scale(1.04)}
+.exp-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(8,7,10,.6),transparent)}
+.exp-content{background:var(--ink2);padding:100px 72px;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:768px){.exp-content{padding:72px 32px}}
+.exp-feat{display:flex;gap:20px;align-items:flex-start;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.exp-feat:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.exp-feat-icon{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.1rem;flex-shrink:0;transition:background .3s,border-color .3s}
+.exp-feat:hover .exp-feat-icon{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.exp-feat-title{font-family:var(--ff);font-size:1.15rem;color:var(--cream);margin-bottom:6px;transition:color .3s}
+.exp-feat:hover .exp-feat-title{color:var(--gold)}
+.exp-feat-desc{font-size:.8rem;color:rgba(245,240,232,.45);line-height:1.7;font-weight:300}
+#cta{position:relative;padding:160px 48px;overflow:hidden;text-align:center}
+@media(max-width:768px){#cta{padding:100px 24px}}
+.cta-bg{position:absolute;inset:0}
+.cta-bg img{width:100%;height:100%;object-fit:cover}
+.cta-bg::after{content:'';position:absolute;inset:0;background:rgba(8,7,10,.75)}
+.cta-content{position:relative;z-index:2}
+.cta-title{font-family:var(--ff);font-size:clamp(2.5rem,6vw,5rem);font-weight:300;color:var(--cream);line-height:1.05;margin-bottom:20px}
+.cta-title em{color:var(--gold);font-style:italic}
+.cta-sub{font-size:.88rem;color:rgba(245,240,232,.55);max-width:400px;margin:0 auto 48px;line-height:1.8;font-weight:300}
+.cta-btn{display:inline-block;background:var(--gold);color:var(--ink);font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;padding:18px 52px;text-decoration:none;font-weight:500;transition:background .3s,transform .4s var(--ease),box-shadow .3s;position:relative;overflow:hidden}
+.cta-btn:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 20px 60px rgba(201,169,110,.3)}
+.cta-line{width:1px;height:80px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 40px;animation:ctaLine 2s ease-in-out infinite alternate}
+@keyframes ctaLine{from{opacity:.3;height:60px}to{opacity:1;height:100px}}
+footer{background:var(--ink2);border-top:1px solid var(--border);padding:80px 48px 32px}
+@media(max-width:768px){footer{padding:60px 24px 32px}}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:60px;max-width:1200px;margin:0 auto 60px}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:40px}}
+@media(max-width:580px){.footer-grid{grid-template-columns:1fr;gap:36px}}
+.f-logo{font-family:var(--ff);font-size:2rem;font-weight:300;color:var(--cream);letter-spacing:.08em;margin-bottom:16px}
+.f-logo em{color:var(--gold);font-style:italic}
+.f-desc{font-size:.8rem;color:rgba(245,240,232,.38);line-height:1.8;margin-bottom:28px;font-weight:300;max-width:220px}
+.f-socials{display:flex;gap:10px}
+.f-soc{width:34px;height:34px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:rgba(245,240,232,.45);transition:border-color .3s,color .3s,background .3s;text-decoration:none}
+.f-soc:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.08)}
+.f-heading{font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:22px}
+.f-links{list-style:none}
+.f-links li{margin-bottom:12px}
+.f-links a{font-size:.82rem;color:rgba(245,240,232,.45);text-decoration:none;transition:color .3s;font-weight:300}
+.f-links a:hover{color:var(--gold)}
+.f-contact-item{display:flex;gap:12px;margin-bottom:14px;font-size:.82rem;color:rgba(245,240,232,.45);font-weight:300;align-items:flex-start}
+.f-contact-item i{color:var(--gold);margin-top:2px;flex-shrink:0}
+.f-nl-input-wrap{position:relative;margin-top:4px}
+.f-nl-input{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--cream);font-family:var(--fb);font-size:.82rem;padding:11px 48px 11px 14px;width:100%;outline:none;transition:border-color .3s;font-weight:300}
+.f-nl-input::placeholder{color:rgba(245,240,232,.25)}
+.f-nl-input:focus{border-color:var(--gold)}
+.f-nl-btn{position:absolute;right:0;top:0;bottom:0;background:var(--gold);border:none;color:var(--ink);padding:0 14px;cursor:pointer;transition:background .3s;font-size:1rem}
+.f-nl-btn:hover{background:var(--gold2)}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.f-copy{font-size:.72rem;color:rgba(245,240,232,.3);font-weight:300}
+.f-legal{display:flex;gap:20px}
+.f-legal a{font-size:.72rem;color:rgba(245,240,232,.3);text-decoration:none;transition:color .3s;font-weight:300}
+.f-legal a:hover{color:var(--gold)}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(8,7,10,0);pointer-events:none;transition:background .4s}
+.modal-bg.open{background:rgba(8,7,10,.85);pointer-events:auto}
+.modal-box{background:var(--ink2);border:1px solid var(--border);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;transform:translateY(40px) scale(.97);opacity:0;transition:transform .6s var(--ease),opacity .5s;scrollbar-width:thin;scrollbar-color:var(--gold) var(--ink)}
+.modal-bg.open .modal-box{transform:none;opacity:1}
+.modal-head{padding:32px 36px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between}
+.modal-title{font-family:var(--ff);font-size:1.8rem;font-weight:300;color:var(--cream)}
+.modal-close{background:transparent;border:1px solid var(--border);color:rgba(245,240,232,.5);width:34px;height:34px;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:border-color .3s,color .3s}
+.modal-close:hover{border-color:var(--gold);color:var(--gold)}
+.modal-body{padding:32px 36px}
+.m-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+@media(max-width:480px){.m-row{grid-template-columns:1fr}}
+.m-row.three{grid-template-columns:1fr 1fr 1fr}
+@media(max-width:480px){.m-row.three{grid-template-columns:1fr}}
+.m-field{display:flex;flex-direction:column}
+.m-label{font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:8px}
+.m-input,.m-select,.m-textarea{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--cream);font-family:var(--fb);font-size:.88rem;padding:12px 16px;outline:none;transition:border-color .3s,background .3s;font-weight:300;width:100%}
+.m-input:focus,.m-select:focus,.m-textarea:focus{border-color:var(--gold);background:rgba(201,169,110,.05)}
+.m-input::placeholder,.m-textarea::placeholder{color:rgba(245,240,232,.25)}
+.m-select option{background:var(--ink3)}
+.m-textarea{resize:vertical;min-height:80px}
+.m-err{font-size:.72rem;color:#e05a5a;margin-top:5px;display:none}
+.m-err.show{display:block}
+.modal-foot{padding:24px 36px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.modal-note{font-size:.7rem;color:rgba(245,240,232,.35);display:flex;align-items:center;gap:6px}
+.modal-note i{color:var(--gold)}
+.m-submit{background:var(--gold);color:var(--ink);border:none;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;padding:14px 36px;cursor:pointer;font-family:var(--fb);font-weight:500;transition:background .3s,transform .3s;display:flex;align-items:center;gap:8px}
+.m-submit:hover{background:var(--gold2);transform:translateY(-2px)}
+#confirm-page{display:none;background:var(--cream);padding:100px 48px}
+@media(max-width:768px){#confirm-page{padding:80px 24px}}
+.receipt-wrap{max-width:720px;margin:0 auto;background:#fff;border:1px solid rgba(0,0,0,.1)}
+.receipt-head{padding:44px 48px 36px;border-bottom:1px solid rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:flex-start}
+.r-logo{font-family:var(--ff);font-size:2rem;font-weight:300;color:var(--ink);letter-spacing:.08em}
+.r-logo em{color:var(--gold3);font-style:italic}
+.r-ref{font-size:.7rem;color:#9A9590;letter-spacing:.1em;margin-top:5px}
+.r-badge{background:var(--gold);color:var(--ink);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;padding:7px 18px;font-weight:500;align-self:flex-start}
+.receipt-body{padding:36px 48px}
+.r-title{font-family:var(--ff);font-size:1.8rem;font-weight:300;color:var(--ink);margin-bottom:6px}
+.r-sub{font-size:.8rem;color:#9A9590;margin-bottom:32px;font-weight:300}
+.r-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px 40px;margin-bottom:36px}
+@media(max-width:480px){.r-grid{grid-template-columns:1fr}}
+.r-field .r-lbl{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold3);font-weight:500;margin-bottom:5px}
+.r-field .r-val{font-size:.92rem;color:var(--ink);font-weight:400}
+.r-total{background:var(--ink);padding:24px 28px;display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.r-total-lbl{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.5)}
+.r-total-amt{font-family:var(--ff);font-size:2.2rem;color:var(--gold);font-weight:300}
+.r-foot{text-align:center;padding:24px 0;border-top:1px solid rgba(0,0,0,.08);font-size:.78rem;color:#9A9590;line-height:1.8;font-weight:300}
+.receipt-actions{padding:0 48px 44px;display:flex;gap:14px;flex-wrap:wrap}
+.r-print-btn{background:var(--ink);color:var(--cream);border:none;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;padding:13px 28px;cursor:pointer;font-family:var(--fb);font-weight:500;transition:background .3s;display:flex;align-items:center;gap:8px}
+.r-print-btn:hover{background:var(--gold);color:var(--ink)}
+.r-back-btn{background:transparent;color:var(--ink);border:1px solid rgba(0,0,0,.15);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;padding:13px 28px;cursor:pointer;font-family:var(--fb);font-weight:500;transition:border-color .3s;display:flex;align-items:center;gap:8px}
+.r-back-btn:hover{border-color:var(--ink)}
+/* CHAT */
+#chat-toggle{position:fixed;bottom:32px;right:32px;z-index:900;width:60px;height:60px;background:var(--gold);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--ink);box-shadow:0 8px 40px rgba(201,169,110,.4);transition:transform .4s var(--ease),background .3s;animation:chatPulse 3s ease-in-out infinite}
+@keyframes chatPulse{0%,100%{box-shadow:0 8px 40px rgba(201,169,110,.4)}50%{box-shadow:0 8px 60px rgba(201,169,110,.7)}}
+#chat-toggle:hover{transform:scale(1.1);background:var(--gold2);animation:none}
+#chat-toggle.open{transform:rotate(45deg);animation:none}
+#chat-box{position:fixed;bottom:108px;right:32px;z-index:900;width:360px;background:var(--ink2);border:1px solid var(--border);box-shadow:0 32px 100px rgba(0,0,0,.7);display:flex;flex-direction:column;transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:transform .5s var(--ease),opacity .4s}
+#chat-box.open{transform:none;opacity:1;pointer-events:auto}
+@media(max-width:480px){#chat-box{width:calc(100vw - 48px);right:24px}}
+.cb-head{padding:20px 22px;background:var(--ink3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.cb-avatar{width:38px;height:38px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:1rem;color:var(--ink);font-style:italic;font-weight:300;flex-shrink:0}
+.cb-name{font-family:var(--ff);font-size:1rem;color:var(--cream)}
+.cb-status{font-size:.62rem;color:var(--gold);letter-spacing:.1em}
+.cb-close{margin-left:auto;background:transparent;border:none;color:rgba(245,240,232,.4);cursor:pointer;font-size:1rem;transition:color .3s;padding:2px}
+.cb-close:hover{color:var(--gold)}
+.cb-messages{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:12px;max-height:300px;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+.msg{max-width:80%;animation:msgIn .4s var(--ease)}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.bot{align-self:flex-start}.msg.user{align-self:flex-end}
+.msg-bubble{padding:10px 14px;font-size:.82rem;line-height:1.55;font-weight:300}
+.msg.bot .msg-bubble{background:var(--ink3);color:rgba(245,240,232,.8);border-radius:0 10px 10px 10px;border-left:2px solid var(--gold)}
+.msg.user .msg-bubble{background:var(--gold);color:var(--ink);border-radius:10px 0 10px 10px}
+.msg-time{font-size:.6rem;color:rgba(245,240,232,.25);margin-top:4px}
+.msg.bot .msg-time{text-align:left}.msg.user .msg-time{text-align:right}
+.cb-typing{display:flex;gap:4px;padding:10px 14px;align-self:flex-start}
+.cb-typing span{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:typingDot 1.2s ease-in-out infinite}
+.cb-typing span:nth-child(2){animation-delay:.2s}.cb-typing span:nth-child(3){animation-delay:.4s}
+@keyframes typingDot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+.cb-suggestions{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px;border-top:1px solid var(--border)}
+.cb-sug{font-size:.65rem;color:var(--gold);border:1px solid rgba(201,169,110,.3);padding:5px 12px;background:transparent;cursor:pointer;font-family:var(--fb);transition:background .3s,color .3s;white-space:nowrap}
+.cb-sug:hover{background:rgba(201,169,110,.12);border-color:var(--gold)}
+.cb-input-row{display:flex;border-top:1px solid var(--border)}
+#cb-input{flex:1;background:transparent;border:none;color:var(--cream);font-family:var(--fb);font-size:.85rem;padding:14px 16px;outline:none;font-weight:300}
+#cb-input::placeholder{color:rgba(245,240,232,.25)}
+#cb-send{background:var(--gold);border:none;color:var(--ink);padding:0 18px;cursor:pointer;font-size:1rem;transition:background .3s}
+#cb-send:hover{background:var(--gold2)}
+.flatpickr-calendar{background:var(--ink3);border:1px solid var(--border);border-radius:0;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+.flatpickr-day.selected,.flatpickr-day.selected:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.flatpickr-day:hover{background:rgba(201,169,110,.2)}
+.flatpickr-months{background:var(--ink)}
+.flatpickr-month,.flatpickr-weekday,.flatpickr-day{color:var(--cream)!important}
+@keyframes fadeD{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
+@media print{body>*{display:none!important}#confirm-page{display:block!important;padding:0!important;background:#fff!important}.receipt-actions{display:none!important}.r-total{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div id="cursor"><div class="c-dot"></div><div class="c-ring"></div></div>
+<div id="curtain"></div>
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html" class="active">Home</a>
+  <a href="rooms.html">Rooms</a>
+  <a href="amenities.html">Amenities</a>
+  <a href="#contact">Contact</a>
+</div>
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Aurél<em>ia</em></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="rooms.html">Rooms</a></li>
+      <li><a href="amenities.html">Amenities</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#" class="nav-cta" onclick="openModal();return false">Reserve</a>
+    <div class="hamburger" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section id="hero">
+  <canvas id="three-hero"></canvas>
+  <div class="hero-slides">
+    <div class="hero-slide active"><img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=1800&q=85" alt="Hero 1"/></div>
+    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1540541338537-71a80483a9ce?w=1800&q=85" alt="Hero 2"/></div>
+    <div class="hero-slide"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1800&q=85" alt="Hero 3"/></div>
+  </div>
+  <div class="hero-overlay"></div><div class="hero-overlay2"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-content">
+    <p class="hero-tagline">Monaco, Riviera · Est. 1976</p>
+    <h1 class="hero-h1">
+      <span class="line"><span>Where every</span></span>
+      <span class="line"><span>moment is <em>crafted</em></span></span>
+      <span class="line"><span>in gold.</span></span>
+    </h1>
+    <p class="hero-sub">A sanctuary of uncompromising elegance on the shores of the Côte d'Azur — where the art of hospitality reaches its finest expression.</p>
+    <div class="hero-search">
+      <div class="hs-field"><label class="hs-label">Check-In</label><input type="text" id="hci" class="hs-input" placeholder="Select date" readonly/></div>
+      <div class="hs-field"><label class="hs-label">Check-Out</label><input type="text" id="hco" class="hs-input" placeholder="Select date" readonly/></div>
+      <div class="hs-field"><label class="hs-label">Guests</label><select class="hs-input"><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select></div>
+      <button class="hs-btn" onclick="openModal()"><i class="bi bi-search"></i> Search</button>
+    </div>
+  </div>
+  <div class="slide-dots" id="slideDots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+  </div>
+  <div class="scroll-cue"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item">Infinity Pool</div><div class="marquee-item">3 Michelin Stars</div><div class="marquee-item">Riviera Spa</div><div class="marquee-item">Private Butler</div><div class="marquee-item">240 Suites</div><div class="marquee-item">Award-Winning Service</div><div class="marquee-item">Helicopter Transfers</div><div class="marquee-item">48 Years of Excellence</div>
+    <div class="marquee-item">Infinity Pool</div><div class="marquee-item">3 Michelin Stars</div><div class="marquee-item">Riviera Spa</div><div class="marquee-item">Private Butler</div><div class="marquee-item">240 Suites</div><div class="marquee-item">Award-Winning Service</div><div class="marquee-item">Helicopter Transfers</div><div class="marquee-item">48 Years of Excellence</div>
+  </div>
+</div>
+
+<section id="why">
+  <div class="why-grid">
+    <div class="why-visual reveal-left">
+      <img class="why-img-main" src="images/an experience.jfif" alt="Suite"/>
+      <div class="why-img-badge reveal"><div class="num">48</div><div class="lbl">Years of<br>Excellence</div></div>
+    </div>
+    <div>
+      <div class="section-tag reveal">The Aurélia Philosophy</div>
+      <h2 class="sec-title reveal" style="color:var(--cream)">An experience<br>beyond <em>compare</em></h2>
+      <div class="gold-bar reveal"></div>
+      <p class="reveal" style="font-size:.88rem;color:rgba(245,240,232,.5);line-height:1.9;max-width:400px;font-weight:300;margin-bottom:40px">For nearly five decades, Aurélia has redefined the meaning of luxury hospitality — a living art form where architecture, gastronomy, wellness, and human warmth converge in seamless harmony.</p>
+      <div class="why-cards reveal">
+        <div class="why-card tilt-card"><i class="bi bi-gem wc-icon"></i><div class="wc-title">Bespoke Design</div><p class="wc-desc">Each suite curated by award-winning architects and artisans from Paris and Milan.</p></div>
+        <div class="why-card tilt-card"><i class="bi bi-person-check wc-icon"></i><div class="wc-title">Personal Butler</div><p class="wc-desc">Dedicated 1-to-1 butler service from the moment you step through our doors.</p></div>
+        <div class="why-card tilt-card"><i class="bi bi-award wc-icon"></i><div class="wc-title">World No.1</div><p class="wc-desc">World Travel Award for Best European Luxury Hotel — five consecutive years.</p></div>
+        <div class="why-card tilt-card"><i class="bi bi-water wc-icon"></i><div class="wc-title">Private Riviera</div><p class="wc-desc">Exclusive beach access with a 200m private cove reserved for our guests.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rooms-prev">
+  <div class="rooms-header">
+    <div>
+      <div class="section-tag reveal"><span style="background:var(--gold3);width:32px;height:1px;display:inline-block;margin-right:14px"></span>Accommodations</div>
+      <h2 class="sec-title sec-title-dark reveal">Our finest <em>retreats</em></h2>
+      <div class="gold-bar reveal"></div>
+    </div>
+    <a href="rooms.html" class="rp-link reveal">Explore all rooms</a>
+  </div>
+  <div class="rooms-scroll reveal-scale">
+    <div class="room-card tilt-card"><div class="rc-img"><img src="images/deluxe king room.jfif" alt="Deluxe King"/><div class="rc-tag">Available</div></div><div class="rc-body"><div class="rc-type">Deluxe</div><h3 class="rc-name">Deluxe King Room</h3><div class="rc-feats"><span><i class="bi bi-arrows-angle-expand"></i> 42 m²</span><span><i class="bi bi-people"></i> 2 Guests</span><span><i class="bi bi-wifi"></i> WiFi</span></div><div class="rc-footer"><div class="rc-price">$380 <small>/ night</small></div><a href="rooms.html" class="rc-btn">Book Now</a></div></div></div>
+    <div class="room-card tilt-card"><div class="rc-img"><img src="images/junior suite.jfif" alt="Junior Suite"/><div class="rc-tag" style="background:var(--ink2);color:var(--gold)">Best Seller</div></div><div class="rc-body"><div class="rc-type">Suite</div><h3 class="rc-name">Junior Suite</h3><div class="rc-feats"><span><i class="bi bi-arrows-angle-expand"></i> 68 m²</span><span><i class="bi bi-people"></i> 3 Guests</span><span><i class="bi bi-wind"></i> Spa</span></div><div class="rc-footer"><div class="rc-price">$620 <small>/ night</small></div><a href="rooms.html" class="rc-btn">Book Now</a></div></div></div>
+    <div class="room-card tilt-card"><div class="rc-img"><img src="images/presidential suite.jfif" alt="Presidential"/><div class="rc-tag">Exclusive</div></div><div class="rc-body"><div class="rc-type">Presidential</div><h3 class="rc-name">Presidential Suite</h3><div class="rc-feats"><span><i class="bi bi-arrows-angle-expand"></i> 140 m²</span><span><i class="bi bi-gem"></i> VIP</span><span><i class="bi bi-water"></i> Pool</span></div><div class="rc-footer"><div class="rc-price">$1,250 <small>/ night</small></div><a href="rooms.html" class="rc-btn">Book Now</a></div></div></div>
+    <div class="room-card tilt-card"><div class="rc-img"><img src="images/garden villa.jfif" alt="Garden Villa"/><div class="rc-tag">Private</div></div><div class="rc-body"><div class="rc-type">Villa</div><h3 class="rc-name">Garden Villa</h3><div class="rc-feats"><span><i class="bi bi-arrows-angle-expand"></i> 110 m²</span><span><i class="bi bi-people"></i> 4 Guests</span><span><i class="bi bi-water"></i> Pool</span></div><div class="rc-footer"><div class="rc-price">$890 <small>/ night</small></div><a href="rooms.html" class="rc-btn">Book Now</a></div></div></div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-box reveal"><div class="stat-num"><span class="count" data-target="48">0</span><span class="stat-suf">+</span></div><div class="stat-line"></div><div class="stat-label">Years of Excellence</div></div>
+    <div class="stat-box reveal" style="transition-delay:.1s"><div class="stat-num"><span class="count" data-target="240">0</span></div><div class="stat-line"></div><div class="stat-label">Exquisite Suites</div></div>
+    <div class="stat-box reveal" style="transition-delay:.2s"><div class="stat-num"><span class="count" data-target="3">0</span><span class="stat-suf">★</span></div><div class="stat-line"></div><div class="stat-label">Michelin Stars</div></div>
+    <div class="stat-box reveal" style="transition-delay:.3s"><div class="stat-num"><span class="count" data-target="99">0</span><span class="stat-suf">%</span></div><div class="stat-line"></div><div class="stat-label">Guest Satisfaction</div></div>
+  </div>
+</section>
+
+<section id="testi">
+  <div class="testi-slider">
+    <div class="section-tag reveal">Guest Stories</div>
+    <h2 class="sec-title sec-title-dark reveal" style="margin-bottom:60px">Voices of <em>Aurélia</em></h2>
+    <div class="testi-track" id="testiTrack">
+      <div class="testi-slide active"><div class="testi-inner"><div class="testi-img-wrap reveal-left"><img src="images/James Whitfield.jfif" alt="G1"/></div><div class="reveal-right"><span class="testi-quote-mark">"</span><p class="testi-text">Aurélia is not a hotel — it is a memory that lives with you forever. The Presidential Suite at midnight, champagne in hand, watching the moon trail across the sea.</p><div class="testi-stars">★★★★★</div><div class="testi-author-name">James Whitfield</div><div class="testi-author-loc">London, United Kingdom</div><div class="testi-controls"><button class="tc-btn" onclick="prevSlide()"><i class="bi bi-arrow-left"></i></button><button class="tc-btn" onclick="nextSlide()"><i class="bi bi-arrow-right"></i></button><div class="tc-dots"><div class="tc-dot active" onclick="goTesti(0)"></div><div class="tc-dot" onclick="goTesti(1)"></div><div class="tc-dot" onclick="goTesti(2)"></div></div></div></div></div></div>
+      <div class="testi-slide"><div class="testi-inner"><div class="testi-img-wrap reveal-left"><img src="images/Isabelle Moreau.jfif" alt="G2"/></div><div class="reveal-right"><span class="testi-quote-mark">"</span><p class="testi-text">From the immaculate suite to the extraordinary spa ritual and the Michelin-starred breakfast — Aurélia delivers perfection at every single touchpoint. We will return.</p><div class="testi-stars">★★★★★</div><div class="testi-author-name">Isabelle Moreau</div><div class="testi-author-loc">Paris, France</div><div class="testi-controls"><button class="tc-btn" onclick="prevSlide()"><i class="bi bi-arrow-left"></i></button><button class="tc-btn" onclick="nextSlide()"><i class="bi bi-arrow-right"></i></button><div class="tc-dots"><div class="tc-dot" onclick="goTesti(0)"></div><div class="tc-dot active" onclick="goTesti(1)"></div><div class="tc-dot" onclick="goTesti(2)"></div></div></div></div></div></div>
+      <div class="testi-slide"><div class="testi-inner"><div class="testi-img-wrap reveal-left"><img src="images/Mei-Lin Tanaka.jfif" alt="G3"/></div><div class="reveal-right"><span class="testi-quote-mark">"</span><p class="testi-text">I travel constantly for work across Asia and Europe. Aurélia remains the single hotel I return to not out of convenience, but out of a longing that I cannot explain.</p><div class="testi-stars">★★★★★</div><div class="testi-author-name">Mei-Lin Tanaka</div><div class="testi-author-loc">Tokyo, Japan</div><div class="testi-controls"><button class="tc-btn" onclick="prevSlide()"><i class="bi bi-arrow-left"></i></button><button class="tc-btn" onclick="nextSlide()"><i class="bi bi-arrow-right"></i></button><div class="tc-dots"><div class="tc-dot" onclick="goTesti(0)"></div><div class="tc-dot" onclick="goTesti(1)"></div><div class="tc-dot active" onclick="goTesti(2)"></div></div></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="exp-img reveal-left"><img src="images/curated experience.jfif" alt="Spa"/></div>
+  <div class="exp-content">
+    <div class="section-tag reveal">Curated Experiences</div>
+    <h2 class="sec-title reveal" style="margin-bottom:16px">Beyond the <em>suite</em></h2>
+    <div class="gold-bar reveal"></div>
+    <div class="exp-feat reveal"><div class="exp-feat-icon"><i class="bi bi-flower1"></i></div><div><div class="exp-feat-title">The Aurélia Spa Ritual</div><p class="exp-feat-desc">A 3-hour immersion of hydrotherapy, ancient botanical treatments, and personalised deep-tissue therapy.</p></div></div>
+    <div class="exp-feat reveal" style="transition-delay:.1s"><div class="exp-feat-icon"><i class="bi bi-cup-hot"></i></div><div><div class="exp-feat-title">Chef's Table at L'Essentiel</div><p class="exp-feat-desc">A 12-seat private culinary theatre with Chef Antoine Lefèvre — 3 Michelin stars, 7 courses, curated wine pairing.</p></div></div>
+    <div class="exp-feat reveal" style="transition-delay:.2s"><div class="exp-feat-icon"><i class="bi bi-water"></i></div><div><div class="exp-feat-title">Private Yacht Excursion</div><p class="exp-feat-desc">Sail along the Riviera coast aboard our 52ft yacht with a captain, sommelier, and personalised itinerary.</p></div></div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="cta-bg"><img src="https://images.unsplash.com/photo-1561501900-3701fa6a0864?w=1800&q=80" alt="Resort"/></div>
+  <div class="cta-content">
+    <div class="cta-line"></div>
+    <p class="section-tag reveal" style="justify-content:center">Reserve Your Stay</p>
+    <h2 class="cta-title reveal">Begin your<br><em>Aurélia</em> story</h2>
+    <p class="cta-sub reveal">Your sanctuary awaits. Every detail curated. Every moment remembered.</p>
+    <a href="#" class="cta-btn reveal" onclick="openModal();return false"><i class="bi bi-calendar-check" style="margin-right:10px"></i>Reserve Now</a>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="reveal"><div class="f-logo">Aurél<em>ia</em></div><p class="f-desc">Where luxury is not a statement but a standard — crafted across 48 years of unbroken Riviera excellence.</p><div class="f-socials"><a href="#" class="f-soc"><i class="bi bi-instagram"></i></a><a href="#" class="f-soc"><i class="bi bi-facebook"></i></a><a href="#" class="f-soc"><i class="bi bi-twitter-x"></i></a><a href="#" class="f-soc"><i class="bi bi-linkedin"></i></a></div></div>
+    <div class="reveal" style="transition-delay:.08s"><div class="f-heading">Explore</div><ul class="f-links"><li><a href="index.html">Home</a></li><li><a href="rooms.html">Rooms & Suites</a></li><li><a href="amenities.html">Amenities</a></li><li><a href="#">Gallery</a></li><li><a href="#">Events</a></li></ul></div>
+    <div class="reveal" style="transition-delay:.16s"><div class="f-heading">Services</div><ul class="f-links"><li><a href="amenities.html">Spa & Wellness</a></li><li><a href="amenities.html">Fine Dining</a></li><li><a href="amenities.html">Concierge</a></li><li><a href="amenities.html">Transfers</a></li><li><a href="amenities.html">Business Events</a></li></ul></div>
+    <div class="reveal" style="transition-delay:.24s"><div class="f-heading">Contact</div><div class="f-contact-item"><i class="bi bi-geo-alt"></i><span>1 Grand Avenue, Riviera Estate, Monaco 98000</span></div><div class="f-contact-item"><i class="bi bi-telephone"></i><span>+1 (800) 287-3542</span></div><div class="f-contact-item"><i class="bi bi-envelope"></i><span>reservations@aurelia.com</span></div><div class="f-contact-item"><i class="bi bi-clock"></i><span>Check-in 3PM · Check-out 12PM</span></div><div class="f-heading" style="margin-top:24px">Newsletter</div><div class="f-nl-input-wrap"><input type="email" class="f-nl-input" placeholder="your@email.com" id="nlInput"/><button class="f-nl-btn" onclick="subscribeNL()"><i class="bi bi-arrow-right"></i></button></div><div id="nlMsg" style="font-size:.72rem;color:var(--gold);margin-top:8px;display:none">✓ Subscribed!</div></div>
+  </div>
+  <div class="footer-bottom"><span class="f-copy">© 2026 Aurélia Luxury Hotel & Resort. All rights reserved.</span><div class="f-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div></div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModalOut(event)">
+  <div class="modal-box">
+    <div class="modal-head"><div><div class="modal-title">Reserve Your Suite</div><p style="font-size:.75rem;color:rgba(245,240,232,.4);margin-top:5px;font-weight:300">Complete the form — we confirm within 2 hours.</p></div><button class="modal-close" onclick="closeModal()"><i class="bi bi-x-lg"></i></button></div>
+    <div class="modal-body">
+      <div class="m-row"><div class="m-field"><label class="m-label">Full Name *</label><input type="text" id="f-name" class="m-input" placeholder="Your full name"/><div class="m-err" id="err-name">Please enter your name.</div></div><div class="m-field"><label class="m-label">Email *</label><input type="email" id="f-email" class="m-input" placeholder="you@email.com"/><div class="m-err" id="err-email">Valid email required.</div></div></div>
+      <div class="m-row"><div class="m-field"><label class="m-label">Phone *</label><input type="tel" id="f-phone" class="m-input" placeholder="+1 (000) 000-0000"/><div class="m-err" id="err-phone">Phone required.</div></div><div class="m-field"><label class="m-label">Room Type *</label><select id="f-room" class="m-select"><option value="">Select a room type</option><option value="Deluxe King Room|380">Deluxe King Room — $380/night</option><option value="Deluxe Twin Room|340">Deluxe Twin Room — $340/night</option><option value="Junior Suite|620">Junior Suite — $620/night</option><option value="Ocean View Suite|750">Ocean View Suite — $750/night</option><option value="Garden Villa|890">Garden Villa — $890/night</option><option value="Presidential Suite|1250">Presidential Suite — $1,250/night</option></select><div class="m-err" id="err-room">Please select a room.</div></div></div>
+      <div class="m-row three"><div class="m-field"><label class="m-label">Check-In *</label><input type="text" id="f-ci" class="m-input" placeholder="Select date" readonly/><div class="m-err" id="err-ci">Required.</div></div><div class="m-field"><label class="m-label">Check-Out *</label><input type="text" id="f-co" class="m-input" placeholder="Select date" readonly/><div class="m-err" id="err-co">Required.</div></div><div class="m-field"><label class="m-label">Guests *</label><select id="f-guests" class="m-select"><option value="">—</option><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5+ Guests</option></select><div class="m-err" id="err-guests">Required.</div></div></div>
+      <div class="m-field"><label class="m-label">Special Requests</label><textarea id="f-notes" class="m-textarea" placeholder="Dietary requirements, celebrations, arrival time…"></textarea></div>
+    </div>
+    <div class="modal-foot"><div class="modal-note"><i class="bi bi-shield-check"></i> Secure · No card required</div><button class="m-submit" onclick="submitBooking()"><i class="bi bi-calendar-check"></i> Confirm Booking</button></div>
+  </div>
+</div>
+
+<section id="confirm-page">
+  <div style="text-align:center;margin-bottom:48px"><div style="width:72px;height:72px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px"><i class="bi bi-check-lg" style="font-size:2rem;color:var(--ink)"></i></div><h2 style="font-family:var(--ff);font-size:2.6rem;font-weight:300;color:var(--ink)">Booking <em style="color:var(--gold3);font-style:italic">Confirmed</em></h2><p style="color:#9A9590;font-size:.88rem;margin-top:10px;font-weight:300">Your reservation is confirmed.</p></div>
+  <div class="receipt-wrap">
+    <div class="receipt-head"><div><div class="r-logo">Aurél<em>ia</em></div><div class="r-ref" id="r-ref">REF: AUR-000000</div></div><div class="r-badge">Confirmed</div></div>
+    <div class="receipt-body">
+      <div class="r-title">Booking Receipt</div><div class="r-sub">Thank you for choosing Aurélia. We look forward to welcoming you to the Riviera.</div>
+      <div class="r-grid"><div class="r-field"><div class="r-lbl">Guest Name</div><div class="r-val" id="r-name">—</div></div><div class="r-field"><div class="r-lbl">Email</div><div class="r-val" id="r-email">—</div></div><div class="r-field"><div class="r-lbl">Phone</div><div class="r-val" id="r-phone">—</div></div><div class="r-field"><div class="r-lbl">Room Type</div><div class="r-val" id="r-room">—</div></div><div class="r-field"><div class="r-lbl">Check-In</div><div class="r-val" id="r-ci">—</div></div><div class="r-field"><div class="r-lbl">Check-Out</div><div class="r-val" id="r-co">—</div></div><div class="r-field"><div class="r-lbl">Guests</div><div class="r-val" id="r-guests">—</div></div><div class="r-field"><div class="r-lbl">Duration</div><div class="r-val" id="r-dur">—</div></div></div>
+      <div class="r-total"><div><div class="r-total-lbl">Estimated Total</div><div style="font-size:.72rem;color:rgba(245,240,232,.3);margin-top:4px;font-weight:300">All taxes & resort fees included</div></div><div class="r-total-amt" id="r-total">—</div></div>
+      <div class="r-foot"><strong style="color:var(--gold3)">reservations@aurelia.com</strong> · +1 (800) 287-3542<br>Aurélia Luxury Hotel & Resort · 1 Grand Avenue, Riviera Estate, Monaco 98000</div>
+    </div>
+    <div class="receipt-actions"><button class="r-print-btn" onclick="window.print()"><i class="bi bi-printer"></i> Print Receipt</button><button class="r-back-btn" onclick="hideConfirm()"><i class="bi bi-arrow-left"></i> Back to Site</button></div>
+  </div>
+</section>
+
+<!-- CHAT -->
+<button id="chat-toggle" onclick="toggleChat()"><i class="bi bi-chat-dots" id="chat-icon"></i></button>
+<div id="chat-box">
+  <div class="cb-head"><div class="cb-avatar">A</div><div><div class="cb-name">Aurélia Concierge</div><div class="cb-status">● Online · Responds instantly</div></div><button class="cb-close" onclick="toggleChat()"><i class="bi bi-x-lg"></i></button></div>
+  <div class="cb-messages" id="cbMessages"><div class="msg bot"><div class="msg-bubble">Bonjour! Welcome to Aurélia. I'm your personal concierge. How may I assist you today? ✨</div><div class="msg-time">Now</div></div></div>
+  <div class="cb-suggestions" id="cbSuggestions"><button class="cb-sug" onclick="sendSuggestion(this)">Room availability</button><button class="cb-sug" onclick="sendSuggestion(this)">Spa treatments</button><button class="cb-sug" onclick="sendSuggestion(this)">Dining reservations</button><button class="cb-sug" onclick="sendSuggestion(this)">Check-in info</button></div>
+  <div class="cb-input-row"><input type="text" id="cb-input" placeholder="Message Aurélia Concierge…" onkeydown="if(event.key==='Enter')sendMsg()"/><button id="cb-send" onclick="sendMsg()"><i class="bi bi-send"></i></button></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* Cursor */
+const cursor=document.getElementById('cursor');
+const cdot=cursor.querySelector('.c-dot'),cring=cursor.querySelector('.c-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cdot.style.left=mx+'px';cdot.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cring.style.left=rx+'px';cring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+
+/* Navbar */
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').classList.toggle('stuck',window.scrollY>60)});
+
+/* Mobile menu */
+function toggleMob(){const m=document.getElementById('mobMenu'),h=document.getElementById('ham');m.classList.toggle('open');const s=h.querySelectorAll('span');if(m.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(4px,4px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-4px)'}else{s.forEach(x=>{x.style.transform='';x.style.opacity=''})}}
+
+/* THREE.JS HERO */
+(function(){
+  const canvas=document.getElementById('three-hero');
+  const hero=document.getElementById('hero');
+  const W=hero.offsetWidth,H=hero.offsetHeight;
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setSize(W,H);renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(60,W/H,.1,100);
+  camera.position.z=6;
+  scene.add(new THREE.AmbientLight(0xc9a96e,.3));
+  const dl=new THREE.DirectionalLight(0xe8d5a3,1);dl.position.set(4,6,4);scene.add(dl);
+  const pl=new THREE.PointLight(0xc9a96e,2,15);pl.position.set(-4,2,2);scene.add(pl);
+  const meshes=[];
+  // Diamond
+  const dGeo=new THREE.OctahedronGeometry(.6,0);
+  const dMat=new THREE.MeshStandardMaterial({color:0xC9A96E,metalness:.9,roughness:.1,transparent:true,opacity:.15,wireframe:false});
+  const diamond=new THREE.Mesh(dGeo,dMat);diamond.position.set(4,1,-2);scene.add(diamond);meshes.push({m:diamond,rx:.008,ry:.012});
+  // Sphere
+  const sGeo=new THREE.SphereGeometry(.5,32,32);
+  const sMat=new THREE.MeshStandardMaterial({color:0xC9A96E,metalness:.95,roughness:.05,transparent:true,opacity:.12,wireframe:true});
+  const sphere=new THREE.Mesh(sGeo,sMat);sphere.position.set(-4.5,-.5,-1);scene.add(sphere);meshes.push({m:sphere,rx:.005,ry:.008});
+  // Torus
+  const tGeo=new THREE.TorusGeometry(.55,.06,16,60);
+  const tMat=new THREE.MeshStandardMaterial({color:0xE8D5A3,metalness:.9,roughness:.1,transparent:true,opacity:.18});
+  const torus=new THREE.Mesh(tGeo,tMat);torus.position.set(3,-2,-2);scene.add(torus);meshes.push({m:torus,rx:.009,ry:.006});
+  // Particles
+  const pg=new THREE.BufferGeometry();const pc=80;const pp=new Float32Array(pc*3);
+  for(let i=0;i<pc*3;i++)pp[i]=(Math.random()-.5)*16;
+  pg.setAttribute('position',new THREE.BufferAttribute(pp,3));
+  scene.add(new THREE.Points(pg,new THREE.PointsMaterial({color:0xC9A96E,size:.03,transparent:true,opacity:.4})));
+  let t=0;
+  function anim(){requestAnimationFrame(anim);t+=.005;meshes.forEach(o=>{o.m.rotation.x+=o.rx;o.m.rotation.y+=o.ry;o.m.position.y+=Math.sin(t+o.m.position.x)*.003});renderer.render(scene,camera)}
+  anim();
+  window.addEventListener('resize',()=>{const nW=hero.offsetWidth,nH=hero.offsetHeight;camera.aspect=nW/nH;camera.updateProjectionMatrix();renderer.setSize(nW,nH)});
+})();
+
+/* Slideshow */
+let slideIdx=0;const slides=document.querySelectorAll('.hero-slide'),sdots=document.querySelectorAll('#slideDots .dot');
+function goSlide(i){slides[slideIdx].classList.remove('active');sdots[slideIdx].classList.remove('active');slideIdx=i;slides[slideIdx].classList.add('active');sdots[slideIdx].classList.add('active')}
+setInterval(()=>goSlide((slideIdx+1)%slides.length),7000);
+
+/* Particles */
+(function(){const p=document.getElementById('particles');for(let i=0;i<18;i++){const el=document.createElement('div');el.className='particle';const s=Math.random()*3+1;el.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*18+12}s;animation-delay:${Math.random()*12}s`;p.appendChild(el)}})();
+
+/* Date pickers */
+const tomorrow=new Date();tomorrow.setDate(tomorrow.getDate()+1);
+const hci=flatpickr('#hci',{minDate:'today',dateFormat:'M d, Y',onChange:s=>hco.set('minDate',s[0])});
+const hco=flatpickr('#hco',{minDate:tomorrow,dateFormat:'M d, Y'});
+const fci=flatpickr('#f-ci',{minDate:'today',dateFormat:'M d, Y',onChange:s=>fco.set('minDate',s[0])});
+const fco=flatpickr('#f-co',{minDate:tomorrow,dateFormat:'M d, Y'});
+
+/* Reveal */
+const revEls=document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');io.unobserve(x.target)}})},{threshold:.12});
+revEls.forEach(el=>io.observe(el));
+
+/* Counters */
+const counters=document.querySelectorAll('.count[data-target]');
+const cio=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){const el=x.target,tgt=+el.dataset.target,dur=1600,step=tgt/dur*16;let cur=0;const t=setInterval(()=>{cur=Math.min(cur+step,tgt);el.textContent=Math.floor(cur);if(cur>=tgt)clearInterval(t)},16);cio.unobserve(el)}})},{threshold:.4});
+counters.forEach(c=>cio.observe(c));
+
+/* Testimonials */
+let tIdx=0;const tSlides=document.querySelectorAll('.testi-slide');
+function updateTesti(){document.getElementById('testiTrack').style.transform=`translateX(-${tIdx*100}%)`;document.querySelectorAll('.tc-dot').forEach((d,i)=>d.classList.toggle('active',i===tIdx));tSlides.forEach((s,i)=>s.classList.toggle('active',i===tIdx))}
+function nextSlide(){tIdx=(tIdx+1)%tSlides.length;updateTesti()}
+function prevSlide(){tIdx=(tIdx-1+tSlides.length)%tSlides.length;updateTesti()}
+function goTesti(i){tIdx=i;updateTesti()}
+setInterval(nextSlide,7000);
+
+/* 3D Tilt */
+document.querySelectorAll('.tilt-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=e.clientX-r.left,y=e.clientY-r.top;const rx2=((y-r.height/2)/(r.height/2))*8,ry2=-((x-r.width/2)/(r.width/2))*8;card.style.transform=`perspective(700px) rotateX(${rx2}deg) rotateY(${ry2}deg) scale3d(1.02,1.02,1.02)`});
+  card.addEventListener('mouseleave',()=>{card.style.transform='perspective(700px) rotateX(0) rotateY(0) scale3d(1,1,1)'});
+});
+
+/* Modal */
+function openModal(){document.getElementById('modalBg').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modalBg').classList.remove('open');document.body.style.overflow=''}
+function closeModalOut(e){if(e.target===document.getElementById('modalBg'))closeModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* Form */
+function validate(id,errId){const el=document.getElementById(id),err=document.getElementById(errId);const ok=el.checkValidity()&&el.value.trim()!=='';el.style.borderColor=ok?'var(--gold)':'#e05a5a';err.classList.toggle('show',!ok);return ok}
+function submitBooking(){let ok=true;['f-name','f-email','f-phone','f-room','f-ci','f-co','f-guests'].forEach((id,i)=>{ok=validate(id,'err-'+id.replace('f-',''))&&ok});if(!ok)return;const rv=document.getElementById('f-room').value;const[roomName,rateStr]=rv.split('|');const rate=parseInt(rateStr)||500;const ci=document.getElementById('f-ci').value,co=document.getElementById('f-co').value;const nights=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));const total=(nights*rate).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});const ref='AUR-'+Math.floor(100000+Math.random()*900000);document.getElementById('r-ref').textContent='REF: '+ref;document.getElementById('r-name').textContent=document.getElementById('f-name').value.trim();document.getElementById('r-email').textContent=document.getElementById('f-email').value.trim();document.getElementById('r-phone').textContent=document.getElementById('f-phone').value.trim();document.getElementById('r-room').textContent=roomName;document.getElementById('r-ci').textContent=ci;document.getElementById('r-co').textContent=co;document.getElementById('r-guests').textContent=document.getElementById('f-guests').value;document.getElementById('r-dur').textContent=nights+(nights===1?' Night':' Nights');document.getElementById('r-total').textContent=total;closeModal();document.getElementById('confirm-page').style.display='block';setTimeout(()=>document.getElementById('confirm-page').scrollIntoView({behavior:'smooth'}),350)}
+function hideConfirm(){document.getElementById('confirm-page').style.display='none';window.scrollTo({top:0,behavior:'smooth'})}
+
+/* Newsletter */
+function subscribeNL(){const inp=document.getElementById('nlInput');if(!inp.value||!/\S+@\S+\.\S+/.test(inp.value)){inp.style.borderColor='#e05a5a';return}inp.style.borderColor='var(--gold)';inp.value='';const msg=document.getElementById('nlMsg');msg.style.display='block';setTimeout(()=>msg.style.display='none',3500)}
+
+/* Chat */
+const chatResponses={'room availability':'We have availability across all six room types from our Deluxe King at $380/night to the Presidential Suite at $1,250/night. Would you like to check specific dates?','spa treatments':'Our signature spa menu includes the 3-hour Aurélia Ritual ($380), Gold Leaf Facial ($290), Couples Sanctuary ($680), and more. Shall I book a session?','dining reservations':"I'd be happy to arrange a table at L'Essentiel, Le Jardin, or Bar Aurélia. Please share your preferred date and party size.",'check-in info':'Check-in is at 3:00 PM and check-out at 12:00 PM. Early check-in is available upon request. Your personal butler will greet you on arrival.','default':'Thank you for reaching out to Aurélia. A member of our concierge team will respond shortly. For urgent assistance, call +1 (800) 287-3542.'};
+let chatOpen=false;
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chat-box').classList.toggle('open',chatOpen);document.getElementById('chat-toggle').classList.toggle('open',chatOpen);document.getElementById('chat-icon').className=chatOpen?'bi bi-x-lg':'bi bi-chat-dots'}
+function addMsg(text,isBot){const messages=document.getElementById('cbMessages');const div=document.createElement('div');div.className='msg '+(isBot?'bot':'user');const now=new Date();const time=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');div.innerHTML=`<div class="msg-bubble">${text}</div><div class="msg-time">${time}</div>`;messages.appendChild(div);messages.scrollTop=messages.scrollHeight}
+function showTyping(){const messages=document.getElementById('cbMessages');const div=document.createElement('div');div.className='msg bot';div.id='typing-indicator';div.innerHTML='<div class="cb-typing"><span></span><span></span><span></span></div>';messages.appendChild(div);messages.scrollTop=messages.scrollHeight;return div}
+function sendSuggestion(btn){const text=btn.textContent.toLowerCase().trim();addMsg(btn.textContent,false);document.getElementById('cbSuggestions').style.display='none';const typing=showTyping();setTimeout(()=>{typing.remove();const key=Object.keys(chatResponses).find(k=>text.includes(k))||'default';addMsg(chatResponses[key],true)},900+Math.random()*600)}
+function sendMsg(){const inp=document.getElementById('cb-input');const text=inp.value.trim();if(!text)return;addMsg(text,false);inp.value='';document.getElementById('cbSuggestions').style.display='none';const typing=showTyping();setTimeout(()=>{typing.remove();const lower=text.toLowerCase();const key=Object.keys(chatResponses).find(k=>lower.includes(k))||'default';addMsg(chatResponses[key],true)},1200+Math.random()*800)}
+
+/* Page transitions */
+document.querySelectorAll('a[href$=".html"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const href=a.href;const c=document.getElementById('curtain');c.style.animation='none';c.style.transform='scaleY(0)';c.style.transformOrigin='top';c.getBoundingClientRect();c.style.transition='transform .6s cubic-bezier(.76,0,.24,1)';c.style.transform='scaleY(1)';setTimeout(()=>location.href=href,600)})});
+</script>
+</body>
+</html>
